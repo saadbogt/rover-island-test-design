@@ -9,76 +9,139 @@
  */
 {
   "sections": {
-    "image_banner": {
-      "type": "image-banner",
+    "custom_carousel_banner_P3jKjA": {
+      "type": "custom-carousel-banner",
       "blocks": {
-        "heading": {
-          "type": "heading",
+        "image_hJCQqi": {
+          "type": "image",
           "settings": {
-            "heading": "Browse our latest products Hello from Customizer",
-            "heading_size": "h0"
+            "image": "shopify://shop_images/71bV9U3zuQL._AC_SL1200.jpg",
+            "link": ""
           }
         },
-        "button": {
-          "type": "buttons",
+        "image_UbA6df": {
+          "type": "image",
           "settings": {
-            "button_label_1": "Shop all",
-            "button_link_1": "shopify://collections/all",
-            "button_style_secondary_1": true,
-            "button_label_2": "",
-            "button_link_2": "",
-            "button_style_secondary_2": false
+            "image": "shopify://shop_images/71AtyUlxafL._SL1500_72be5731-61ff-4d32-9123-d6b049314750.jpg",
+            "link": ""
+          }
+        },
+        "image_b93UM7": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/81odpMrJLSL._SL1500.webp",
+            "link": ""
+          }
+        },
+        "image_QynPpz": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/71kI_TfE9FL._SL1500_7a7d2e69-75e8-4bed-9860-ab70aabcc498.jpg",
+            "link": ""
           }
         }
       },
       "block_order": [
-        "heading",
-        "button"
+        "image_hJCQqi",
+        "image_UbA6df",
+        "image_b93UM7",
+        "image_QynPpz"
       ],
+      "name": "Custom Carousel Banner",
       "settings": {
-        "image_overlay_opacity": 40,
-        "image_height": "large",
-        "image_behavior": "none",
-        "desktop_content_position": "bottom-center",
-        "desktop_content_alignment": "center",
-        "show_text_box": false,
-        "color_scheme": "scheme-3",
-        "stack_images_on_mobile": false,
-        "mobile_content_alignment": "center",
-        "show_text_below": false
+        "page_width": true,
+        "hidden_h1": "",
+        "image_gap": 16,
+        "padding_top": 16,
+        "padding_bottom": 16
       }
     },
-    "featured_collection": {
-      "type": "featured-collection",
+    "tabbed_collection_slider_pRjy9J": {
+      "type": "tabbed-collection-slider",
+      "blocks": {
+        "collection_tab_wVr6Eb": {
+          "type": "collection_tab",
+          "settings": {
+            "title": "SKINCARE",
+            "collection": "abib"
+          }
+        },
+        "collection_tab_Pdcerp": {
+          "type": "collection_tab",
+          "settings": {
+            "title": "MAKEUP",
+            "collection": ""
+          }
+        },
+        "collection_tab_nTGw4V": {
+          "type": "collection_tab",
+          "settings": {
+            "title": "HAIR",
+            "collection": ""
+          }
+        }
+      },
+      "block_order": [
+        "collection_tab_wVr6Eb",
+        "collection_tab_Pdcerp",
+        "collection_tab_nTGw4V"
+      ],
+      "name": "Tabbed Collections Slider",
       "settings": {
-        "collection": "all",
+        "sub_heading": "What Everyone's Reaching For",
+        "heading": "BAERRY VIRAL PICKS 🍒",
         "products_to_show": 8,
-        "title": "Featured products",
-        "heading_size": "h2",
-        "description": "",
-        "show_description": false,
-        "description_style": "body",
-        "columns_desktop": 4,
-        "enable_desktop_slider": false,
-        "full_width": false,
-        "show_view_all": true,
-        "view_all_style": "solid",
-        "color_scheme": "scheme-1",
-        "image_ratio": "adapt",
-        "image_shape": "default",
-        "show_secondary_image": true,
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "padding_left": 16,
+        "padding_right": 16
+      }
+    },
+    "tabbed_collection_C8TPcq": {
+      "type": "tabbed-collection",
+      "blocks": {
+        "collection_fxhHYg": {
+          "type": "collection",
+          "settings": {
+            "collection": "abib",
+            "title": ""
+          }
+        },
+        "collection_3VjmPK": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "title": ""
+          }
+        }
+      },
+      "block_order": [
+        "collection_fxhHYg",
+        "collection_3VjmPK"
+      ],
+      "name": "Tabbed Product Grid",
+      "settings": {
+        "description": "What Everyone's Reaching For",
+        "heading": "VIRAL PICKS 🍒",
         "show_vendor": false,
-        "show_rating": false,
-        "quick_add": "none",
-        "columns_mobile": "2",
-        "swipe_on_mobile": false,
-        "padding_top": 44,
+        "show_rating": true,
+        "heading_size_mobile": 24,
+        "heading_size_tablet": 32,
+        "heading_size_desktop": 40,
+        "heading_line_height": "1.2",
+        "desc_size_mobile": 14,
+        "desc_size_tablet": 16,
+        "desc_size_desktop": 16,
+        "desc_line_height": "1.5",
+        "item_gap": 16,
+        "padding_top": 36,
         "padding_bottom": 36
       }
     }
   },
   "order": [
-    "image_banner",
-    "featured_collection"
+    "custom_carousel_banner_P3jKjA",
+    "tabbed_collection_slider_pRjy9J",
+    "tabbed_collection_C8TPcq"
   ]
 }
