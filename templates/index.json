@@ -59,7 +59,7 @@
     "image_banner_8fibq8": {
       "type": "image-banner",
       "custom_css": [
-        ".banner {max-width: 1440px;}"
+        ".banner {max-width: 1440px; display: block; height: auto; }"
       ],
       "name": "t:sections.image-banner.presets.name",
       "settings": {
