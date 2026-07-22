@@ -46,6 +46,7 @@
   box-sizing: border-box;
   border-radius: var(--border-radius);
   border: var(--border-width) solid rgba(var(--color-foreground), var(--border-opacity));
+  aspect-ratio: 3/4;
 }
 
 .card--card:after,
@@ -346,7 +347,9 @@
   top: calc(var(--border-width) * -1);
 }
 
-.card__heading a::after {
+/**********************************************************/
+
+/* .card__heading a::after {
   bottom: 0;
   content: '';
   left: 0;
@@ -354,7 +357,39 @@
   right: 0;
   top: 0;
   z-index: 1;
+} */
+
+/* Ensure your new media link fills the space correctly */
+.card__media-link {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2; /* Ensures it sits above the media but doesn't block other UI */
 }
+
+/* Ensure hover effects from source [6] still trigger through the link */
+.card-wrapper:hover .card__media-link + .card__media img {
+  transform: scale(1.03);
+}
+
+/* To this (Shopify Standard: Commenting keeps the file structure intact): */
+.card--standard.card--text a::after,
+.card--card .card__heading a::after {
+  display: none !important; /* This removes the blocker */
+}
+
+/* ROVER ISLAND: Kill the generic global link overlay entirely */
+.card__heading a:after, 
+.card__heading a::after,
+.full-unstyled-link:after {
+  display: none !important;
+  content: none !important; /* Forces the pseudo-element to stay dead */
+}
+
+/**********************************************************/
 
 .card__heading a:after {
   outline-offset: 0.3rem;

@@ -1,0 +1,239 @@
+{{ 'custom-carousel-banner.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="section-{{ section.id }}-padding">
+  <div class="custom-carousel-wrapper {% if section.settings.page_width %}page-width{% endif %}" style="--slide-gap: {{ section.settings.image_gap }}px;">
+    
+    {%- if section.settings.hidden_h1 != blank -%}
+      <h1 class="visually-hidden">{{ section.settings.hidden_h1 | escape }}</h1>
+    {%- endif -%}
+
+    <infinite-carousel class="custom-carousel-container" data-autoplay="true" data-speed="3000">
+      <button class="custom-carousel-btn prev" aria-label="Previous slide">
+        <svg viewBox="0 0 14 10" fill="none" aria-hidden="true" focusable="false" role="presentation" class="icon icon-arrow" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M8.537.808a.5.5 0 01.817-.162l4 4a.5.5 0 010 .708l-4 4a.5.5 0 11-.708-.708L11.793 5.5H1.5a.5.5 0 010-1h10.293L8.646 1.354a.5.5 0 01-.109-.546z" fill="currentColor" transform="rotate(180 7 5)"></path>
+        </svg>
+      </button>
+
+      <div class="custom-carousel-track-viewport">
+        <ul class="custom-carousel-track" role="list">
+          {%- for block in section.blocks -%}
+            <li class="custom-carousel-slide" {{ block.shopify_attributes }}>
+              {%- if block.settings.link != blank -%}
+                <a href="{{ block.settings.link }}" class="custom-carousel-link" aria-label="Carousel image link">
+              {%- else -%}
+                <div class="custom-carousel-link">
+              {%- endif -%}
+              
+              {%- if block.settings.image != blank -%}
+                {{ block.settings.image | image_url: width: 800 | image_tag: 
+                  loading: 'lazy',
+                  alt: block.settings.image.alt | default: section.settings.hidden_h1 | escape
+                }}
+              {%- else -%}
+                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+              {%- endif -%}
+
+              {%- if block.settings.link != blank -%}
+                </a>
+              {%- else -%}
+                </div>
+              {%- endif -%}
+            </li>
+          {%- endfor -%}
+        </ul>
+      </div>
+
+      <button class="custom-carousel-btn next" aria-label="Next slide">
+         <svg viewBox="0 0 14 10" fill="none" aria-hidden="true" focusable="false" role="presentation" class="icon icon-arrow" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M8.537.808a.5.5 0 01.817-.162l4 4a.5.5 0 010 .708l-4 4a.5.5 0 11-.708-.708L11.793 5.5H1.5a.5.5 0 010-1h10.293L8.646 1.354a.5.5 0 01-.109-.546z" fill="currentColor"></path>
+        </svg>
+      </button>
+    </infinite-carousel>
+  </div>
+</div>
+
+<script>
+  if (!customElements.get('infinite-carousel')) {
+    class InfiniteCarousel extends HTMLElement {
+      constructor() {
+        super();
+        this.track = this.querySelector('.custom-carousel-track');
+        this.slides = Array.from(this.track.children);
+        this.prevBtn = this.querySelector('.prev');
+        this.nextBtn = this.querySelector('.next');
+        
+        this.isAnimating = false;
+        this.autoplayInterval = null;
+        this.speed = parseInt(this.dataset.speed) || 3000;
+        
+        this.init();
+      }
+
+      init() {
+        if (this.slides.length <= 1) {
+          this.prevBtn.style.display = 'none';
+          this.nextBtn.style.display = 'none';
+          return;
+        }
+
+        this.prevBtn.addEventListener('click', () => this.move('prev'));
+        this.nextBtn.addEventListener('click', () => this.move('next'));
+
+        this.addEventListener('mouseenter', () => this.pause());
+        this.addEventListener('mouseleave', () => this.play());
+        
+        this.addEventListener('touchstart', () => this.pause(), { passive: true });
+        this.addEventListener('touchend', () => this.play(), { passive: true });
+
+        this.play();
+      }
+
+      getSlideWidth() {
+        return this.slides[0].offsetWidth;
+      }
+
+      move(direction) {
+        if (this.isAnimating) return;
+        this.isAnimating = true;
+
+        const slideWidth = this.getSlideWidth();
+        this.track.style.transition = 'transform 0.5s ease-in-out';
+
+        if (direction === 'next') {
+          this.track.style.transform = `translateX(-${slideWidth}px)`;
+          setTimeout(() => {
+            this.track.style.transition = 'none';
+            this.track.appendChild(this.track.firstElementChild);
+            this.track.style.transform = 'translateX(0)';
+            this.isAnimating = false;
+          }, 500);
+        } else {
+          this.track.style.transition = 'none';
+          this.track.insertBefore(this.track.lastElementChild, this.track.firstElementChild);
+          this.track.style.transform = `translateX(-${slideWidth}px)`;
+          
+          void this.track.offsetWidth;
+          
+          this.track.style.transition = 'transform 0.5s ease-in-out';
+          this.track.style.transform = 'translateX(0)';
+          setTimeout(() => {
+            this.isAnimating = false;
+          }, 500);
+        }
+      }
+
+      play() {
+        if (this.dataset.autoplay === 'true') {
+          this.autoplayInterval = setInterval(() => {
+            this.move('next');
+          }, this.speed);
+        }
+      }
+
+      pause() {
+        clearInterval(this.autoplayInterval);
+      }
+    }
+    customElements.define('infinite-carousel', InfiniteCarousel);
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Custom Carousel Banner",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "page_width",
+      "label": "Adapt to theme page width",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "hidden_h1",
+      "label": "Hidden SEO H1 Heading",
+      "info": "Readable by Google Crawlers but hidden on the frontend."
+    },
+    {
+      "type": "header",
+      "content": "General Settings"
+    },
+    {
+      "type": "range",
+      "id": "image_gap",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Image Gap",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Carousel Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "Upload square images (e.g., 800x800px) for best results."
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Image Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Carousel Banner",
+      "blocks": [
+        { "type": "image" },
+        { "type": "image" },
+        { "type": "image" },
+        { "type": "image" }
+      ]
+    }
+  ]
+}
+{% endschema %}

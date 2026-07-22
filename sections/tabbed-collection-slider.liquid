@@ -1,0 +1,334 @@
+{%- comment -%}
+  Tabbed Collection Slider Section
+{%- endcomment -%}
+
+{{ 'section-tabbed-collections.css' | asset_url | stylesheet_tag }}
+
+<div 
+  class="tabbed-collections-wrapper page-width" 
+  id="TabbedCollections-{{ section.id }}"
+  style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px; padding-left: {{ section.settings.padding_left }}px; padding-right: {{ section.settings.padding_right }}px;"
+>
+  {%- if section.settings.sub_heading != blank or section.settings.heading != blank -%}
+    <div class="tabbed-collections__header text-center">
+      {%- if section.settings.sub_heading != blank -%}
+        <p class="tabbed-collections__subheading">{{ section.settings.sub_heading | escape }}</p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 class="tabbed-collections__title h1">{{ section.settings.heading | escape }}</h2>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+
+  {%- comment -%} Tabs Navigation Slider {%- endcomment -%}
+  <div class="tabbed-collections__tabs-wrapper">
+    <div class="tabbed-collections__tabs js-drag-scroll">
+      {%- for block in section.blocks -%}
+        {%- assign collection = collections[block.settings.collection] -%}
+        {%- assign tab_title = block.settings.title | default: collection.title | default: 'Tab' -%}
+        
+        <button 
+          type="button" 
+          class="tabbed-collections__tab-btn{% if forloop.first %} is-active{% endif %}"
+          data-tab="tab-{{ section.id }}-{{ forloop.index }}"
+          data-collection-url="{{ collection.url | default: '#' }}"
+          {{ block.shopify_attributes }}
+        >
+          {{ tab_title }}
+        </button>
+      {%- endfor -%}
+    </div>
+  </div>
+
+  {%- comment -%} Tab Content Panes {%- endcomment -%}
+  <div class="tabbed-collections__content">
+    {%- for block in section.blocks -%}
+      {%- assign collection = collections[block.settings.collection] -%}
+      
+      <div 
+        class="tabbed-collections__pane{% if forloop.first %} is-active{% endif %}" 
+        id="tab-{{ section.id }}-{{ forloop.index }}"
+      >
+        <div class="tabbed-collections__slider-container">
+          <button type="button" class="tabbed-collections__nav tabbed-collections__nav--prev" aria-label="Previous products" disabled>
+            &#10094;
+          </button>
+          
+          <div class="tabbed-collections__slider js-drag-scroll">
+            {%- if collection != blank and collection.products.size > 0 -%}
+              {%- for product in collection.products limit: section.settings.products_to_show -%}
+                <div class="tabbed-collections__item">
+                  {% render 'card-product', 
+                    card_product: product, 
+                    media_aspect_ratio: 'adapt',
+                    show_secondary_image: true, 
+                    show_vendor: true, 
+                    show_rating: true,
+                    lazy_load: false,
+                    show_quick_add: false,
+                    section_id: section.id
+                  %}
+                </div>
+              {%- endfor -%}
+            {%- else -%}
+              {%- comment -%} Placeholders {%- endcomment -%}
+              {%- for i in (1..6) -%}
+                <div class="tabbed-collections__item">
+                  <div class="card-wrapper">
+                    <div class="card card--product media-wrapper">
+                      {{ 'product-' | append: i | placeholder_svg_tag: 'placeholder-svg' }}
+                    </div>
+                    <div class="card-information text-center" style="margin-top: 10px;">
+                      <h3 class="card__heading h5">Sample Product {{ i }}</h3>
+                      <div class="price">$19.99</div>
+                    </div>
+                  </div>
+                </div>
+              {%- endfor -%}
+            {%- endif -%}
+          </div>
+
+          <button type="button" class="tabbed-collections__nav tabbed-collections__nav--next" aria-label="Next products">
+            &#10095;
+          </button>
+        </div>
+      </div>
+    {%- endfor -%}
+  </div>
+
+  {%- comment -%} Center Show More Link {%- endcomment -%}
+  {%- assign first_collection = collections[section.blocks.first.settings.collection] -%}
+  <div class="tabbed-collections__footer text-center">
+    <a 
+      href="{{ first_collection.url | default: '#' }}" 
+      id="ShowMoreBtn-{{ section.id }}" 
+      class="tabbed-collections__show-more-link"
+    >
+      Show more
+    </a>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const section = document.getElementById('TabbedCollections-{{ section.id }}');
+    if (!section) return;
+
+    const tabs = section.querySelectorAll('.tabbed-collections__tab-btn');
+    const panes = section.querySelectorAll('.tabbed-collections__pane');
+    const showMoreBtn = section.querySelector('#ShowMoreBtn-{{ section.id }}');
+
+    // Drag-to-Scroll Functionality
+    const initDragScroll = (element) => {
+      let isDown = false;
+      let startX;
+      let scrollLeft;
+      let isDragging = false;
+
+      element.addEventListener('mousedown', (e) => {
+        if (e.target.closest('.tabbed-collections__nav')) return;
+        isDown = true;
+        isDragging = false;
+        startX = e.pageX - element.offsetLeft;
+        scrollLeft = element.scrollLeft;
+      });
+
+      element.addEventListener('mouseleave', () => {
+        if (isDown) {
+          isDown = false;
+          element.classList.remove('is-dragging');
+        }
+      });
+
+      element.addEventListener('mouseup', () => {
+        isDown = false;
+        element.classList.remove('is-dragging');
+      });
+
+      element.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        const x = e.pageX - element.offsetLeft;
+        const walk = x - startX;
+
+        if (Math.abs(walk) > 10) {
+          isDragging = true;
+          element.classList.add('is-dragging');
+          e.preventDefault();
+          element.scrollLeft = scrollLeft - walk;
+        }
+      });
+
+      element.addEventListener('click', (e) => {
+        if (isDragging) {
+          e.preventDefault();
+          e.stopPropagation();
+          isDragging = false;
+        }
+      }, true);
+    };
+
+    const dragScrollContainers = section.querySelectorAll('.js-drag-scroll');
+    dragScrollContainers.forEach(initDragScroll);
+
+    // Tab Switching Logic
+    tabs.forEach(tab => {
+      tab.addEventListener('click', function () {
+        const targetId = this.getAttribute('data-tab');
+        const collectionUrl = this.getAttribute('data-collection-url');
+
+        tabs.forEach(t => t.classList.remove('is-active'));
+        panes.forEach(p => p.classList.remove('is-active'));
+
+        this.classList.add('is-active');
+        const activePane = section.querySelector('#' + targetId);
+        if (activePane) activePane.classList.add('is-active');
+
+        this.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+
+        if (showMoreBtn && collectionUrl) {
+          showMoreBtn.setAttribute('href', collectionUrl);
+        }
+      });
+    });
+
+    // Arrow Navigation: Desktop scrolls 3 products, Mobile scrolls 1 product
+    panes.forEach(pane => {
+      const slider = pane.querySelector('.tabbed-collections__slider');
+      const prevBtn = pane.querySelector('.tabbed-collections__nav--prev');
+      const nextBtn = pane.querySelector('.tabbed-collections__nav--next');
+
+      if (!slider || !prevBtn || !nextBtn) return;
+
+      const getScrollAmount = () => {
+        const item = slider.querySelector('.tabbed-collections__item');
+        if (!item) return slider.clientWidth * 0.75;
+        
+        const itemWidth = item.offsetWidth + 12; // Card width + gap
+        const isDesktop = window.innerWidth > 768;
+        return isDesktop ? itemWidth * 3 : itemWidth; // 3 cards on Desktop, 1 on Mobile
+      };
+
+      const updateArrows = () => {
+        prevBtn.disabled = slider.scrollLeft <= 5;
+        nextBtn.disabled = slider.scrollLeft + slider.clientWidth >= slider.scrollWidth - 5;
+      };
+
+      prevBtn.addEventListener('click', () => {
+        slider.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
+      });
+
+      nextBtn.addEventListener('click', () => {
+        slider.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
+      });
+
+      slider.addEventListener('scroll', updateArrows);
+      window.addEventListener('resize', updateArrows);
+      updateArrows();
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Tabbed Collections Slider",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "sub_heading",
+      "label": "Subheading",
+      "default": "What Everyone's Reaching For"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "BAERRY VIRAL PICKS 🍒"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 6,
+      "max": 18,
+      "step": 1,
+      "default": 8,
+      "label": "Maximum products to show per tab"
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_left",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Left padding",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "padding_right",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Right padding",
+      "default": 16
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection_tab",
+      "name": "Collection Tab",
+      "limit": 10,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Tab Label",
+          "info": "Leave blank to use Collection Title"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Tabbed Collections Slider",
+      "blocks": [
+        { "type": "collection_tab", "settings": { "title": "SKINCARE" } },
+        { "type": "collection_tab", "settings": { "title": "MAKEUP" } },
+        { "type": "collection_tab", "settings": { "title": "HAIR" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

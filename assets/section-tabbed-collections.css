@@ -1,0 +1,185 @@
+/* Container & Headers */
+.tabbed-collections-wrapper {
+    box-sizing: border-box;
+  }
+  
+  .tabbed-collections__header {
+    margin-bottom: 24px;
+    text-align: center;
+  }
+  
+  .tabbed-collections__subheading {
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0 0 8px 0;
+    color: #666;
+  }
+  
+  .tabbed-collections__title {
+    margin: 0;
+    font-weight: 700;
+  }
+  
+  /* Tabs Navigation */
+  .tabbed-collections__tabs-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 32px;
+    overflow: hidden;
+  }
+  
+  .tabbed-collections__tabs {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding: 4px 16px;
+    max-width: 100%;
+    white-space: nowrap;
+    cursor: grab;
+    user-select: none;
+  }
+  
+  .tabbed-collections__tabs::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .tabbed-collections__tab-btn {
+    flex: 0 0 auto;
+    background: #f4f4f4;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 24px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+    color: #333;
+  }
+  
+  .tabbed-collections__tab-btn.is-active,
+  .tabbed-collections__tab-btn:hover {
+    background: #000;
+    color: #fff;
+  }
+  
+  /* Panes & Product Slider */
+  .tabbed-collections__pane {
+    display: none;
+  }
+  
+  .tabbed-collections__pane.is-active {
+    display: block;
+  }
+  
+  .tabbed-collections__slider-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  
+  .tabbed-collections__slider {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding: 8px 0;
+    width: 100%;
+    cursor: grab;
+    user-select: none;
+  }
+  
+  .tabbed-collections__slider::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Drag State */
+  .js-drag-scroll.is-dragging {
+    cursor: grabbing;
+    scroll-behavior: auto !important;
+    scroll-snap-type: none !important;
+  }
+  
+  /* Item Column Sizing & Peek Configuration */
+  .tabbed-collections__item {
+    scroll-snap-align: start;
+    scroll-snap-stop: always; /* Force 1 item snap on mobile swipe */
+    flex: 0 0 calc(20% - 10px); /* Desktop default: 5 cards */
+    min-width: 150px;
+  }
+  
+  @media screen and (max-width: 1200px) {
+    .tabbed-collections__item {
+      flex: 0 0 calc(33.333% - 8px); /* Laptop/Tablet: 3 cards */
+    }
+  }
+  
+  @media screen and (max-width: 768px) {
+    .tabbed-collections__item {
+      /* 2 full cards + ~16% peek of the 3rd card on mobile */
+      flex: 0 0 calc(42% - 6px);
+    }
+  }
+  
+  /* Arrow Navigation */
+  .tabbed-collections__nav {
+    position: absolute;
+    top: 40%;
+    transform: translateY(-50%);
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 2;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    transition: opacity 0.2s ease, background 0.2s ease;
+  }
+  
+  .tabbed-collections__nav:hover {
+    background: #f8f8f8;
+  }
+  
+  .tabbed-collections__nav[disabled] {
+    opacity: 0.3;
+    cursor: default;
+  }
+  
+  .tabbed-collections__nav--prev {
+    left: -15px;
+  }
+  
+  .tabbed-collections__nav--next {
+    right: -15px;
+  }
+  
+  /* Show More Link */
+  .tabbed-collections__footer {
+    margin-top: 36px;
+    text-align: center;
+  }
+  
+  .tabbed-collections__show-more-link {
+    color: #000;
+    text-decoration: underline;
+    font-size: 14px;
+    font-weight: 500;
+    text-underline-offset: 4px;
+    transition: opacity 0.2s ease;
+  }
+  
+  .tabbed-collections__show-more-link:hover {
+    opacity: 0.7;
+  }

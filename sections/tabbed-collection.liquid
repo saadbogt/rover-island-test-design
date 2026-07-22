@@ -1,0 +1,306 @@
+{{ 'section-tabbed-collection.css' | asset_url | stylesheet_tag }}
+{{ 'component-card.css' | asset_url | stylesheet_tag }}
+{{ 'component-price.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  .section-{{ section.id }}-typography .tabbed-collection__description {
+    font-size: {{ section.settings.desc_size_mobile }}px;
+    line-height: {{ section.settings.desc_line_height }};
+  }
+  .section-{{ section.id }}-typography .tabbed-collection__heading {
+    font-size: {{ section.settings.heading_size_mobile }}px;
+    line-height: {{ section.settings.heading_line_height }};
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+    .section-{{ section.id }}-typography .tabbed-collection__description {
+      font-size: {{ section.settings.desc_size_tablet }}px;
+    }
+    .section-{{ section.id }}-typography .tabbed-collection__heading {
+      font-size: {{ section.settings.heading_size_tablet }}px;
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .section-{{ section.id }}-typography .tabbed-collection__description {
+      font-size: {{ section.settings.desc_size_desktop }}px;
+    }
+    .section-{{ section.id }}-typography .tabbed-collection__heading {
+      font-size: {{ section.settings.heading_size_desktop }}px;
+    }
+  }
+{%- endstyle -%}
+
+<tabbed-collection class="tabbed-collection-section section-{{ section.id }}-padding section-{{ section.id }}-typography page-width" style="--grid-gap: {{ section.settings.item_gap }}px;">
+  
+  <div class="tabbed-collection__header">
+    {%- if section.settings.description != blank -%}
+      <p class="tabbed-collection__description">{{ section.settings.description | escape }}</p>
+    {%- endif -%}
+    {%- if section.settings.heading != blank -%}
+      <h2 class="tabbed-collection__heading">{{ section.settings.heading | escape }}</h2>
+    {%- endif -%}
+  </div>
+
+  <div class="tabbed-collection__tabs" role="tablist">
+    {%- for block in section.blocks -%}
+      {%- assign collection = block.settings.collection -%}
+      {%- assign tab_title = block.settings.title | default: collection.title | default: 'Collection' -%}
+      <button type="button" 
+              class="tabbed-collection__tab-btn" 
+              role="tab" 
+              aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" 
+              aria-controls="panel-{{ block.id }}" 
+              data-target="panel-{{ block.id }}"
+              {{ block.shopify_attributes }}>
+        {{ tab_title }}
+      </button>
+    {%- endfor -%}
+  </div>
+
+  <div class="tabbed-collection__content">
+    {%- for block in section.blocks -%}
+      {%- assign collection = block.settings.collection -%}
+      <div id="panel-{{ block.id }}" class="tabbed-collection__panel {% if forloop.first %}is-active{% endif %}" role="tabpanel">
+        
+        <div class="tabbed-slider-wrapper">
+          <button class="tabbed-slider-btn prev" aria-label="Previous slide" disabled>
+             <svg viewBox="0 0 14 10" fill="none" class="icon icon-arrow" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M8.537.808a.5.5 0 01.817-.162l4 4a.5.5 0 010 .708l-4 4a.5.5 0 11-.708-.708L11.793 5.5H1.5a.5.5 0 010-1h10.293L8.646 1.354a.5.5 0 01-.109-.546z" fill="currentColor" transform="rotate(180 7 5)"></path></svg>
+          </button>
+
+          <div class="tabbed-slider-track">
+            {%- for product in collection.products limit: 10 -%}
+              <div class="tabbed-slider-slide">
+                {% render 'card-product',
+                  card_product: product,
+                  media_aspect_ratio: 'adapt',
+                  show_secondary_image: true,
+                  show_vendor: section.settings.show_vendor,
+                  show_rating: section.settings.show_rating,
+                  lazy_load: true
+                %}
+              </div>
+            {%- else -%}
+              {%- for i in (1..6) -%}
+                <div class="tabbed-slider-slide">
+                  {% render 'card-product', show_vendor: false %}
+                </div>
+              {%- endfor -%}
+            {%- endfor -%}
+          </div>
+
+          <button class="tabbed-slider-btn next" aria-label="Next slide">
+             <svg viewBox="0 0 14 10" fill="none" class="icon icon-arrow" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M8.537.808a.5.5 0 01.817-.162l4 4a.5.5 0 010 .708l-4 4a.5.5 0 11-.708-.708L11.793 5.5H1.5a.5.5 0 010-1h10.293L8.646 1.354a.5.5 0 01-.109-.546z" fill="currentColor"></path></svg>
+          </button>
+        </div>
+
+        {%- if collection != blank and collection.all_products_count > 0 -%}
+          <div class="tabbed-collection__footer">
+            <a href="{{ collection.url }}" class="link">Show more</a>
+          </div>
+        {%- endif -%}
+
+      </div>
+    {%- endfor -%}
+  </div>
+</tabbed-collection>
+
+<script>
+  if (!customElements.get('tabbed-collection')) {
+    class TabbedCollection extends HTMLElement {
+      constructor() {
+        super();
+        this.tabs = this.querySelectorAll('.tabbed-collection__tab-btn');
+        this.panels = this.querySelectorAll('.tabbed-collection__panel');
+        this.bindEvents();
+        this.initSliders();
+      }
+
+      bindEvents() {
+        this.tabs.forEach(tab => {
+          tab.addEventListener('click', (e) => {
+            const targetId = e.currentTarget.dataset.target;
+            
+            // Reset tabs
+            this.tabs.forEach(t => t.setAttribute('aria-selected', 'false'));
+            e.currentTarget.setAttribute('aria-selected', 'true');
+
+            // Reset panels
+            this.panels.forEach(p => p.classList.remove('is-active'));
+            const targetPanel = this.querySelector(`#${targetId}`);
+            if (targetPanel) {
+              targetPanel.classList.add('is-active');
+              // Re-check slider arrow states on tab switch
+              this.updateSliderButtons(targetPanel.querySelector('.tabbed-slider-track'));
+            }
+          });
+        });
+      }
+
+      initSliders() {
+        this.panels.forEach(panel => {
+          const track = panel.querySelector('.tabbed-slider-track');
+          const prevBtn = panel.querySelector('.prev');
+          const nextBtn = panel.querySelector('.next');
+
+          if (!track || !prevBtn || !nextBtn) return;
+
+          const scrollAmount = () => track.clientWidth * 0.8; // Scroll 80% of view
+
+          prevBtn.addEventListener('click', () => {
+            track.scrollBy({ left: -scrollAmount(), behavior: 'smooth' });
+          });
+
+          nextBtn.addEventListener('click', () => {
+            track.scrollBy({ left: scrollAmount(), behavior: 'smooth' });
+          });
+
+          track.addEventListener('scroll', () => this.updateSliderButtons(track), { passive: true });
+          window.addEventListener('resize', () => this.updateSliderButtons(track));
+          
+          // Initial check
+          setTimeout(() => this.updateSliderButtons(track), 100);
+        });
+      }
+
+      updateSliderButtons(track) {
+        if (!track) return;
+        const prevBtn = track.parentElement.querySelector('.prev');
+        const nextBtn = track.parentElement.querySelector('.next');
+        
+        if (prevBtn) prevBtn.disabled = track.scrollLeft <= 0;
+        if (nextBtn) {
+          // Add a 2px threshold to account for sub-pixel rendering rounding errors
+          const isAtEnd = track.scrollLeft + track.clientWidth >= track.scrollWidth - 2;
+          nextBtn.disabled = isAtEnd;
+        }
+      }
+    }
+    customElements.define('tabbed-collection', TabbedCollection);
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Tabbed Product Grid",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "description",
+      "label": "Short Description",
+      "default": "What Everyone's Reaching For"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "VIRAL PICKS 🍒"
+    },
+    {
+      "type": "header",
+      "content": "Product Card Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "default": false,
+      "label": "Show Vendor"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rating",
+      "default": true,
+      "label": "Show Product Rating"
+    },
+    {
+      "type": "header",
+      "content": "Typography: Heading"
+    },
+    {
+      "type": "range", "id": "heading_size_mobile", "min": 16, "max": 60, "step": 1, "unit": "px", "label": "Font Size (Mobile)", "default": 24
+    },
+    {
+      "type": "range", "id": "heading_size_tablet", "min": 16, "max": 60, "step": 1, "unit": "px", "label": "Font Size (Tablet)", "default": 32
+    },
+    {
+      "type": "range", "id": "heading_size_desktop", "min": 16, "max": 60, "step": 1, "unit": "px", "label": "Font Size (Desktop)", "default": 40
+    },
+    {
+      "type": "text", "id": "heading_line_height", "label": "Line Height", "default": "1.2"
+    },
+    {
+      "type": "header",
+      "content": "Typography: Description"
+    },
+    {
+      "type": "range", "id": "desc_size_mobile", "min": 12, "max": 30, "step": 1, "unit": "px", "label": "Font Size (Mobile)", "default": 14
+    },
+    {
+      "type": "range", "id": "desc_size_tablet", "min": 12, "max": 30, "step": 1, "unit": "px", "label": "Font Size (Tablet)", "default": 16
+    },
+    {
+      "type": "range", "id": "desc_size_desktop", "min": 12, "max": 30, "step": 1, "unit": "px", "label": "Font Size (Desktop)", "default": 16
+    },
+    {
+      "type": "text", "id": "desc_line_height", "label": "Line Height", "default": "1.5"
+    },
+    {
+      "type": "header",
+      "content": "General Settings"
+    },
+    {
+      "type": "range", "id": "item_gap", "min": 8, "max": 40, "step": 2, "unit": "px", "label": "Item Gap", "default": 16
+    },
+    {
+      "type": "range", "id": "padding_top", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Padding Top", "default": 36
+    },
+    {
+      "type": "range", "id": "padding_bottom", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Padding Bottom", "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Collection Tab",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Tab Title",
+          "info": "Leave blank to use the default collection name."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Tabbed Product Grid",
+      "blocks": [
+        { "type": "collection" },
+        { "type": "collection" }
+      ]
+    }
+  ]
+}
+{% endschema %}

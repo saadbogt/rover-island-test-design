@@ -1,0 +1,67 @@
+{% for block in section.blocks %}
+  {% case block.type %}
+    {% when 'title' %}
+      <h2 style="color: {{ block.settings.text_color }}; background-color: {{ block.settings.background_color }};"> {{ block.settings.block_title }}</h2>
+    {% when 'title_description' %}
+      <p style="color: {{ block.settings.text_color }}; background-color: {{ block.settings.background_color }};"> {{ block.settings.title_description }}</p>
+  {% endcase %}
+{% endfor %}
+
+{% schema %}
+{
+  "name": "Hello World",   
+
+  "blocks": [
+    {
+      "type": "title",
+      "name": "Title",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "block_title",
+          "label": "Title"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text Color"
+        },
+        {
+          "type": "color",
+          "id": "background_color",
+          "label": "Background Color"
+        }
+      ]
+    },
+    {
+      "type": "title_description",
+      "name": "Description",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title_description",
+          "label": "Short Description"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text Color"
+        },
+        {
+          "type": "color",
+          "id": "background_color",
+          "label": "Background Color"
+        }
+      ]
+    }
+  ],
+
+  "presets": [
+    {
+      "name": "Hello World"
+    }
+  ]
+}
+{% endschema %}
