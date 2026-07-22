@@ -58,6 +58,9 @@
     },
     "image_banner_8fibq8": {
       "type": "image-banner",
+      "custom_css": [
+        ".banner {max-width: 1440px;}"
+      ],
       "name": "t:sections.image-banner.presets.name",
       "settings": {
         "image": "shopify://shop_images/banner_pc_70f8fd04-0206-4869-8004-c4812c4c732b.webp",
@@ -70,7 +73,7 @@
         "color_scheme": "",
         "stack_images_on_mobile": true,
         "mobile_content_alignment": "center",
-        "show_text_below": true
+        "show_text_below": false
       }
     },
     "tabbed_collection_slider_pRjy9J": {
