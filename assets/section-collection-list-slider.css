@@ -1,0 +1,201 @@
+/* section-collection-list-slider.css */
+.collection-list-slider-section {
+  display: block;
+  position: relative;
+  overflow: hidden;
+}
+
+.collection-list-slider__header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.collection-list-slider__heading {
+  margin: 0;
+  color: rgb(var(--color-foreground));
+}
+
+.collection-list-slider__description {
+  margin: 0.5rem 0 0 0;
+  color: rgba(var(--color-foreground), 0.75);
+}
+
+/* Slider Container & Track */
+.collection-list-slider__container {
+  position: relative;
+  width: 100%;
+}
+
+.collection-list-slider__track {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  gap: var(--grid-gap, 16px);
+  padding: 0.5rem 0 1.5rem 0;
+  margin: 0;
+  list-style: none;
+  cursor: grab;
+  user-select: none;
+}
+
+.collection-list-slider__track.is-dragging {
+  cursor: grabbing;
+  scroll-snap-type: none;
+  scroll-behavior: auto;
+}
+
+.collection-list-slider__track::-webkit-scrollbar {
+  display: none;
+}
+
+/* Slide Cards - Exact Peek Calculations */
+/* Mobile: 2 items + 3rd peeks 5% (accounts for 2 gaps) */
+.collection-list-slider__slide {
+  scroll-snap-align: start;
+  flex: 0 0 calc((100% - (var(--grid-gap) * 2)) / 2.05);
+  box-sizing: border-box;
+}
+
+/* Tablet: 6 items + 7th peeks 10% (accounts for 6 gaps) */
+@media screen and (min-width: 750px) {
+  .collection-list-slider__slide {
+    flex: 0 0 calc((100% - (var(--grid-gap) * 6)) / 6.1);
+  }
+}
+
+/* Desktop: 6 items + 7th peeks 10% (accounts for 6 gaps) */
+@media screen and (min-width: 990px) {
+  .collection-list-slider__slide {
+    flex: 0 0 calc((100% - (var(--grid-gap) * 6)) / 6.1);
+  }
+}
+
+/* Card Visuals */
+.collection-list-slider__link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: rgb(var(--color-foreground));
+  transition: opacity 0.2s ease;
+}
+
+.collection-list-slider__link:hover {
+  opacity: 0.85;
+}
+
+/* Image wrapper: DEFAULT is a natural, non-cropped container.
+   The image keeps its own aspect ratio and is simply contained
+   within the slide's width - no forced circle/square crop. */
+.collection-list-slider__image-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 0;
+  background: transparent;
+  margin-bottom: 1rem;
+}
+
+.collection-list-slider__image-wrapper img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+/* Shape modifiers - opt-in per block via the "Image Shape" setting.
+   These set an explicit aspect-ratio on the wrapper, so the image
+   needs height: 100% to fill it (object-fit: contain still avoids
+   cropping/stretching the image itself). */
+.collection-list-slider__image-wrapper--circle,
+.collection-list-slider__image-wrapper--square,
+.collection-list-slider__image-wrapper--portrait {
+  aspect-ratio: 1 / 1;
+}
+
+.collection-list-slider__image-wrapper--circle img,
+.collection-list-slider__image-wrapper--square img,
+.collection-list-slider__image-wrapper--portrait img {
+  height: 100%;
+}
+
+.collection-list-slider__image-wrapper--circle {
+  border-radius: 50%;
+}
+
+.collection-list-slider__image-wrapper--square {
+  border-radius: 0;
+}
+
+.collection-list-slider__image-wrapper--portrait {
+  aspect-ratio: 3 / 4;
+  border-radius: 0;
+}
+
+.collection-list-slider__link:hover .collection-list-slider__image-wrapper img {
+  transform: scale(1.06);
+}
+
+.collection-list-slider__title {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin: 0;
+  line-height: 1.3;
+  text-align: center;
+  word-break: break-word;
+}
+
+/* Navigation Arrows */
+.collection-list-slider__btn {
+  position: absolute;
+  top: calc(50% - 22px);
+  transform: translateY(-50%);
+  background: rgb(var(--color-background));
+  border: 1px solid rgba(var(--color-foreground), 0.1);
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 3;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  color: rgb(var(--color-foreground));
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.collection-list-slider__btn[disabled] {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.collection-list-slider__btn:not([disabled]):hover {
+  transform: translateY(-50%) scale(1.08);
+}
+
+.collection-list-slider__btn.prev {
+  left: -15px;
+}
+
+.collection-list-slider__btn.next {
+  right: -15px;
+}
+
+.collection-list-slider__btn svg {
+  width: 14px;
+  height: 14px;
+  fill: currentColor;
+}
+
+@media screen and (max-width: 749px) {
+  .collection-list-slider__btn {
+    display: none;
+    /* Hide arrows on mobile, rely on drag/swipe */
+  }
+}

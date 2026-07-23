@@ -40,8 +40,10 @@
   }
 {%- endstyle -%}
 
-<tabbed-collection class="tabbed-collection-section section-{{ section.id }}-padding section-{{ section.id }}-typography page-width" style="--grid-gap: {{ section.settings.item_gap }}px;">
-  
+<tabbed-collection
+  class="tabbed-collection-section section-{{ section.id }}-padding section-{{ section.id }}-typography page-width"
+  style="--grid-gap: {{ section.settings.item_gap }}px;"
+>
   <div class="tabbed-collection__header">
     {%- if section.settings.description != blank -%}
       <p class="tabbed-collection__description">{{ section.settings.description | escape }}</p>
@@ -55,13 +57,15 @@
     {%- for block in section.blocks -%}
       {%- assign collection = block.settings.collection -%}
       {%- assign tab_title = block.settings.title | default: collection.title | default: 'Collection' -%}
-      <button type="button" 
-              class="tabbed-collection__tab-btn" 
-              role="tab" 
-              aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" 
-              aria-controls="panel-{{ block.id }}" 
-              data-target="panel-{{ block.id }}"
-              {{ block.shopify_attributes }}>
+      <button
+        type="button"
+        class="tabbed-collection__tab-btn"
+        role="tab"
+        aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+        aria-controls="panel-{{ section.id }}-{{ block.id }}"
+        data-target="panel-{{ section.id }}-{{ block.id }}"
+        {{ block.shopify_attributes }}
+      >
         {{ tab_title }}
       </button>
     {%- endfor -%}
@@ -70,11 +74,16 @@
   <div class="tabbed-collection__content">
     {%- for block in section.blocks -%}
       {%- assign collection = block.settings.collection -%}
-      <div id="panel-{{ block.id }}" class="tabbed-collection__panel {% if forloop.first %}is-active{% endif %}" role="tabpanel">
-        
+      <div
+        id="panel-{{ section.id }}-{{ block.id }}"
+        class="tabbed-collection__panel {% if forloop.first %}is-active{% endif %}"
+        role="tabpanel"
+      >
         <div class="tabbed-slider-wrapper">
           <button class="tabbed-slider-btn prev" aria-label="Previous slide" disabled>
-             <svg viewBox="0 0 14 10" fill="none" class="icon icon-arrow" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M8.537.808a.5.5 0 01.817-.162l4 4a.5.5 0 010 .708l-4 4a.5.5 0 11-.708-.708L11.793 5.5H1.5a.5.5 0 010-1h10.293L8.646 1.354a.5.5 0 01-.109-.546z" fill="currentColor" transform="rotate(180 7 5)"></path></svg>
+            <svg viewBox="0 0 14 10" fill="none" class="icon icon-arrow" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M8.537.808a.5.5 0 01.817-.162l4 4a.5.5 0 010 .708l-4 4a.5.5 0 11-.708-.708L11.793 5.5H1.5a.5.5 0 010-1h10.293L8.646 1.354a.5.5 0 01-.109-.546z" fill="currentColor" transform="rotate(180 7 5)"></path>
+            </svg>
           </button>
 
           <div class="tabbed-slider-track">
@@ -99,7 +108,9 @@
           </div>
 
           <button class="tabbed-slider-btn next" aria-label="Next slide">
-             <svg viewBox="0 0 14 10" fill="none" class="icon icon-arrow" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M8.537.808a.5.5 0 01.817-.162l4 4a.5.5 0 010 .708l-4 4a.5.5 0 11-.708-.708L11.793 5.5H1.5a.5.5 0 010-1h10.293L8.646 1.354a.5.5 0 01-.109-.546z" fill="currentColor"></path></svg>
+            <svg viewBox="0 0 14 10" fill="none" class="icon icon-arrow" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M8.537.808a.5.5 0 01.817-.162l4 4a.5.5 0 010 .708l-4 4a.5.5 0 11-.708-.708L11.793 5.5H1.5a.5.5 0 010-1h10.293L8.646 1.354a.5.5 0 01-.109-.546z" fill="currentColor"></path>
+            </svg>
           </button>
         </div>
 
@@ -108,7 +119,6 @@
             <a href="{{ collection.url }}" class="link">Show more</a>
           </div>
         {%- endif -%}
-
       </div>
     {%- endfor -%}
   </div>
@@ -117,29 +127,41 @@
 <script>
   if (!customElements.get('tabbed-collection')) {
     class TabbedCollection extends HTMLElement {
-      constructor() {
-        super();
-        this.tabs = this.querySelectorAll('.tabbed-collection__tab-btn');
-        this.panels = this.querySelectorAll('.tabbed-collection__panel');
-        this.bindEvents();
-        this.initSliders();
+      connectedCallback() {
+        // Guard against connectedCallback firing more than once
+        // (e.g. if the theme editor moves/reinserts the element).
+        if (this._initialized) return;
+
+        // IMPORTANT: do not read children here synchronously.
+        // When this section is used more than once on a page, the browser
+        // upgrades every instance after the first one the moment it sees
+        // the opening <tabbed-collection> tag - before its tabs/panels
+        // have actually been parsed into the DOM. Querying immediately
+        // would find nothing for those later instances. Deferring by one
+        // tick guarantees the full subtree exists first.
+        requestAnimationFrame(() => {
+          this._initialized = true;
+          this.tabs = this.querySelectorAll('.tabbed-collection__tab-btn');
+          this.panels = this.querySelectorAll('.tabbed-collection__panel');
+          this.bindEvents();
+          this.initSliders();
+        });
       }
 
       bindEvents() {
-        this.tabs.forEach(tab => {
+        this.tabs.forEach((tab) => {
           tab.addEventListener('click', (e) => {
             const targetId = e.currentTarget.dataset.target;
-            
+
             // Reset tabs
-            this.tabs.forEach(t => t.setAttribute('aria-selected', 'false'));
+            this.tabs.forEach((t) => t.setAttribute('aria-selected', 'false'));
             e.currentTarget.setAttribute('aria-selected', 'true');
 
             // Reset panels
-            this.panels.forEach(p => p.classList.remove('is-active'));
+            this.panels.forEach((p) => p.classList.remove('is-active'));
             const targetPanel = this.querySelector(`#${targetId}`);
             if (targetPanel) {
               targetPanel.classList.add('is-active');
-              // Re-check slider arrow states on tab switch
               this.updateSliderButtons(targetPanel.querySelector('.tabbed-slider-track'));
             }
           });
@@ -147,27 +169,60 @@
       }
 
       initSliders() {
-        this.panels.forEach(panel => {
+        this.panels.forEach((panel) => {
           const track = panel.querySelector('.tabbed-slider-track');
           const prevBtn = panel.querySelector('.prev');
           const nextBtn = panel.querySelector('.next');
 
-          if (!track || !prevBtn || !nextBtn) return;
+          if (!track) return;
 
-          const scrollAmount = () => track.clientWidth * 0.8; // Scroll 80% of view
+          // --- 1. Arrow Navigation ---
+          if (prevBtn && nextBtn) {
+            const scrollAmount = () => track.clientWidth * 0.8;
 
-          prevBtn.addEventListener('click', () => {
-            track.scrollBy({ left: -scrollAmount(), behavior: 'smooth' });
+            prevBtn.addEventListener('click', () => {
+              track.scrollBy({ left: -scrollAmount(), behavior: 'smooth' });
+            });
+
+            nextBtn.addEventListener('click', () => {
+              track.scrollBy({ left: scrollAmount(), behavior: 'smooth' });
+            });
+          }
+
+          // --- 2. Drag to Scroll (Mouse/Touch fallback) ---
+          let isDown = false;
+          let startX;
+          let scrollLeft;
+
+          track.addEventListener('mousedown', (e) => {
+            isDown = true;
+            track.classList.add('is-dragging');
+            startX = e.pageX - track.offsetLeft;
+            scrollLeft = track.scrollLeft;
           });
 
-          nextBtn.addEventListener('click', () => {
-            track.scrollBy({ left: scrollAmount(), behavior: 'smooth' });
+          track.addEventListener('mouseleave', () => {
+            isDown = false;
+            track.classList.remove('is-dragging');
           });
 
+          track.addEventListener('mouseup', () => {
+            isDown = false;
+            track.classList.remove('is-dragging');
+          });
+
+          track.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - track.offsetLeft;
+            const walk = (x - startX) * 1.5; // Multiply for faster dragging
+            track.scrollLeft = scrollLeft - walk;
+          });
+
+          // --- 3. Arrow State Updates ---
           track.addEventListener('scroll', () => this.updateSliderButtons(track), { passive: true });
           window.addEventListener('resize', () => this.updateSliderButtons(track));
-          
-          // Initial check
+
           setTimeout(() => this.updateSliderButtons(track), 100);
         });
       }
@@ -176,10 +231,9 @@
         if (!track) return;
         const prevBtn = track.parentElement.querySelector('.prev');
         const nextBtn = track.parentElement.querySelector('.next');
-        
+
         if (prevBtn) prevBtn.disabled = track.scrollLeft <= 0;
         if (nextBtn) {
-          // Add a 2px threshold to account for sub-pixel rendering rounding errors
           const isAtEnd = track.scrollLeft + track.clientWidth >= track.scrollWidth - 2;
           nextBtn.disabled = isAtEnd;
         }
@@ -232,45 +286,114 @@
       "content": "Typography: Heading"
     },
     {
-      "type": "range", "id": "heading_size_mobile", "min": 16, "max": 60, "step": 1, "unit": "px", "label": "Font Size (Mobile)", "default": 24
+      "type": "range",
+      "id": "heading_size_mobile",
+      "min": 16,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "label": "Font Size (Mobile)",
+      "default": 24
     },
     {
-      "type": "range", "id": "heading_size_tablet", "min": 16, "max": 60, "step": 1, "unit": "px", "label": "Font Size (Tablet)", "default": 32
+      "type": "range",
+      "id": "heading_size_tablet",
+      "min": 16,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "label": "Font Size (Tablet)",
+      "default": 32
     },
     {
-      "type": "range", "id": "heading_size_desktop", "min": 16, "max": 60, "step": 1, "unit": "px", "label": "Font Size (Desktop)", "default": 40
+      "type": "range",
+      "id": "heading_size_desktop",
+      "min": 16,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "label": "Font Size (Desktop)",
+      "default": 40
     },
     {
-      "type": "text", "id": "heading_line_height", "label": "Line Height", "default": "1.2"
+      "type": "text",
+      "id": "heading_line_height",
+      "label": "Line Height",
+      "default": "1.2"
     },
     {
       "type": "header",
       "content": "Typography: Description"
     },
     {
-      "type": "range", "id": "desc_size_mobile", "min": 12, "max": 30, "step": 1, "unit": "px", "label": "Font Size (Mobile)", "default": 14
+      "type": "range",
+      "id": "desc_size_mobile",
+      "min": 12,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "label": "Font Size (Mobile)",
+      "default": 14
     },
     {
-      "type": "range", "id": "desc_size_tablet", "min": 12, "max": 30, "step": 1, "unit": "px", "label": "Font Size (Tablet)", "default": 16
+      "type": "range",
+      "id": "desc_size_tablet",
+      "min": 12,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "label": "Font Size (Tablet)",
+      "default": 16
     },
     {
-      "type": "range", "id": "desc_size_desktop", "min": 12, "max": 30, "step": 1, "unit": "px", "label": "Font Size (Desktop)", "default": 16
+      "type": "range",
+      "id": "desc_size_desktop",
+      "min": 12,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "label": "Font Size (Desktop)",
+      "default": 16
     },
     {
-      "type": "text", "id": "desc_line_height", "label": "Line Height", "default": "1.5"
+      "type": "text",
+      "id": "desc_line_height",
+      "label": "Line Height",
+      "default": "1.5"
     },
     {
       "type": "header",
       "content": "General Settings"
     },
     {
-      "type": "range", "id": "item_gap", "min": 8, "max": 40, "step": 2, "unit": "px", "label": "Item Gap", "default": 16
+      "type": "range",
+      "id": "item_gap",
+      "min": 8,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Item Gap",
+      "default": 16
     },
     {
-      "type": "range", "id": "padding_top", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Padding Top", "default": 36
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 36
     },
     {
-      "type": "range", "id": "padding_bottom", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Padding Bottom", "default": 36
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 36
     }
   ],
   "blocks": [
@@ -296,10 +419,7 @@
   "presets": [
     {
       "name": "Tabbed Product Grid",
-      "blocks": [
-        { "type": "collection" },
-        { "type": "collection" }
-      ]
+      "blocks": [{ "type": "collection" }, { "type": "collection" }]
     }
   ]
 }

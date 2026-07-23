@@ -1,0 +1,460 @@
+{{ 'section-collection-list-slider.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  /* Typography Settings */
+  .section-{{ section.id }}-typography .collection-list-slider__heading {
+    font-size: {{ section.settings.heading_size_mobile }}px;
+    line-height: {{ section.settings.heading_line_height }};
+  }
+  .section-{{ section.id }}-typography .collection-list-slider__description {
+    font-size: {{ section.settings.desc_size_mobile }}px;
+    line-height: {{ section.settings.desc_line_height }};
+  }
+  .section-{{ section.id }}-typography .collection-list-slider__title {
+    font-size: {{ section.settings.title_size_mobile }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+    .section-{{ section.id }}-typography .collection-list-slider__heading {
+      font-size: {{ section.settings.heading_size_tablet }}px;
+    }
+    .section-{{ section.id }}-typography .collection-list-slider__description {
+      font-size: {{ section.settings.desc_size_tablet }}px;
+    }
+    .section-{{ section.id }}-typography .collection-list-slider__title {
+      font-size: {{ section.settings.title_size_tablet }}px;
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .section-{{ section.id }}-typography .collection-list-slider__heading {
+      font-size: {{ section.settings.heading_size_desktop }}px;
+    }
+    .section-{{ section.id }}-typography .collection-list-slider__description {
+      font-size: {{ section.settings.desc_size_desktop }}px;
+    }
+    .section-{{ section.id }}-typography .collection-list-slider__title {
+      font-size: {{ section.settings.title_size_desktop }}px;
+    }
+  }
+{%- endstyle -%}
+
+<collection-list-slider class="collection-list-slider-section section-{{ section.id }}-padding section-{{ section.id }}-typography {% if section.settings.page_width %}page-width{% endif %}">
+  {%- if section.settings.heading != blank or section.settings.description != blank -%}
+    <div class="collection-list-slider__header">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="collection-list-slider__heading">{{ section.settings.heading | escape }}</h2>
+      {%- endif -%}
+      {%- if section.settings.description != blank -%}
+        <p class="collection-list-slider__description">{{ section.settings.description | escape }}</p>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+
+  <div class="collection-list-slider__container" style="--grid-gap: {{ section.settings.item_gap }}px;">
+    <button class="collection-list-slider__btn prev" aria-label="Previous slide" disabled>
+      <svg viewBox="0 0 14 10" fill="none" class="icon icon-arrow" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M8.537.808a.5.5 0 01.817-.162l4 4a.5.5 0 010 .708l-4 4a.5.5 0 11-.708-.708L11.793 5.5H1.5a.5.5 0 010-1h10.293L8.646 1.354a.5.5 0 01-.109-.546z" fill="currentColor" transform="rotate(180 7 5)"></path>
+      </svg>
+    </button>
+
+    <ul class="collection-list-slider__track" role="list">
+      {%- for block in section.blocks -%}
+        {%- assign collection = block.settings.collection -%}
+        {%- assign collection_title = block.settings.title | default: collection.title | default: 'Collection' -%}
+        {%- assign collection_image = block.settings.image | default: collection.featured_image -%}
+        {%- assign image_shape = block.settings.image_shape | default: 'default' -%}
+
+        <li class="collection-list-slider__slide" {{ block.shopify_attributes }}>
+          {%- if collection != blank or block.settings.image != blank -%}
+            <a
+              href="{{ collection.url | default: '#' }}"
+              class="collection-list-slider__link"
+              aria-label="{{ collection_title | escape }}"
+            >
+          {%- else -%}
+            <div class="collection-list-slider__link">
+          {%- endif -%}
+
+          <div class="collection-list-slider__image-wrapper{% unless image_shape == 'default' %} collection-list-slider__image-wrapper--{{ image_shape }}{% endunless %}">
+            {%- if collection_image != blank -%}
+              {{
+                collection_image
+                | image_url: width: 400
+                | image_tag: loading: 'lazy', alt: collection_title
+                | escape
+              }}
+            {%- else -%}
+              {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+            {%- endif -%}
+          </div>
+
+          <h3 class="collection-list-slider__title">{{ collection_title | escape }}</h3>
+
+          {%- if collection != blank or block.settings.image != blank -%}
+            </a>
+          {%- else -%}
+            </div>
+          {%- endif -%}
+        </li>
+      {%- else -%}
+        {%- for i in (1..6) -%}
+          <li class="collection-list-slider__slide">
+            <div class="collection-list-slider__link">
+              <div class="collection-list-slider__image-wrapper">
+                {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+              </div>
+              <h3 class="collection-list-slider__title">Collection Name</h3>
+            </div>
+          </li>
+        {%- endfor -%}
+      {%- endfor -%}
+    </ul>
+
+    <button class="collection-list-slider__btn next" aria-label="Next slide">
+      <svg viewBox="0 0 14 10" fill="none" class="icon icon-arrow" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M8.537.808a.5.5 0 01.817-.162l4 4a.5.5 0 010 .708l-4 4a.5.5 0 11-.708-.708L11.793 5.5H1.5a.5.5 0 010-1h10.293L8.646 1.354a.5.5 0 01-.109-.546z" fill="currentColor"></path>
+      </svg>
+    </button>
+  </div>
+</collection-list-slider>
+
+<script>
+  if (!customElements.get('collection-list-slider')) {
+    class CollectionListSlider extends HTMLElement {
+      connectedCallback() {
+        // Guard against connectedCallback firing more than once
+        // (e.g. if the theme editor moves/reinserts the element).
+        if (this._initialized) return;
+
+        // IMPORTANT: do not read children here synchronously.
+        // When this section is used more than once on a page, the browser
+        // upgrades every instance after the first one the moment it sees
+        // the opening <collection-list-slider> tag - before its track/slides
+        // have actually been parsed into the DOM. Querying immediately
+        // would find nothing for those later instances. Deferring by one
+        // tick guarantees the full subtree exists first.
+        requestAnimationFrame(() => {
+          this._initialized = true;
+          this.track = this.querySelector('.collection-list-slider__track');
+          this.prevBtn = this.querySelector('.prev');
+          this.nextBtn = this.querySelector('.next');
+          this.init();
+        });
+      }
+
+      init() {
+        if (!this.track) return;
+
+        // Arrow controls
+        if (this.prevBtn && this.nextBtn) {
+          const scrollAmount = () => this.track.clientWidth * 0.8;
+
+          this.prevBtn.addEventListener('click', () => {
+            this.track.scrollBy({ left: -scrollAmount(), behavior: 'smooth' });
+          });
+
+          this.nextBtn.addEventListener('click', () => {
+            this.track.scrollBy({ left: scrollAmount(), behavior: 'smooth' });
+          });
+        }
+
+        // Drag to scroll logic
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+
+        const startDrag = (pageX) => {
+          isDown = true;
+          this.track.classList.add('is-dragging');
+          startX = pageX - this.track.offsetLeft;
+          scrollLeft = this.track.scrollLeft;
+        };
+
+        const stopDrag = () => {
+          isDown = false;
+          this.track.classList.remove('is-dragging');
+        };
+
+        const moveDrag = (pageX, e) => {
+          if (!isDown) return;
+          if (e) e.preventDefault(); // Prevents highlight selection on desktop
+          const x = pageX - this.track.offsetLeft;
+          const walk = (x - startX) * 1.5;
+          this.track.scrollLeft = scrollLeft - walk;
+        };
+
+        // Mouse Events (Desktop)
+        this.track.addEventListener('mousedown', (e) => startDrag(e.pageX));
+        this.track.addEventListener('mouseleave', stopDrag);
+        this.track.addEventListener('mouseup', stopDrag);
+        this.track.addEventListener('mousemove', (e) => moveDrag(e.pageX, e));
+
+        // Touch Events (Mobile & Browser Simulator)
+        this.track.addEventListener('touchstart', (e) => startDrag(e.touches[0].pageX), { passive: true });
+        this.track.addEventListener('touchend', stopDrag);
+        this.track.addEventListener(
+          'touchmove',
+          (e) => {
+            if (!isDown) return;
+            const x = e.touches[0].pageX - this.track.offsetLeft;
+            const walk = (x - startX) * 1.5;
+            this.track.scrollLeft = scrollLeft - walk;
+          },
+          { passive: true }
+        );
+
+        // Scroll state updates
+        this.track.addEventListener('scroll', () => this.updateButtons(), { passive: true });
+        window.addEventListener('resize', () => this.updateButtons());
+
+        setTimeout(() => this.updateButtons(), 100);
+      }
+
+      updateButtons() {
+        if (this.prevBtn) this.prevBtn.disabled = this.track.scrollLeft <= 0;
+        if (this.nextBtn) {
+          const isAtEnd = this.track.scrollLeft + this.track.clientWidth >= this.track.scrollWidth - 2;
+          this.nextBtn.disabled = isAtEnd;
+        }
+      }
+    }
+    customElements.define('collection-list-slider', CollectionListSlider);
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Collection List Slider",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "page_width",
+      "label": "Adapt to theme page width",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Heading Settings"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "SHOP The AISLES 🛒"
+    },
+    {
+      "type": "range",
+      "id": "heading_size_mobile",
+      "min": 16,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "label": "Font Size (Mobile)",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "heading_size_tablet",
+      "min": 16,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "label": "Font Size (Tablet)",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "heading_size_desktop",
+      "min": 16,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "label": "Font Size (Desktop)",
+      "default": 40
+    },
+    {
+      "type": "text",
+      "id": "heading_line_height",
+      "label": "Line Height",
+      "default": "1.2"
+    },
+    {
+      "type": "header",
+      "content": "Description Settings"
+    },
+    {
+      "type": "text",
+      "id": "description",
+      "label": "Short Description"
+    },
+    {
+      "type": "range",
+      "id": "desc_size_mobile",
+      "min": 12,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "label": "Font Size (Mobile)",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "desc_size_tablet",
+      "min": 12,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "label": "Font Size (Tablet)",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "desc_size_desktop",
+      "min": 12,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "label": "Font Size (Desktop)",
+      "default": 16
+    },
+    {
+      "type": "text",
+      "id": "desc_line_height",
+      "label": "Line Height",
+      "default": "1.5"
+    },
+    {
+      "type": "header",
+      "content": "Collection Title Settings"
+    },
+    {
+      "type": "range",
+      "id": "title_size_mobile",
+      "min": 10,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "label": "Font Size (Mobile)",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "title_size_tablet",
+      "min": 10,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "label": "Font Size (Tablet)",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "title_size_desktop",
+      "min": 10,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "label": "Font Size (Desktop)",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "General Settings"
+    },
+    {
+      "type": "range",
+      "id": "item_gap",
+      "min": 8,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Item Gap",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Collection Item",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title Override",
+          "info": "Leave blank to use default Collection title."
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Custom Image",
+          "info": "Leave blank to use default Collection featured image."
+        },
+        {
+          "type": "select",
+          "id": "image_shape",
+          "label": "Image Shape",
+          "options": [
+            { "value": "default", "label": "Default (Natural)" },
+            { "value": "circle", "label": "Circle" },
+            { "value": "square", "label": "Square" },
+            { "value": "portrait", "label": "Portrait" }
+          ],
+          "default": "default",
+          "info": "Choose per-item, so you can mix shapes across the grid."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection List Slider",
+      "blocks": [
+        { "type": "collection" },
+        { "type": "collection" },
+        { "type": "collection" },
+        { "type": "collection" },
+        { "type": "collection" },
+        { "type": "collection" },
+        { "type": "collection" }
+      ]
+    }
+  ]
+}
+{% endschema %}
