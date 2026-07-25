@@ -151,7 +151,11 @@
           "background_gradient": "",
           "text": "#272743",
           "button": "#272743",
+<<<<<<< HEAD
           "button_label": "#fdc3b7",
+=======
+          "button_label": "#FDC3B7",
+>>>>>>> 07b35a7 (7:49PM 25/07/26)
           "secondary_button_label": "#272743",
           "shadow": "#272743"
         }
@@ -193,6 +197,7 @@
         "settings": {
           "background": "#272743",
           "background_gradient": "",
+<<<<<<< HEAD
           "text": "#ffd6ce",
           "button": "#fdc3b7",
           "button_label": "#272743",
@@ -208,6 +213,12 @@
           "button": "#272743",
           "button_label": "#fdc3b7",
           "secondary_button_label": "#272743",
+=======
+          "text": "#FFD6CE",
+          "button": "#FDC3B7",
+          "button_label": "#272743",
+          "secondary_button_label": "#FDC3B7",
+>>>>>>> 07b35a7 (7:49PM 25/07/26)
           "shadow": "#272743"
         }
       }
