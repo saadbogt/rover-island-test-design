@@ -56,47 +56,6 @@
         "padding_bottom": 16
       }
     },
-    "tabbed_collection_slider_pRjy9J": {
-      "type": "tabbed-collection-slider",
-      "blocks": {
-        "collection_tab_wVr6Eb": {
-          "type": "collection_tab",
-          "settings": {
-            "title": "SKINCARE",
-            "collection": "abib"
-          }
-        },
-        "collection_tab_Pdcerp": {
-          "type": "collection_tab",
-          "settings": {
-            "title": "MAKEUP",
-            "collection": ""
-          }
-        },
-        "collection_tab_nTGw4V": {
-          "type": "collection_tab",
-          "settings": {
-            "title": "HAIR",
-            "collection": ""
-          }
-        }
-      },
-      "block_order": [
-        "collection_tab_wVr6Eb",
-        "collection_tab_Pdcerp",
-        "collection_tab_nTGw4V"
-      ],
-      "name": "Tabbed Collections Slider",
-      "settings": {
-        "sub_heading": "What Everyone's Reaching For",
-        "heading": "BAERRY VIRAL PICKS 🍒",
-        "products_to_show": 8,
-        "padding_top": 40,
-        "padding_bottom": 40,
-        "padding_left": 16,
-        "padding_right": 16
-      }
-    },
     "tabbed_collection_C8TPcq": {
       "type": "tabbed-collection",
       "blocks": {
@@ -141,7 +100,6 @@
   },
   "order": [
     "custom_carousel_banner_P3jKjA",
-    "tabbed_collection_slider_pRjy9J",
     "tabbed_collection_C8TPcq"
   ]
 }
