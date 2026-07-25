@@ -9,7 +9,9 @@
  */
 {
   "current": {
-    "logo_width": 90,
+    "logo": "shopify://shop_images/Rover_Island_Logo_19fe9114-1b11-4760-923b-553a7ea9d75a.png",
+    "logo_width": 120,
+    "favicon": "shopify://shop_images/Screenshot_2026-07-22_130816_fe1f135d-83d3-4116-bb1a-bdfe47aa98fc.png",
     "type_header_font": "assistant_n4",
     "heading_scale": 100,
     "type_body_font": "assistant_n4",
@@ -146,11 +148,11 @@
         "settings": {
           "background": "#ffffff",
           "background_gradient": "",
-          "text": "#121212",
-          "button": "#121212",
-          "button_label": "#ffffff",
-          "secondary_button_label": "#121212",
-          "shadow": "#121212"
+          "text": "#272743",
+          "button": "#272743",
+          "button_label": "#FDC3B7",
+          "secondary_button_label": "#272743",
+          "shadow": "#272743"
         }
       },
       "scheme-2": {
