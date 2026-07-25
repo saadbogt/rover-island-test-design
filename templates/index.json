@@ -96,10 +96,338 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
+    },
+    "collection_list_slider_CxULqk": {
+      "type": "collection-list-slider",
+      "blocks": {
+        "collection_z9rLyP": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "title": "",
+            "image": "shopify://shop_images/06_e6c552b0-a4ad-497a-a09b-9279e91db693.webp",
+            "image_shape": "default"
+          }
+        },
+        "collection_q9iYHX": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "title": "",
+            "image": "shopify://shop_images/05_4c07bfbb-943a-4e11-bee6-3d6c16960752.webp",
+            "image_shape": "default"
+          }
+        },
+        "collection_t7jgPK": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "title": "Hair Care",
+            "image": "shopify://shop_images/02_df557214-2115-409d-8f81-82c5f48c8aa5.webp",
+            "image_shape": "default"
+          }
+        },
+        "collection_MnfJtG": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "title": "Skincare",
+            "image": "shopify://shop_images/04_58ada8cc-be3f-4a66-8f3d-2a5bfb4e275f.webp",
+            "image_shape": "default"
+          }
+        },
+        "collection_y3fahN": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "title": "Makeup",
+            "image": "shopify://shop_images/03_b19ff44f-360c-4699-a6d4-54e1c82ca9c0.webp",
+            "image_shape": "default"
+          }
+        },
+        "collection_ezgLQj": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "title": "Bundles",
+            "image": "shopify://shop_images/01_0d8dba74-1505-4b6d-a94c-114fd6c78e03.webp",
+            "image_shape": "default"
+          }
+        }
+      },
+      "block_order": [
+        "collection_z9rLyP",
+        "collection_q9iYHX",
+        "collection_t7jgPK",
+        "collection_MnfJtG",
+        "collection_y3fahN",
+        "collection_ezgLQj"
+      ],
+      "name": "Collection List Slider",
+      "settings": {
+        "page_width": true,
+        "heading": "SHOP The AISLES 🛒",
+        "heading_size_mobile": 24,
+        "heading_size_tablet": 32,
+        "heading_size_desktop": 40,
+        "heading_line_height": "1.2",
+        "description": "",
+        "desc_size_mobile": 14,
+        "desc_size_tablet": 16,
+        "desc_size_desktop": 16,
+        "desc_line_height": "1.5",
+        "title_size_mobile": 16,
+        "title_size_tablet": 18,
+        "title_size_desktop": 20,
+        "item_gap": 16,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "tabbed_collection_3MaELi": {
+      "type": "tabbed-collection",
+      "blocks": {
+        "collection_FFndF9": {
+          "type": "collection",
+          "settings": {
+            "collection": "abib",
+            "title": ""
+          }
+        },
+        "collection_GhLBG6": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "title": ""
+          }
+        }
+      },
+      "block_order": [
+        "collection_FFndF9",
+        "collection_GhLBG6"
+      ],
+      "name": "Tabbed Product Grid",
+      "settings": {
+        "description": "What Everyone's Reaching For",
+        "heading": "VIRAL PICKS 🍒",
+        "show_vendor": false,
+        "show_rating": true,
+        "heading_size_mobile": 24,
+        "heading_size_tablet": 32,
+        "heading_size_desktop": 40,
+        "heading_line_height": "1.2",
+        "desc_size_mobile": 14,
+        "desc_size_tablet": 16,
+        "desc_size_desktop": 16,
+        "desc_line_height": "1.5",
+        "item_gap": 16,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "collection_list_slider_ADjdfJ": {
+      "type": "collection-list-slider",
+      "blocks": {
+        "collection_W8gtia": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "title": "",
+            "image": "shopify://shop_images/medicube_1cd5302c-59af-4900-a136-145eb2b28d3f.webp",
+            "image_shape": "default"
+          }
+        },
+        "collection_wwChew": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "title": "",
+            "image": "shopify://shop_images/mommy_care.webp",
+            "image_shape": "default"
+          }
+        },
+        "collection_aLwK8C": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "title": "",
+            "image": "shopify://shop_images/celimax_7f12e289-2cfc-4ba5-9643-f4fc7b8a75d4.webp",
+            "image_shape": "default"
+          }
+        },
+        "collection_CwTQUG": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "title": "",
+            "image": "shopify://shop_images/rom_nd.webp",
+            "image_shape": "default"
+          }
+        },
+        "collection_iPrMmM": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "title": "",
+            "image": "shopify://shop_images/somebymi.webp",
+            "image_shape": "default"
+          }
+        },
+        "collection_7deFPa": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "title": "",
+            "image": "shopify://shop_images/mommy_care.webp",
+            "image_shape": "default"
+          }
+        }
+      },
+      "block_order": [
+        "collection_W8gtia",
+        "collection_wwChew",
+        "collection_aLwK8C",
+        "collection_CwTQUG",
+        "collection_iPrMmM",
+        "collection_7deFPa"
+      ],
+      "name": "Collection List Slider",
+      "settings": {
+        "page_width": true,
+        "heading": "SHOP The AISLES 🛒",
+        "heading_size_mobile": 24,
+        "heading_size_tablet": 32,
+        "heading_size_desktop": 40,
+        "heading_line_height": "1.2",
+        "description": "",
+        "desc_size_mobile": 14,
+        "desc_size_tablet": 16,
+        "desc_size_desktop": 16,
+        "desc_line_height": "1.5",
+        "title_size_mobile": 16,
+        "title_size_tablet": 18,
+        "title_size_desktop": 20,
+        "item_gap": 16,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "tabbed_collection_Wkxnpr": {
+      "type": "tabbed-collection",
+      "blocks": {
+        "collection_x6PP9E": {
+          "type": "collection",
+          "settings": {
+            "collection": "abib",
+            "title": ""
+          }
+        },
+        "collection_LqAbmt": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "title": ""
+          }
+        }
+      },
+      "block_order": [
+        "collection_x6PP9E",
+        "collection_LqAbmt"
+      ],
+      "name": "Tabbed Product Grid",
+      "settings": {
+        "description": "What Everyone's Reaching For",
+        "heading": "VIRAL PICKS 🍒",
+        "show_vendor": false,
+        "show_rating": true,
+        "heading_size_mobile": 24,
+        "heading_size_tablet": 32,
+        "heading_size_desktop": 40,
+        "heading_line_height": "1.2",
+        "desc_size_mobile": 14,
+        "desc_size_tablet": 16,
+        "desc_size_desktop": 16,
+        "desc_line_height": "1.5",
+        "item_gap": 16,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "reels_slider_fT8A3H": {
+      "type": "reels-slider",
+      "blocks": {
+        "reel_TEHHyn": {
+          "type": "reel",
+          "settings": {
+            "product": "abib-airy-sunstick-smoothing-bar-spf50-non-sticky-matte-finish-sun-protection-for-face-and-body-long-lasting-korean-sun-stick",
+            "shopify_video": "shopify://files/videos/Reel - la roche posay - SUNSCREE - BN.mp4"
+          }
+        },
+        "reel_gAQMeN": {
+          "type": "reel",
+          "settings": {
+            "product": "abib-airy-sunstick-smoothing-bar-spf50-non-sticky-matte-finish-sun-protection-for-face-and-body-long-lasting-korean-sun-stick",
+            "shopify_video": "shopify://files/videos/Reel - la roche posay - SUNSCREE - BN.mp4"
+          }
+        },
+        "reel_7KjaUG": {
+          "type": "reel",
+          "settings": {
+            "product": "abib-airy-sunstick-smoothing-bar-spf50-non-sticky-matte-finish-sun-protection-for-face-and-body-long-lasting-korean-sun-stick",
+            "shopify_video": "shopify://files/videos/Reel - la roche posay - SUNSCREE - BN.mp4"
+          }
+        },
+        "reel_qEzymi": {
+          "type": "reel",
+          "settings": {
+            "product": "abib-airy-sunstick-smoothing-bar-spf50-non-sticky-matte-finish-sun-protection-for-face-and-body-long-lasting-korean-sun-stick",
+            "shopify_video": "shopify://files/videos/Reel - la roche posay - SUNSCREE - BN.mp4"
+          }
+        },
+        "reel_3fgKnQ": {
+          "type": "reel",
+          "settings": {
+            "product": "abib-airy-sunstick-smoothing-bar-spf50-non-sticky-matte-finish-sun-protection-for-face-and-body-long-lasting-korean-sun-stick",
+            "shopify_video": "shopify://files/videos/Reel - la roche posay - SUNSCREE - BN.mp4"
+          }
+        }
+      },
+      "block_order": [
+        "reel_TEHHyn",
+        "reel_gAQMeN",
+        "reel_7KjaUG",
+        "reel_qEzymi",
+        "reel_3fgKnQ"
+      ],
+      "name": "Shoppable Reels Slider",
+      "settings": {
+        "page_width": true,
+        "items_desktop": 4,
+        "items_tablet": 4,
+        "items_mobile": 3,
+        "heading": "Shop Our Reels",
+        "heading_size_mobile": 24,
+        "heading_size_tablet": 32,
+        "heading_size_desktop": 40,
+        "heading_line_height": "1.2",
+        "description": "",
+        "desc_size_mobile": 14,
+        "desc_size_tablet": 16,
+        "desc_size_desktop": 16,
+        "desc_line_height": "1.5",
+        "item_gap": 16,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
     "custom_carousel_banner_P3jKjA",
-    "tabbed_collection_C8TPcq"
+    "tabbed_collection_C8TPcq",
+    "collection_list_slider_CxULqk",
+    "tabbed_collection_3MaELi",
+    "collection_list_slider_ADjdfJ",
+    "tabbed_collection_Wkxnpr",
+    "reels_slider_fT8A3H"
   ]
 }
