@@ -104,7 +104,7 @@
           "type": "collection",
           "settings": {
             "collection": "",
-            "title": "",
+            "title": "New",
             "image": "shopify://shop_images/06_e6c552b0-a4ad-497a-a09b-9279e91db693.webp",
             "image_shape": "default"
           }
@@ -113,7 +113,7 @@
           "type": "collection",
           "settings": {
             "collection": "",
-            "title": "",
+            "title": "Best",
             "image": "shopify://shop_images/05_4c07bfbb-943a-4e11-bee6-3d6c16960752.webp",
             "image_shape": "default"
           }
