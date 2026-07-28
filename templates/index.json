@@ -12,40 +12,64 @@
     "custom_carousel_banner_P3jKjA": {
       "type": "custom-carousel-banner",
       "blocks": {
+        "image_V4z8j3": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/pc_mobile_kv2_0716_c3ed296a-ebdf-468e-8be7-53df8512bf4b.webp",
+            "link": ""
+          }
+        },
+        "image_hUJNgV": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/pc_mobile_kv4_0723_df44d667-8b5e-4786-92f2-702cca4e1096.webp",
+            "link": ""
+          }
+        },
+        "image_jkGgRx": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/pc_mobile_kv3_0723_9640b9cd-e1bc-465a-90e6-238c67628548.webp",
+            "link": ""
+          }
+        },
+        "image_nNVya8": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/pc_mobile_kv2_0723.webp",
+            "link": ""
+          }
+        },
+        "image_9UhXhm": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/pc_mobile_kv5_0723.webp",
+            "link": ""
+          }
+        },
+        "image_3yVWXp": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/pc_mobile_kv1_0723.webp",
+            "link": ""
+          }
+        },
         "image_hJCQqi": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/71bV9U3zuQL._AC_SL1200.jpg",
-            "link": ""
-          }
-        },
-        "image_UbA6df": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/71AtyUlxafL._SL1500_72be5731-61ff-4d32-9123-d6b049314750.jpg",
-            "link": ""
-          }
-        },
-        "image_b93UM7": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/81odpMrJLSL._SL1500.webp",
-            "link": ""
-          }
-        },
-        "image_QynPpz": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/71kI_TfE9FL._SL1500_7a7d2e69-75e8-4bed-9860-ab70aabcc498.jpg",
+            "image": "shopify://shop_images/pc_mobile_kv5_0716_cf24843c-5003-422d-a6d1-7b83ae545913.webp",
             "link": ""
           }
         }
       },
       "block_order": [
-        "image_hJCQqi",
-        "image_UbA6df",
-        "image_b93UM7",
-        "image_QynPpz"
+        "image_V4z8j3",
+        "image_hUJNgV",
+        "image_jkGgRx",
+        "image_nNVya8",
+        "image_9UhXhm",
+        "image_3yVWXp",
+        "image_hJCQqi"
       ],
       "name": "Custom Carousel Banner",
       "settings": {
