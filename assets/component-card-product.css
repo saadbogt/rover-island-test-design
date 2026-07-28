@@ -61,15 +61,23 @@
     font-size: var(--card-pc-badge-font-size, 1.2rem);
     pointer-events: auto;
   }
+
+  /* Custom badge (e.g. "NEW") reuses Dawn's own .card__badge + position-class system
+     (composed of separate .top and .left classes, same as settings.badge_position's
+     "bottom left" value) from component-card.css for placement - no new positioning rules
+     needed here. It's rendered as its own overlay/id so it can appear at the same time
+     as the sale/sold-out badge (which normally sits at settings.badge_position,
+     bottom-left by default) without the two competing for one slot. */
   
   /* ---- Vendor ---- */
   .product-card-wrapper .card__vendor {
-    margin-bottom: 0.3rem;
+    margin-bottom: var(--card-pc-vendor-margin-bottom, 4px);
   }
   
   .product-card-wrapper .card__vendor-link {
     color: var(--card-pc-vendor-color, inherit);
-    font-size: var(--card-pc-vendor-font-size, 1.2rem);
+    font-size: var(--card-pc-vendor-font-size, 1.4rem);
+    font-weight: var(--card-pc-vendor-font-weight, 600);
     text-decoration: none;
   }
   
@@ -80,6 +88,8 @@
   /* ---- Title ---- */
   .product-card-wrapper .card__heading {
     font-size: var(--card-pc-title-font-size-mobile, 1.4rem);
+    font-weight: var(--card-pc-title-font-weight, 400);
+    color: var(--card-pc-title-color, inherit);
   }
   
   .product-card-wrapper .card__heading a {
@@ -100,12 +110,29 @@
   }
   
   /* ---- Price ---- */
-  .product-card-wrapper .price .price-item--regular {
+  /* The actual discounted/current price shown when a product is on sale
+     (Dawn renders this as .price-item--sale, distinct from the struck-
+     through .price-item--regular next to it). */
+  .product-card-wrapper .price-item--sale {
     color: var(--card-pc-price-color, inherit);
+    font-size: var(--card-pc-price-font-size, 1.6rem);
+    font-weight: var(--card-pc-price-font-weight, 600);
   }
-  
+
+  /* The struck-through original price shown alongside the sale price. */
   .product-card-wrapper .price--on-sale .price-item--regular {
     color: var(--card-pc-compare-price-color, inherit);
+    font-size: var(--card-pc-compare-price-font-size, 1.4rem);
+    font-weight: 400;
+  }
+
+  /* The plain single price shown when a product is NOT on sale. Reuses the
+     title color/weight scale rather than the sale-red, since the design
+     spec only defines colors for the sale/compare states. */
+  .product-card-wrapper .price__regular .price-item--regular {
+    color: var(--card-pc-title-color, inherit);
+    font-size: var(--card-pc-price-font-size, 1.6rem);
+    font-weight: var(--card-pc-price-font-weight, 600);
   }
   
   /* ---- Product message ---- */
@@ -115,7 +142,8 @@
     gap: 0.6rem;
     margin-top: 0.4rem;
     color: var(--card-pc-message-color, rgba(var(--color-foreground), 0.75));
-    font-size: var(--card-pc-message-font-size, 1.2rem);
+    font-size: var(--card-pc-message-font-size, 1.1rem);
+    font-weight: var(--card-pc-message-font-weight, 400);
   }
   
   .product-card-wrapper .card__message-static::after {

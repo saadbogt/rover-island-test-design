@@ -56,8 +56,19 @@
       assign ratio = 1
     endif
 
-    assign has_badge = false
+    assign show_status_badge = false
     if card_product.available == false or card_product.compare_at_price > card_product.price
+      assign show_status_badge = true
+    endif
+
+    assign custom_badge_text = card_product.metafields.custom.badge_text
+    assign show_custom_badge = false
+    if custom_badge_text != blank
+      assign show_custom_badge = true
+    endif
+
+    assign has_badge = false
+    if show_status_badge or show_custom_badge
       assign has_badge = true
     endif
 
@@ -88,15 +99,23 @@
           --card-pc-badge-radius: {{ settings.badge_corner_radius | default: 4 }}px;
           --card-pc-badge-padding: {{ settings.card_pc_badge_padding | default: 8 }}px;
           --card-pc-badge-font-size: {{ settings.card_pc_badge_font_size | default: 12 }}px;
-          {% if settings.card_pc_vendor_color != blank %}--card-pc-vendor-color: {{ settings.card_pc_vendor_color }};{% endif %}
-          --card-pc-vendor-font-size: {{ settings.card_pc_vendor_font_size | default: 12 }}px;
+          --card-pc-vendor-color: {{ settings.card_pc_vendor_color | default: '#151515' }};
+          --card-pc-vendor-font-size: {{ settings.card_pc_vendor_font_size | default: 14 }}px;
+          --card-pc-vendor-font-weight: {{ settings.card_pc_vendor_font_weight | default: 600 }};
+          --card-pc-vendor-margin-bottom: {{ settings.card_pc_vendor_margin_bottom | default: 4 }}px;
+          --card-pc-title-color: {{ settings.card_pc_title_color | default: '#151515' }};
+          --card-pc-title-font-weight: {{ settings.card_pc_title_font_weight | default: 400 }};
           --card-pc-title-font-size-mobile: {{ settings.card_pc_title_font_size_mobile | default: 14 }}px;
           --card-pc-title-font-size-desktop: {{ settings.card_pc_title_font_size_desktop | default: 16 }}px;
           --card-pc-title-line-clamp: {{ settings.card_pc_title_line_clamp | default: 2 }};
-          {% if settings.card_pc_price_color != blank %}--card-pc-price-color: {{ settings.card_pc_price_color }};{% endif %}
-          {% if settings.card_pc_compare_price_color != blank %}--card-pc-compare-price-color: {{ settings.card_pc_compare_price_color }};{% endif %}
-          {% if settings.card_pc_message_color != blank %}--card-pc-message-color: {{ settings.card_pc_message_color }};{% endif %}
-          --card-pc-message-font-size: {{ settings.card_pc_message_font_size | default: 12 }}px;
+          --card-pc-price-color: {{ settings.card_pc_price_color | default: '#F22B3A' }};
+          --card-pc-price-font-size: {{ settings.card_pc_price_font_size | default: 16 }}px;
+          --card-pc-price-font-weight: {{ settings.card_pc_price_font_weight | default: 600 }};
+          --card-pc-compare-price-color: {{ settings.card_pc_compare_price_color | default: '#555555' }};
+          --card-pc-compare-price-font-size: {{ settings.card_pc_compare_price_font_size | default: 14 }}px;
+          --card-pc-message-color: {{ settings.card_pc_message_color | default: '#F22B3A' }};
+          --card-pc-message-font-size: {{ settings.card_pc_message_font_size | default: 11 }}px;
+          --card-pc-message-font-weight: {{ settings.card_pc_message_font_weight | default: 400 }};
         "
       >
         <div
@@ -162,7 +181,7 @@
                  absolutely positioned against .card__inner using Dawn's own badge CSS,
                  exactly like stock Dawn. Nesting it inside .card__media was what broke
                  stacking/clickability. {% endcomment %}
-            {%- if has_badge -%}
+            {%- if show_status_badge -%}
               <div class="card__badge {{ settings.badge_position }}">
                 {%- if card_product.available == false -%}
                   <span
@@ -179,6 +198,20 @@
                     {{- 'products.product.on_sale' | t -}}
                   </span>
                 {%- endif -%}
+              </div>
+            {%- endif -%}
+
+            {% comment %} Custom badge (e.g. "NEW") driven by product.metafields.custom.badge_text.
+                 Kept as its own overlay, pinned to the top-left corner, so it can co-exist with the
+                 sale/sold-out badge above without fighting over the same corner. {% endcomment %}
+            {%- if show_custom_badge -%}
+              <div class="card__badge card__badge--custom top left">
+                <span
+                  id="CustomBadge-{{ section_id }}-{{ card_product.id }}"
+                  class="badge color-{{ settings.card_pc_custom_badge_color_scheme | default: settings.sale_badge_color_scheme }}"
+                >
+                  {{- custom_badge_text -}}
+                </span>
               </div>
             {%- endif -%}
           {%- endif -%}
@@ -219,7 +252,7 @@
                   href="{{ card_product.url }}"
                   id="CardLink-{{ section_id }}-{{ card_product.id }}"
                   class="full-unstyled-link"
-                  aria-labelledby="CardLink-{{ section_id }}-{{ card_product.id }}{% if has_badge %} Badge-{{ section_id }}-{{ card_product.id }}{% endif %}"
+                  aria-labelledby="CardLink-{{ section_id }}-{{ card_product.id }}{% if show_status_badge %} Badge-{{ section_id }}-{{ card_product.id }}{% endif %}{% if show_custom_badge %} CustomBadge-{{ section_id }}-{{ card_product.id }}{% endif %}"
                 >
                   {{ card_product.title | escape }}
                 </a>
