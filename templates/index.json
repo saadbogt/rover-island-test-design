@@ -386,7 +386,7 @@
         "desc_size_tablet": 16,
         "desc_size_desktop": 16,
         "desc_line_height": "1.5",
-        "show_in_stock_only": false,
+        "show_in_stock_only": true,
         "products_limit": 10,
         "products_to_slide": 1,
         "products_per_view_mobile": 2,
