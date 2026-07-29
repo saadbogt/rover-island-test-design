@@ -128,11 +128,7 @@
           "type": "collection",
           "settings": {
             "collection": "",
-<<<<<<< HEAD
             "title": "New",
-=======
-            "title": "",
->>>>>>> 07b35a7 (7:49PM 25/07/26)
             "image": "shopify://shop_images/06_e6c552b0-a4ad-497a-a09b-9279e91db693.webp",
             "image_shape": "default"
           }
@@ -141,11 +137,7 @@
           "type": "collection",
           "settings": {
             "collection": "",
-<<<<<<< HEAD
             "title": "Best",
-=======
-            "title": "",
->>>>>>> 07b35a7 (7:49PM 25/07/26)
             "image": "shopify://shop_images/05_4c07bfbb-943a-4e11-bee6-3d6c16960752.webp",
             "image_shape": "default"
           }
@@ -240,8 +232,8 @@
       ],
       "name": "Tabbed Product Grid",
       "settings": {
-        "description": "What Everyone's Reaching For",
-        "heading": "VIRAL PICKS 🍒",
+        "description": "Your Daily Glow, The Korean Way",
+        "heading": "GLASS SKIN ROUTINE 💧",
         "show_vendor": false,
         "show_rating": true,
         "heading_size_mobile": 24,
@@ -264,7 +256,7 @@
           "type": "collection",
           "settings": {
             "collection": "",
-            "title": "",
+            "title": "FOODOLOGY",
             "image": "shopify://shop_images/medicube_1cd5302c-59af-4900-a136-145eb2b28d3f.webp",
             "image_shape": "default"
           }
@@ -273,7 +265,7 @@
           "type": "collection",
           "settings": {
             "collection": "",
-            "title": "",
+            "title": "Shiseido FINO",
             "image": "shopify://shop_images/mommy_care.webp",
             "image_shape": "default"
           }
@@ -282,7 +274,7 @@
           "type": "collection",
           "settings": {
             "collection": "",
-            "title": "",
+            "title": "Medicube",
             "image": "shopify://shop_images/celimax_7f12e289-2cfc-4ba5-9643-f4fc7b8a75d4.webp",
             "image_shape": "default"
           }
@@ -291,7 +283,7 @@
           "type": "collection",
           "settings": {
             "collection": "",
-            "title": "",
+            "title": "Numbuzin",
             "image": "shopify://shop_images/rom_nd.webp",
             "image_shape": "default"
           }
@@ -300,7 +292,7 @@
           "type": "collection",
           "settings": {
             "collection": "",
-            "title": "",
+            "title": "Beauty of Joseon",
             "image": "shopify://shop_images/somebymi.webp",
             "image_shape": "default"
           }
@@ -309,7 +301,7 @@
           "type": "collection",
           "settings": {
             "collection": "",
-            "title": "",
+            "title": "CeraVe",
             "image": "shopify://shop_images/mommy_care.webp",
             "image_shape": "default"
           }
@@ -326,12 +318,12 @@
       "name": "Collection List Slider",
       "settings": {
         "page_width": true,
-        "heading": "SHOP The AISLES 🛒",
+        "heading": "BUZZ IN THE MARKET 🧺",
         "heading_size_mobile": 24,
         "heading_size_tablet": 32,
         "heading_size_desktop": 40,
         "heading_line_height": "1.2",
-        "description": "",
+        "description": "Trending K-Beauty Brands",
         "desc_size_mobile": 14,
         "desc_size_tablet": 16,
         "desc_size_desktop": 16,
@@ -368,8 +360,8 @@
       ],
       "name": "Tabbed Product Grid",
       "settings": {
-        "description": "What Everyone's Reaching For",
-        "heading": "VIRAL PICKS 🍒",
+        "description": "Upto 70% OFF",
+        "heading": "CLEARENCE SALE ⚡",
         "show_vendor": false,
         "show_rating": true,
         "heading_size_mobile": 24,
