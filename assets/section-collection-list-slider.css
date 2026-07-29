@@ -39,6 +39,8 @@
   margin: 0;
   list-style: none;
   cursor: grab;
+  touch-action: pan-y;
+  -webkit-user-select: none;
   user-select: none;
 }
 
@@ -52,25 +54,24 @@
   display: none;
 }
 
-/* Slide Cards - Exact Peek Calculations */
-/* Mobile: 2 items + 3rd peeks 5% (accounts for 2 gaps) */
+/* Mobile: configurable item count, default 2 items + peek of the next (accounts for N gaps) */
 .collection-list-slider__slide {
   scroll-snap-align: start;
-  flex: 0 0 calc((100% - (var(--grid-gap) * 2)) / 2.05);
+  flex: 0 0 calc((100% - (var(--grid-gap) * var(--cls-gap-count-mobile, 2))) / var(--cls-items-mobile, 2.05));
   box-sizing: border-box;
 }
 
-/* Tablet: 6 items + 7th peeks 10% (accounts for 6 gaps) */
+/* Tablet: configurable item count, default 6 items + peek of the next */
 @media screen and (min-width: 750px) {
   .collection-list-slider__slide {
-    flex: 0 0 calc((100% - (var(--grid-gap) * 6)) / 6.1);
+    flex: 0 0 calc((100% - (var(--grid-gap) * var(--cls-gap-count-tablet, 6))) / var(--cls-items-tablet, 6.1));
   }
 }
 
-/* Desktop: 6 items + 7th peeks 10% (accounts for 6 gaps) */
+/* Desktop: configurable item count, default 6 items + peek of the next */
 @media screen and (min-width: 990px) {
   .collection-list-slider__slide {
-    flex: 0 0 calc((100% - (var(--grid-gap) * 6)) / 6.1);
+    flex: 0 0 calc((100% - (var(--grid-gap) * var(--cls-gap-count-desktop, 6))) / var(--cls-items-desktop, 6.1));
   }
 }
 

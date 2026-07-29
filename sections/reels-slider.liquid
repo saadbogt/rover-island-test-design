@@ -140,16 +140,25 @@
 <script>
   if (!customElements.get('shoppable-reels-slider')) {
     class ShoppableReelsSlider extends HTMLElement {
-      constructor() {
-        super();
-        this.track = this.querySelector('.reels-slider__track');
-        this.prevBtn = this.querySelector('.prev');
-        this.nextBtn = this.querySelector('.next');
-      }
-
       connectedCallback() {
-        this.initSlider();
-        this.initResizeObserver();
+        // Guard against connectedCallback firing more than once.
+        if (this._initialized) return;
+
+        // IMPORTANT: do not read children in the constructor - see the same
+        // note in custom-carousel-banner.liquid. This class used to query
+        // .reels-slider__track in the constructor, which returned null for
+        // any instance after the first when this section is used more than
+        // once on a page (its children weren't parsed yet at construction
+        // time). That silently broke drag/arrow navigation on every instance
+        // past the first. Deferring by one frame fixes it for all instances.
+        requestAnimationFrame(() => {
+          this._initialized = true;
+          this.track = this.querySelector('.reels-slider__track');
+          this.prevBtn = this.querySelector('.prev');
+          this.nextBtn = this.querySelector('.next');
+          this.initSlider();
+          this.initResizeObserver();
+        });
       }
 
       initSlider() {
@@ -161,52 +170,91 @@
           this.nextBtn.addEventListener('click', () => this.track.scrollBy({ left: scrollAmount(), behavior: 'smooth' }));
         }
 
+        // Drag to scroll: smooth, momentum-based, unifies mouse/touch/pen via
+        // Pointer Events. Tracks 1:1 with the pointer, then coasts with
+        // friction-based momentum on release so it settles into its
+        // scroll-snap position instead of stopping dead.
         let isDown = false;
-        let startX;
-        let scrollLeft;
-        let isDragging = false;
+        let moved = false;
+        let startX = 0;
+        let startScrollLeft = 0;
+        let lastX = 0;
+        let lastT = 0;
+        let velocity = 0;
+        let momentumId = null;
 
-        const startDrag = (pageX) => {
-          isDown = true;
-          isDragging = false;
-          this.track.classList.add('is-dragging');
-          startX = pageX - this.track.offsetLeft;
-          scrollLeft = this.track.scrollLeft;
+        const cancelMomentum = () => {
+          if (momentumId) {
+            cancelAnimationFrame(momentumId);
+            momentumId = null;
+          }
         };
 
-        const stopDrag = () => {
+        this.track.addEventListener('pointerdown', (e) => {
+          if (e.pointerType === 'mouse' && e.button !== 0) return;
+          cancelMomentum();
+          isDown = true;
+          moved = false;
+          this.track.classList.add('is-dragging');
+          startX = e.clientX;
+          lastX = e.clientX;
+          startScrollLeft = this.track.scrollLeft;
+          lastT = performance.now();
+          velocity = 0;
+          this.track.setPointerCapture(e.pointerId);
+        });
+
+        this.track.addEventListener('pointermove', (e) => {
+          if (!isDown) return;
+          const dx = e.clientX - startX;
+          if (Math.abs(dx) > 3) moved = true;
+          this.track.scrollLeft = startScrollLeft - dx;
+
+          const now = performance.now();
+          const dt = now - lastT;
+          if (dt > 0) velocity = (e.clientX - lastX) / dt;
+          lastX = e.clientX;
+          lastT = now;
+        });
+
+        const endDrag = (e) => {
           if (!isDown) return;
           isDown = false;
           this.track.classList.remove('is-dragging');
-          setTimeout(() => { isDragging = false; }, 50); 
+          try {
+            this.track.releasePointerCapture(e.pointerId);
+          } catch (err) {
+            /* pointer already released */
+          }
+
+          let v = velocity * 16;
+          const friction = 0.94;
+          const step = () => {
+            if (Math.abs(v) < 0.5) {
+              momentumId = null;
+              return;
+            }
+            this.track.scrollLeft -= v;
+            v *= friction;
+            momentumId = requestAnimationFrame(step);
+          };
+          if (Math.abs(v) > 1) momentumId = requestAnimationFrame(step);
         };
 
-        const moveDrag = (pageX, e) => {
-          if (!isDown) return;
-          isDragging = true;
-          if (e && e.cancelable) e.preventDefault();
-          const x = pageX - this.track.offsetLeft;
-          const walk = (x - startX) * 1.5;
-          this.track.scrollLeft = scrollLeft - walk;
-        };
+        this.track.addEventListener('pointerup', endDrag);
+        this.track.addEventListener('pointercancel', endDrag);
 
-        this.track.addEventListener('mousedown', (e) => startDrag(e.pageX));
-        window.addEventListener('mouseup', stopDrag);
-        this.track.addEventListener('mousemove', (e) => moveDrag(e.pageX, e));
-
-        this.track.addEventListener('touchstart', (e) => startDrag(e.touches[0].pageX), { passive: true });
-        window.addEventListener('touchend', stopDrag);
-        this.track.addEventListener('touchmove', (e) => {
-          if (!isDown) return;
-          moveDrag(e.touches[0].pageX, null);
-        }, { passive: true });
-
-        const links = this.querySelectorAll('.reels-slider__link');
-        links.forEach(link => {
-          link.addEventListener('click', (e) => {
-            if (isDragging) e.preventDefault();
-          });
-        });
+        // Prevent a dragged reel card from also firing a click/navigation on release.
+        this.track.addEventListener(
+          'click',
+          (e) => {
+            if (moved) {
+              e.preventDefault();
+              e.stopPropagation();
+            }
+          },
+          true
+        );
 
         this.track.addEventListener('scroll', () => this.updateButtons(), { passive: true });
         this.updateButtons();

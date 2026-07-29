@@ -69,18 +69,40 @@
 <script>
   if (!customElements.get('infinite-carousel')) {
     class InfiniteCarousel extends HTMLElement {
-      constructor() {
-        super();
-        this.track = this.querySelector('.custom-carousel-track');
-        this.slides = Array.from(this.track.children);
-        this.prevBtn = this.querySelector('.prev');
-        this.nextBtn = this.querySelector('.next');
-        
-        this.isAnimating = false;
-        this.autoplayInterval = null;
-        this.speed = parseInt(this.dataset.speed) || 3000;
-        
-        this.init();
+      connectedCallback() {
+        // Guard against connectedCallback firing more than once
+        // (e.g. if the theme editor moves/reinserts the element).
+        if (this._initialized) return;
+
+        // IMPORTANT: do not read children in the constructor. Per the Custom
+        // Elements spec, a constructor must not inspect attributes or children -
+        // the DOM subtree isn't guaranteed to exist yet. In practice this only
+        // bites when the same section is used more than once on a page: the
+        // browser upgrades every <infinite-carousel> the moment it sees the
+        // opening tag, before that instance's own children have been parsed.
+        // Reading this.querySelector('.custom-carousel-track') in the
+        // constructor returned null for every instance after the first, and
+        // this.track.children then threw - breaking the whole script (and
+        // with it every other slider on the page). Deferring by one frame
+        // guarantees the full subtree exists first, for every instance.
+        requestAnimationFrame(() => {
+          this._initialized = true;
+          this.track = this.querySelector('.custom-carousel-track');
+          if (!this.track) return;
+          this.slides = Array.from(this.track.children);
+          this.prevBtn = this.querySelector('.prev');
+          this.nextBtn = this.querySelector('.next');
+
+          this.isAnimating = false;
+          this.autoplayInterval = null;
+          this.speed = parseInt(this.dataset.speed) || 3000;
+
+          this.init();
+        });
+      }
+
+      disconnectedCallback() {
+        this.pause();
       }
 
       init() {
@@ -95,9 +117,12 @@
 
         this.addEventListener('mouseenter', () => this.pause());
         this.addEventListener('mouseleave', () => this.play());
-        
+
         this.addEventListener('touchstart', () => this.pause(), { passive: true });
         this.addEventListener('touchend', () => this.play(), { passive: true });
+
+        this.addEventListener('focusin', () => this.pause());
+        this.addEventListener('focusout', () => this.play());
 
         this.play();
       }

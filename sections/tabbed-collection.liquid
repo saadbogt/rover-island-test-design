@@ -42,7 +42,15 @@
 
 <tabbed-collection
   class="tabbed-collection-section section-{{ section.id }}-padding section-{{ section.id }}-typography page-width"
-  style="--grid-gap: {{ section.settings.item_gap }}px;"
+  style="
+    --grid-gap: {{ section.settings.item_gap }}px;
+    --tc-items-mobile: {{ section.settings.products_per_view_mobile | default: 2 | plus: 0.05 }};
+    --tc-gap-count-mobile: {{ section.settings.products_per_view_mobile | default: 2 }};
+    --tc-items-tablet: {{ section.settings.products_per_view_tablet | default: 3 | plus: 0.1 }};
+    --tc-gap-count-tablet: {{ section.settings.products_per_view_tablet | default: 3 }};
+    --tc-items-desktop: {{ section.settings.products_per_view_desktop | default: 6 | plus: 0.1 }};
+    --tc-gap-count-desktop: {{ section.settings.products_per_view_desktop | default: 6 }};
+  "
 >
   <div class="tabbed-collection__header">
     {%- if section.settings.description != blank -%}
@@ -59,6 +67,7 @@
       {%- assign tab_title = block.settings.title | default: collection.title | default: 'Collection' -%}
       <button
         type="button"
+        id="tab-{{ section.id }}-{{ block.id }}"
         class="tabbed-collection__tab-btn"
         role="tab"
         aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
@@ -78,6 +87,8 @@
         id="panel-{{ section.id }}-{{ block.id }}"
         class="tabbed-collection__panel {% if forloop.first %}is-active{% endif %}"
         role="tabpanel"
+        aria-labelledby="tab-{{ section.id }}-{{ block.id }}"
+        tabindex="0"
       >
         <div class="tabbed-slider-wrapper">
           <button class="tabbed-slider-btn prev" aria-label="Previous slide" disabled>
@@ -86,8 +97,15 @@
             </svg>
           </button>
 
-          <div class="tabbed-slider-track">
-            {%- for product in collection.products limit: 10 -%}
+          <div class="tabbed-slider-track" data-slide-count="{{ section.settings.products_to_slide | default: 1 }}">
+            {%- liquid
+              assign products_to_render = collection.products
+              if section.settings.show_in_stock_only
+                assign products_to_render = collection.products | where: 'available', true
+              endif
+              assign products_limit = section.settings.products_limit | default: 10
+            -%}
+            {%- for product in products_to_render limit: products_limit -%}
               <div class="tabbed-slider-slide">
                 {% render 'card-product',
                   card_product: product,
@@ -178,7 +196,13 @@
 
           // --- 1. Arrow Navigation ---
           if (prevBtn && nextBtn) {
-            const scrollAmount = () => track.clientWidth * 0.8;
+            const scrollAmount = () => {
+              const slide = track.querySelector('.tabbed-slider-slide');
+              const slideCount = parseInt(track.dataset.slideCount, 10) || 1;
+              if (!slide) return track.clientWidth * 0.8;
+              const gap = parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap) || 0;
+              return (slide.getBoundingClientRect().width + gap) * slideCount;
+            };
 
             prevBtn.addEventListener('click', () => {
               track.scrollBy({ left: -scrollAmount(), behavior: 'smooth' });
@@ -189,35 +213,8 @@
             });
           }
 
-          // --- 2. Drag to Scroll (Mouse/Touch fallback) ---
-          let isDown = false;
-          let startX;
-          let scrollLeft;
-
-          track.addEventListener('mousedown', (e) => {
-            isDown = true;
-            track.classList.add('is-dragging');
-            startX = e.pageX - track.offsetLeft;
-            scrollLeft = track.scrollLeft;
-          });
-
-          track.addEventListener('mouseleave', () => {
-            isDown = false;
-            track.classList.remove('is-dragging');
-          });
-
-          track.addEventListener('mouseup', () => {
-            isDown = false;
-            track.classList.remove('is-dragging');
-          });
-
-          track.addEventListener('mousemove', (e) => {
-            if (!isDown) return;
-            e.preventDefault();
-            const x = e.pageX - track.offsetLeft;
-            const walk = (x - startX) * 1.5; // Multiply for faster dragging
-            track.scrollLeft = scrollLeft - walk;
-          });
+          // --- 2. Drag to Scroll (smooth, momentum-based, unifies mouse/touch/pen) ---
+          this.attachSmoothDrag(track);
 
           // --- 3. Arrow State Updates ---
           track.addEventListener('scroll', () => this.updateSliderButtons(track), { passive: true });
@@ -225,6 +222,96 @@
 
           setTimeout(() => this.updateSliderButtons(track), 100);
         });
+      }
+
+      // Pointer Events give one consistent code path for mouse, touch, and pen -
+      // avoids the old bug where separate mouse + touch listeners could both
+      // fire on hybrid touchscreen laptops and fight each other. Tracks the
+      // pointer 1:1 (no artificial multiplier) for a direct-manipulation feel,
+      // then applies a friction-based momentum coast on release so the slider
+      // settles smoothly into its scroll-snap position instead of stopping dead.
+      attachSmoothDrag(track) {
+        let isDown = false;
+        let moved = false;
+        let startX = 0;
+        let startScrollLeft = 0;
+        let lastX = 0;
+        let lastT = 0;
+        let velocity = 0;
+        let momentumId = null;
+
+        const cancelMomentum = () => {
+          if (momentumId) {
+            cancelAnimationFrame(momentumId);
+            momentumId = null;
+          }
+        };
+
+        track.addEventListener('pointerdown', (e) => {
+          if (e.pointerType === 'mouse' && e.button !== 0) return;
+          cancelMomentum();
+          isDown = true;
+          moved = false;
+          track.classList.add('is-dragging');
+          startX = e.clientX;
+          lastX = e.clientX;
+          startScrollLeft = track.scrollLeft;
+          lastT = performance.now();
+          velocity = 0;
+          track.setPointerCapture(e.pointerId);
+        });
+
+        track.addEventListener('pointermove', (e) => {
+          if (!isDown) return;
+          const dx = e.clientX - startX;
+          if (Math.abs(dx) > 3) moved = true;
+          track.scrollLeft = startScrollLeft - dx;
+
+          const now = performance.now();
+          const dt = now - lastT;
+          if (dt > 0) velocity = (e.clientX - lastX) / dt;
+          lastX = e.clientX;
+          lastT = now;
+        });
+
+        const endDrag = (e) => {
+          if (!isDown) return;
+          isDown = false;
+          track.classList.remove('is-dragging');
+          try {
+            track.releasePointerCapture(e.pointerId);
+          } catch (err) {
+            /* pointer already released */
+          }
+
+          let v = velocity * 16; // approx px/frame at ~60fps
+          const friction = 0.94;
+          const step = () => {
+            if (Math.abs(v) < 0.5) {
+              momentumId = null;
+              return;
+            }
+            track.scrollLeft -= v;
+            v *= friction;
+            momentumId = requestAnimationFrame(step);
+          };
+          if (Math.abs(v) > 1) momentumId = requestAnimationFrame(step);
+        };
+
+        track.addEventListener('pointerup', endDrag);
+        track.addEventListener('pointercancel', endDrag);
+
+        // Prevent a dragged card from also firing a click/navigation on release.
+        track.addEventListener(
+          'click',
+          (e) => {
+            if (moved) {
+              e.preventDefault();
+              e.stopPropagation();
+            }
+          },
+          true
+        );
       }
 
       updateSliderButtons(track) {
@@ -364,6 +451,59 @@
     {
       "type": "header",
       "content": "General Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_in_stock_only",
+      "label": "Only show in-stock products",
+      "info": "Hides sold-out products from every tab's slider.",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "products_limit",
+      "min": 4,
+      "max": 24,
+      "step": 1,
+      "label": "Total products in slider",
+      "info": "How many products to load into each tab's slider.",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "products_to_slide",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "label": "Products to slide per arrow click",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "products_per_view_mobile",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "label": "Products to show (mobile)",
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "products_per_view_tablet",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "label": "Products to show (tablet)",
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "products_per_view_desktop",
+      "min": 2,
+      "max": 8,
+      "step": 1,
+      "label": "Products to show (desktop)",
+      "default": 6
     },
     {
       "type": "range",

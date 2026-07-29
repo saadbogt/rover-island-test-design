@@ -60,16 +60,52 @@
     </div>
   {%- endif -%}
 
-  <div class="collection-list-slider__container" style="--grid-gap: {{ section.settings.item_gap }}px;">
+  <div
+    class="collection-list-slider__container"
+    style="
+      --grid-gap: {{ section.settings.item_gap }}px;
+      --cls-items-mobile: {{ section.settings.items_per_view_mobile | default: 2 | plus: 0.05 }};
+      --cls-gap-count-mobile: {{ section.settings.items_per_view_mobile | default: 2 }};
+      --cls-items-tablet: {{ section.settings.items_per_view_tablet | default: 6 | plus: 0.1 }};
+      --cls-gap-count-tablet: {{ section.settings.items_per_view_tablet | default: 6 }};
+      --cls-items-desktop: {{ section.settings.items_per_view_desktop | default: 6 | plus: 0.1 }};
+      --cls-gap-count-desktop: {{ section.settings.items_per_view_desktop | default: 6 }};
+    "
+  >
     <button class="collection-list-slider__btn prev" aria-label="Previous slide" disabled>
       <svg viewBox="0 0 14 10" fill="none" class="icon icon-arrow" xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" clip-rule="evenodd" d="M8.537.808a.5.5 0 01.817-.162l4 4a.5.5 0 010 .708l-4 4a.5.5 0 11-.708-.708L11.793 5.5H1.5a.5.5 0 010-1h10.293L8.646 1.354a.5.5 0 01-.109-.546z" fill="currentColor" transform="rotate(180 7 5)"></path>
       </svg>
     </button>
 
-    <ul class="collection-list-slider__track" role="list">
+    <ul class="collection-list-slider__track" role="list" data-slide-count="{{ section.settings.items_to_slide | default: 1 }}">
+      {%- liquid
+        assign rendered_count = 0
+        assign max_items = section.settings.max_items | default: 0
+      -%}
       {%- for block in section.blocks -%}
         {%- assign collection = block.settings.collection -%}
+
+        {%- comment -%}
+          "Only show collections with in-stock products" is the collection-level
+          equivalent of a product slider's in-stock filter: skip any block whose
+          linked collection currently has zero available products, rather than
+          checking an "available" flag that doesn't exist on a collection itself.
+          Blocks with no linked collection (custom image only) are left alone,
+          since there's nothing to check stock against.
+        {%- endcomment -%}
+        {%- if section.settings.show_in_stock_only and collection != blank -%}
+          {%- assign in_stock_count = collection.products | where: 'available', true | size -%}
+          {%- if in_stock_count == 0 -%}
+            {%- continue -%}
+          {%- endif -%}
+        {%- endif -%}
+
+        {%- if max_items > 0 and rendered_count >= max_items -%}
+          {%- break -%}
+        {%- endif -%}
+        {%- assign rendered_count = rendered_count | plus: 1 -%}
+
         {%- assign collection_title = block.settings.title | default: collection.title | default: 'Collection' -%}
         {%- assign collection_image = block.settings.image | default: collection.featured_image -%}
         {%- assign image_shape = block.settings.image_shape | default: 'default' -%}
@@ -157,7 +193,13 @@
 
         // Arrow controls
         if (this.prevBtn && this.nextBtn) {
-          const scrollAmount = () => this.track.clientWidth * 0.8;
+          const scrollAmount = () => {
+            const slide = this.track.querySelector('.collection-list-slider__slide');
+            const slideCount = parseInt(this.track.dataset.slideCount, 10) || 1;
+            if (!slide) return this.track.clientWidth * 0.8;
+            const gap = parseFloat(getComputedStyle(this.track).columnGap || getComputedStyle(this.track).gap) || 0;
+            return (slide.getBoundingClientRect().width + gap) * slideCount;
+          };
 
           this.prevBtn.addEventListener('click', () => {
             this.track.scrollBy({ left: -scrollAmount(), behavior: 'smooth' });
@@ -168,49 +210,90 @@
           });
         }
 
-        // Drag to scroll logic
+        // Drag to scroll: smooth, momentum-based, unifies mouse/touch/pen via
+        // Pointer Events. Tracks 1:1 with the pointer for a direct-manipulation
+        // feel, then coasts with friction-based momentum on release so it
+        // settles into its scroll-snap position instead of stopping dead.
         let isDown = false;
-        let startX;
-        let scrollLeft;
+        let moved = false;
+        let startX = 0;
+        let startScrollLeft = 0;
+        let lastX = 0;
+        let lastT = 0;
+        let velocity = 0;
+        let momentumId = null;
 
-        const startDrag = (pageX) => {
-          isDown = true;
-          this.track.classList.add('is-dragging');
-          startX = pageX - this.track.offsetLeft;
-          scrollLeft = this.track.scrollLeft;
+        const cancelMomentum = () => {
+          if (momentumId) {
+            cancelAnimationFrame(momentumId);
+            momentumId = null;
+          }
         };
 
-        const stopDrag = () => {
+        this.track.addEventListener('pointerdown', (e) => {
+          if (e.pointerType === 'mouse' && e.button !== 0) return;
+          cancelMomentum();
+          isDown = true;
+          moved = false;
+          this.track.classList.add('is-dragging');
+          startX = e.clientX;
+          lastX = e.clientX;
+          startScrollLeft = this.track.scrollLeft;
+          lastT = performance.now();
+          velocity = 0;
+          this.track.setPointerCapture(e.pointerId);
+        });
+
+        this.track.addEventListener('pointermove', (e) => {
+          if (!isDown) return;
+          const dx = e.clientX - startX;
+          if (Math.abs(dx) > 3) moved = true;
+          this.track.scrollLeft = startScrollLeft - dx;
+
+          const now = performance.now();
+          const dt = now - lastT;
+          if (dt > 0) velocity = (e.clientX - lastX) / dt;
+          lastX = e.clientX;
+          lastT = now;
+        });
+
+        const endDrag = (e) => {
+          if (!isDown) return;
           isDown = false;
           this.track.classList.remove('is-dragging');
+          try {
+            this.track.releasePointerCapture(e.pointerId);
+          } catch (err) {
+            /* pointer already released */
+          }
+
+          let v = velocity * 16;
+          const friction = 0.94;
+          const step = () => {
+            if (Math.abs(v) < 0.5) {
+              momentumId = null;
+              return;
+            }
+            this.track.scrollLeft -= v;
+            v *= friction;
+            momentumId = requestAnimationFrame(step);
+          };
+          if (Math.abs(v) > 1) momentumId = requestAnimationFrame(step);
         };
 
-        const moveDrag = (pageX, e) => {
-          if (!isDown) return;
-          if (e) e.preventDefault(); // Prevents highlight selection on desktop
-          const x = pageX - this.track.offsetLeft;
-          const walk = (x - startX) * 1.5;
-          this.track.scrollLeft = scrollLeft - walk;
-        };
+        this.track.addEventListener('pointerup', endDrag);
+        this.track.addEventListener('pointercancel', endDrag);
 
-        // Mouse Events (Desktop)
-        this.track.addEventListener('mousedown', (e) => startDrag(e.pageX));
-        this.track.addEventListener('mouseleave', stopDrag);
-        this.track.addEventListener('mouseup', stopDrag);
-        this.track.addEventListener('mousemove', (e) => moveDrag(e.pageX, e));
-
-        // Touch Events (Mobile & Browser Simulator)
-        this.track.addEventListener('touchstart', (e) => startDrag(e.touches[0].pageX), { passive: true });
-        this.track.addEventListener('touchend', stopDrag);
+        // Prevent a dragged card from also firing a click/navigation on release.
         this.track.addEventListener(
-          'touchmove',
+          'click',
           (e) => {
-            if (!isDown) return;
-            const x = e.touches[0].pageX - this.track.offsetLeft;
-            const walk = (x - startX) * 1.5;
-            this.track.scrollLeft = scrollLeft - walk;
+            if (moved) {
+              e.preventDefault();
+              e.stopPropagation();
+            }
           },
-          { passive: true }
+          true
         );
 
         // Scroll state updates
@@ -372,6 +455,59 @@
     {
       "type": "header",
       "content": "General Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_in_stock_only",
+      "label": "Only show collections with in-stock products",
+      "info": "Hides any collection tile whose collection currently has zero available products.",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "max_items",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "label": "Total items to show in slider",
+      "info": "Caps how many of the collection blocks below actually render. Set to 0 to show all added blocks.",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "items_to_slide",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "label": "Items to slide per arrow click",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "items_per_view_mobile",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "label": "Items to show (mobile)",
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "items_per_view_tablet",
+      "min": 2,
+      "max": 8,
+      "step": 1,
+      "label": "Items to show (tablet)",
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "items_per_view_desktop",
+      "min": 2,
+      "max": 10,
+      "step": 1,
+      "label": "Items to show (desktop)",
+      "default": 6
     },
     {
       "type": "range",

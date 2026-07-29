@@ -96,6 +96,11 @@
     padding-bottom: 1rem;
     cursor: grab;
     /* Shows a grab hand on desktop */
+    touch-action: pan-y;
+    /* Lets the page still scroll vertically while Pointer Events drive
+       horizontal drag - required for smooth touch dragging. */
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 /* Added for when a user is actively dragging */
@@ -110,23 +115,23 @@
     display: none;
 }
 
-/* Mobile: 2 items + 3rd peeks 5% (Accounts for 2 gaps) */
+/* Mobile: configurable item count, default 2 items + peek of the next (Accounts for N gaps) */
 .tabbed-slider-slide {
     scroll-snap-align: start;
-    flex: 0 0 calc((100% - (var(--grid-gap) * 2)) / 2.05);
+    flex: 0 0 calc((100% - (var(--grid-gap) * var(--tc-gap-count-mobile, 2))) / var(--tc-items-mobile, 2.05));
 }
 
-/* Tablet: 3 items + 4th peeks 10% (Accounts for 3 gaps) */
+/* Tablet: configurable item count, default 3 items + peek of the next */
 @media screen and (min-width: 750px) {
     .tabbed-slider-slide {
-        flex: 0 0 calc((100% - (var(--grid-gap) * 3)) / 3.1);
+        flex: 0 0 calc((100% - (var(--grid-gap) * var(--tc-gap-count-tablet, 3))) / var(--tc-items-tablet, 3.1));
     }
 }
 
-/* Desktop: 6 items + 7th peeks 10% (Accounts for 6 gaps) */
+/* Desktop: configurable item count, default 6 items + peek of the next */
 @media screen and (min-width: 990px) {
     .tabbed-slider-slide {
-        flex: 0 0 calc((100% - (var(--grid-gap) * 6)) / 6.1);
+        flex: 0 0 calc((100% - (var(--grid-gap) * var(--tc-gap-count-desktop, 6))) / var(--tc-items-desktop, 6.1));
     }
 }
 
