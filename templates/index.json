@@ -232,8 +232,8 @@
       ],
       "name": "Tabbed Product Grid",
       "settings": {
-        "description": "What Everyone's Reaching For",
-        "heading": "VIRAL PICKS 🍒",
+        "description": "Your Daily Glow, The Korean Way",
+        "heading": "GLASS SKIN ROUTINE 💧",
         "show_vendor": false,
         "show_rating": true,
         "heading_size_mobile": 24,
@@ -256,7 +256,7 @@
           "type": "collection",
           "settings": {
             "collection": "",
-            "title": "",
+            "title": "FOODOLOGY",
             "image": "shopify://shop_images/medicube_1cd5302c-59af-4900-a136-145eb2b28d3f.webp",
             "image_shape": "default"
           }
@@ -265,7 +265,7 @@
           "type": "collection",
           "settings": {
             "collection": "",
-            "title": "",
+            "title": "Shiseido FINO",
             "image": "shopify://shop_images/mommy_care.webp",
             "image_shape": "default"
           }
@@ -274,7 +274,7 @@
           "type": "collection",
           "settings": {
             "collection": "",
-            "title": "",
+            "title": "Medicube",
             "image": "shopify://shop_images/celimax_7f12e289-2cfc-4ba5-9643-f4fc7b8a75d4.webp",
             "image_shape": "default"
           }
@@ -283,7 +283,7 @@
           "type": "collection",
           "settings": {
             "collection": "",
-            "title": "",
+            "title": "Numbuzin",
             "image": "shopify://shop_images/rom_nd.webp",
             "image_shape": "default"
           }
@@ -292,7 +292,7 @@
           "type": "collection",
           "settings": {
             "collection": "",
-            "title": "",
+            "title": "Beauty of Joseon",
             "image": "shopify://shop_images/somebymi.webp",
             "image_shape": "default"
           }
@@ -301,7 +301,7 @@
           "type": "collection",
           "settings": {
             "collection": "",
-            "title": "",
+            "title": "CeraVe",
             "image": "shopify://shop_images/mommy_care.webp",
             "image_shape": "default"
           }
@@ -318,12 +318,12 @@
       "name": "Collection List Slider",
       "settings": {
         "page_width": true,
-        "heading": "SHOP The AISLES 🛒",
+        "heading": "BUZZ IN THE MARKET 🧺",
         "heading_size_mobile": 24,
         "heading_size_tablet": 32,
         "heading_size_desktop": 40,
         "heading_line_height": "1.2",
-        "description": "",
+        "description": "Trending K-Beauty Brands",
         "desc_size_mobile": 14,
         "desc_size_tablet": 16,
         "desc_size_desktop": 16,
