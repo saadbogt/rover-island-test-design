@@ -376,7 +376,7 @@
       "settings": {
         "description": "Upto 70% OFF",
         "heading": "CLEARENCE SALE ⚡",
-        "show_vendor": false,
+        "show_vendor": true,
         "show_rating": true,
         "heading_size_mobile": 24,
         "heading_size_tablet": 32,
