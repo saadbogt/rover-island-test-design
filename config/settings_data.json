@@ -54,7 +54,11 @@
     "card_shadow_horizontal_offset": 0,
     "card_shadow_vertical_offset": 4,
     "card_shadow_blur": 5,
-    "card_pc_message_mode": "dynamic",
+    "card_pc_media_aspect_ratio": "portrait",
+    "card_pc_title_font_size_desktop": 14,
+    "card_pc_compare_price_font_size": 12,
+    "card_pc_message_mode": "both",
+    "card_pc_message_static_text": "FREE SHIPPING ABOVE 99 AED",
     "collection_card_style": "standard",
     "collection_card_image_padding": 0,
     "collection_card_text_alignment": "left",
@@ -152,11 +156,7 @@
           "background_gradient": "",
           "text": "#272743",
           "button": "#272743",
-<<<<<<< HEAD
-          "button_label": "#FDC3B7",
-=======
           "button_label": "#fdc3b7",
->>>>>>> 25a420b2705f51664ad17d0f5f07d75305256a22
           "secondary_button_label": "#272743",
           "shadow": "#272743"
         }
@@ -198,12 +198,6 @@
         "settings": {
           "background": "#272743",
           "background_gradient": "",
-<<<<<<< HEAD
-          "text": "#FFD6CE",
-          "button": "#FDC3B7",
-          "button_label": "#272743",
-          "secondary_button_label": "#FDC3B7",
-=======
           "text": "#ffd6ce",
           "button": "#fdc3b7",
           "button_label": "#272743",
@@ -219,7 +213,6 @@
           "button": "#272743",
           "button_label": "#fdc3b7",
           "secondary_button_label": "#272743",
->>>>>>> 25a420b2705f51664ad17d0f5f07d75305256a22
           "shadow": "#272743"
         }
       }
