@@ -93,7 +93,7 @@
         "collection_3VjmPK": {
           "type": "collection",
           "settings": {
-            "collection": "",
+            "collection": "body-and-bath",
             "title": ""
           }
         }
@@ -233,7 +233,7 @@
         "collection_GhLBG6": {
           "type": "collection",
           "settings": {
-            "collection": "",
+            "collection": "makeup",
             "title": ""
           }
         }
@@ -363,7 +363,7 @@
         "collection_LqAbmt": {
           "type": "collection",
           "settings": {
-            "collection": "",
+            "collection": "skincare",
             "title": ""
           }
         }
