@@ -12,7 +12,7 @@
     "main": {
       "type": "main-product",
       "blocks": {
-        "vendor": {
+        "text_eqjn3C": {
           "type": "text",
           "settings": {
             "text": "{{ product.vendor }}",
@@ -59,6 +59,13 @@
             "text_style": "body"
           }
         },
+        "vendor": {
+          "type": "text",
+          "settings": {
+            "text": "",
+            "text_style": "uppercase"
+          }
+        },
         "collapsible_tab_QPTmtT": {
           "type": "collapsible_tab",
           "settings": {
@@ -73,7 +80,7 @@
           "settings": {
             "heading": "Ingredients",
             "icon": "none",
-            "content": "{{ block.settings.page.content }}",
+            "content": "{{ product.metafields.custom.key_benefits | metafield_tag }}",
             "page": ""
           }
         },
@@ -82,14 +89,14 @@
           "settings": {
             "heading": "How to Use",
             "icon": "none",
-            "content": "{{ block.settings.page.content }}",
+            "content": "{{ product.metafields.custom.how_to_use | metafield_tag }}",
             "page": ""
           }
         },
         "collapsible_tab_3nTnMK": {
           "type": "collapsible_tab",
           "settings": {
-            "heading": "How to Use",
+            "heading": "Refund & Return",
             "icon": "none",
             "content": "<p>- Receiving Time = Processing Time + Shipping Time</p><p>- Processing Time: 2-3 business days</p><p>- Estimated Shipping Time : 5-10 business days</p><p></p><p>- <a href=\"https://thebaerry.com/policies/shipping-policy\" target=\"_blank\" title=\"https://thebaerry.com/policies/shipping-policy\"><span style=\"text-decoration:underline\">International Shipping Policy</span></a></p><p>- <a href=\"https://thebaerry.com/policies/refund-policy\" title=\"https://thebaerry.com/policies/refund-policy\"><span style=\"text-decoration:underline\">Return Policy</span></a></p>",
             "page": ""
@@ -116,7 +123,7 @@
         }
       },
       "block_order": [
-        "vendor",
+        "text_eqjn3C",
         "title",
         "price",
         "variant_picker",
@@ -124,6 +131,7 @@
         "inventory_XnR3Qn",
         "buy_buttons",
         "sku_t9nHqj",
+        "vendor",
         "collapsible_tab_QPTmtT",
         "collapsible_tab_HhAkfD",
         "collapsible_tab_DERWmy",
