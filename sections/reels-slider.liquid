@@ -141,8 +141,12 @@
   if (!customElements.get('shoppable-reels-slider')) {
     class ShoppableReelsSlider extends HTMLElement {
       connectedCallback() {
-        // Guard against connectedCallback firing more than once.
+        // Guard against connectedCallback firing more than once. Set
+        // synchronously, before scheduling the rAF below - see
+        // tabbed-collection.liquid for why setting it late creates a
+        // re-entrancy race that double-initializes the slider.
         if (this._initialized) return;
+        this._initialized = true;
 
         // IMPORTANT: do not read children in the constructor - see the same
         // note in custom-carousel-banner.liquid. This class used to query
@@ -152,7 +156,6 @@
         // time). That silently broke drag/arrow navigation on every instance
         // past the first. Deferring by one frame fixes it for all instances.
         requestAnimationFrame(() => {
-          this._initialized = true;
           this.track = this.querySelector('.reels-slider__track');
           this.prevBtn = this.querySelector('.prev');
           this.nextBtn = this.querySelector('.next');
@@ -195,19 +198,27 @@
           cancelMomentum();
           isDown = true;
           moved = false;
-          this.track.classList.add('is-dragging');
           startX = e.clientX;
           lastX = e.clientX;
           startScrollLeft = this.track.scrollLeft;
           lastT = performance.now();
           velocity = 0;
-          this.track.setPointerCapture(e.pointerId);
+          // Do NOT capture on pointerdown - see tabbed-collection.liquid for why.
         });
 
         this.track.addEventListener('pointermove', (e) => {
           if (!isDown) return;
           const dx = e.clientX - startX;
-          if (Math.abs(dx) > 3) moved = true;
+          if (!moved && Math.abs(dx) > 3) {
+            moved = true;
+            this.track.classList.add('is-dragging');
+            try {
+              this.track.setPointerCapture(e.pointerId);
+            } catch (err) {
+              /* capture not available/needed */
+            }
+          }
+          if (!moved) return;
           this.track.scrollLeft = startScrollLeft - dx;
 
           const now = performance.now();
@@ -221,10 +232,12 @@
           if (!isDown) return;
           isDown = false;
           this.track.classList.remove('is-dragging');
-          try {
-            this.track.releasePointerCapture(e.pointerId);
-          } catch (err) {
-            /* pointer already released */
+          if (moved) {
+            try {
+              this.track.releasePointerCapture(e.pointerId);
+            } catch (err) {
+              /* pointer already released */
+            }
           }
 
           let v = velocity * 16;

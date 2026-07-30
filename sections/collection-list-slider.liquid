@@ -168,9 +168,12 @@
   if (!customElements.get('collection-list-slider')) {
     class CollectionListSlider extends HTMLElement {
       connectedCallback() {
-        // Guard against connectedCallback firing more than once
-        // (e.g. if the theme editor moves/reinserts the element).
+        // Guard against connectedCallback firing more than once. Set
+        // synchronously, before scheduling the rAF below - see
+        // tabbed-collection.liquid for why setting it late creates a
+        // re-entrancy race that double-initializes the slider.
         if (this._initialized) return;
+        this._initialized = true;
 
         // IMPORTANT: do not read children here synchronously.
         // When this section is used more than once on a page, the browser
@@ -180,7 +183,6 @@
         // would find nothing for those later instances. Deferring by one
         // tick guarantees the full subtree exists first.
         requestAnimationFrame(() => {
-          this._initialized = true;
           this.track = this.querySelector('.collection-list-slider__track');
           this.prevBtn = this.querySelector('.prev');
           this.nextBtn = this.querySelector('.next');
@@ -235,19 +237,27 @@
           cancelMomentum();
           isDown = true;
           moved = false;
-          this.track.classList.add('is-dragging');
           startX = e.clientX;
           lastX = e.clientX;
           startScrollLeft = this.track.scrollLeft;
           lastT = performance.now();
           velocity = 0;
-          this.track.setPointerCapture(e.pointerId);
+          // Do NOT capture on pointerdown - see tabbed-collection.liquid for why.
         });
 
         this.track.addEventListener('pointermove', (e) => {
           if (!isDown) return;
           const dx = e.clientX - startX;
-          if (Math.abs(dx) > 3) moved = true;
+          if (!moved && Math.abs(dx) > 3) {
+            moved = true;
+            this.track.classList.add('is-dragging');
+            try {
+              this.track.setPointerCapture(e.pointerId);
+            } catch (err) {
+              /* capture not available/needed */
+            }
+          }
+          if (!moved) return;
           this.track.scrollLeft = startScrollLeft - dx;
 
           const now = performance.now();
@@ -261,10 +271,12 @@
           if (!isDown) return;
           isDown = false;
           this.track.classList.remove('is-dragging');
-          try {
-            this.track.releasePointerCapture(e.pointerId);
-          } catch (err) {
-            /* pointer already released */
+          if (moved) {
+            try {
+              this.track.releasePointerCapture(e.pointerId);
+            } catch (err) {
+              /* pointer already released */
+            }
           }
 
           let v = velocity * 16;

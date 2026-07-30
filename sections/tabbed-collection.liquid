@@ -147,8 +147,19 @@
     class TabbedCollection extends HTMLElement {
       connectedCallback() {
         // Guard against connectedCallback firing more than once
-        // (e.g. if the theme editor moves/reinserts the element).
+        // (e.g. if the theme editor moves/reinserts the element, or the
+        // custom-element upgrade queue processes several <tabbed-collection>
+        // tags in the same batch). This flag MUST be set synchronously,
+        // right here - not inside the requestAnimationFrame callback below.
+        // Setting it late leaves a window where connectedCallback could
+        // fire again before the first rAF resolves, and since the flag was
+        // still false both times, both calls would pass the guard and each
+        // schedule their own init - doubling every event listener (tabs,
+        // arrows, drag) and causing exactly the "arrows do nothing" /
+        // "all tabs show at once" symptoms when this section is used more
+        // than once on a page.
         if (this._initialized) return;
+        this._initialized = true;
 
         // IMPORTANT: do not read children here synchronously.
         // When this section is used more than once on a page, the browser
@@ -158,26 +169,50 @@
         // would find nothing for those later instances. Deferring by one
         // tick guarantees the full subtree exists first.
         requestAnimationFrame(() => {
-          this._initialized = true;
           this.tabs = this.querySelectorAll('.tabbed-collection__tab-btn');
           this.panels = this.querySelectorAll('.tabbed-collection__panel');
+          this.normalizeActiveState();
           this.bindEvents();
           this.initSliders();
         });
       }
 
+      // Defensive: guarantee exactly one active tab/panel pair on load,
+      // regardless of what the server-rendered HTML actually shipped with.
+      // If more than one panel somehow arrives already marked is-active
+      // (e.g. from a stale cache, or duplicate section/block ids upstream),
+      // this forces it back to a single, correct active pair instead of
+      // silently rendering multiple panels stacked on top of each other.
+      normalizeActiveState() {
+        let activeIndex = Array.from(this.tabs).findIndex(
+          (t) => t.getAttribute('aria-selected') === 'true'
+        );
+        if (activeIndex === -1) activeIndex = 0;
+
+        this.tabs.forEach((t, i) => {
+          t.setAttribute('aria-selected', i === activeIndex ? 'true' : 'false');
+        });
+        this.panels.forEach((p, i) => {
+          p.classList.toggle('is-active', i === activeIndex);
+        });
+      }
+
       bindEvents() {
-        this.tabs.forEach((tab) => {
-          tab.addEventListener('click', (e) => {
-            const targetId = e.currentTarget.dataset.target;
-
-            // Reset tabs
+        {% comment %} // Match each tab to its panel by POSITION (index), not by ID string.
+        // Tabs and panels are always rendered in the same order from the same
+        // {% for block in section.blocks %} loop, so tabs[i] and panels[i]
+        // always correspond - regardless of whether their id="..." strings
+        // are unique anywhere else on the page. This makes tab-switching
+        // completely immune to ID collisions between section/block instances
+        // (which can happen if a section or block was ever duplicated by
+        // copy-pasting raw JSON instead of through the theme editor). {% endcomment %}
+        this.tabs.forEach((tab, index) => {
+          tab.addEventListener('click', () => {
             this.tabs.forEach((t) => t.setAttribute('aria-selected', 'false'));
-            e.currentTarget.setAttribute('aria-selected', 'true');
+            tab.setAttribute('aria-selected', 'true');
 
-            // Reset panels
             this.panels.forEach((p) => p.classList.remove('is-active'));
-            const targetPanel = this.querySelector(`#${targetId}`);
+            const targetPanel = this.panels[index];
             if (targetPanel) {
               targetPanel.classList.add('is-active');
               this.updateSliderButtons(targetPanel.querySelector('.tabbed-slider-track'));
@@ -252,19 +287,33 @@
           cancelMomentum();
           isDown = true;
           moved = false;
-          track.classList.add('is-dragging');
           startX = e.clientX;
           lastX = e.clientX;
           startScrollLeft = track.scrollLeft;
           lastT = performance.now();
           velocity = 0;
-          track.setPointerCapture(e.pointerId);
+          // NOTE: do NOT call setPointerCapture here. Capturing on every
+          // pointerdown - even a stationary click - stops several browsers
+          // (Safari especially) from firing the native click event on the
+          // <a> underneath, since the click never gets synthesized once an
+          // ancestor holds pointer capture. We only capture once we've
+          // confirmed an actual drag is happening (see pointermove below),
+          // so a real click passes straight through untouched.
         });
 
         track.addEventListener('pointermove', (e) => {
           if (!isDown) return;
           const dx = e.clientX - startX;
-          if (Math.abs(dx) > 3) moved = true;
+          if (!moved && Math.abs(dx) > 3) {
+            moved = true;
+            track.classList.add('is-dragging');
+            try {
+              track.setPointerCapture(e.pointerId);
+            } catch (err) {
+              /* capture not available/needed */
+            }
+          }
+          if (!moved) return;
           track.scrollLeft = startScrollLeft - dx;
 
           const now = performance.now();
@@ -278,10 +327,12 @@
           if (!isDown) return;
           isDown = false;
           track.classList.remove('is-dragging');
-          try {
-            track.releasePointerCapture(e.pointerId);
-          } catch (err) {
-            /* pointer already released */
+          if (moved) {
+            try {
+              track.releasePointerCapture(e.pointerId);
+            } catch (err) {
+              /* pointer already released */
+            }
           }
 
           let v = velocity * 16; // approx px/frame at ~60fps

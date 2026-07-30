@@ -70,9 +70,12 @@
   if (!customElements.get('infinite-carousel')) {
     class InfiniteCarousel extends HTMLElement {
       connectedCallback() {
-        // Guard against connectedCallback firing more than once
-        // (e.g. if the theme editor moves/reinserts the element).
+        // Guard against connectedCallback firing more than once. Set
+        // synchronously, before scheduling the rAF below - see
+        // tabbed-collection.liquid for why setting it late creates a
+        // re-entrancy race that double-initializes the carousel.
         if (this._initialized) return;
+        this._initialized = true;
 
         // IMPORTANT: do not read children in the constructor. Per the Custom
         // Elements spec, a constructor must not inspect attributes or children -
@@ -86,7 +89,6 @@
         // with it every other slider on the page). Deferring by one frame
         // guarantees the full subtree exists first, for every instance.
         requestAnimationFrame(() => {
-          this._initialized = true;
           this.track = this.querySelector('.custom-carousel-track');
           if (!this.track) return;
           this.slides = Array.from(this.track.children);
