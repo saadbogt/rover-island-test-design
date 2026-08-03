@@ -64,7 +64,7 @@
           "type": "collapsible_tab",
           "settings": {
             "heading": "Product Details",
-            "icon": "none",
+            "icon": "clipboard",
             "content": "{{ product.description }}",
             "page": ""
           }
@@ -73,7 +73,7 @@
           "type": "collapsible_tab",
           "settings": {
             "heading": "Ingredients",
-            "icon": "none",
+            "icon": "plant",
             "content": "{{ product.metafields.custom.key_benefits | metafield_tag }}",
             "page": ""
           }
@@ -82,7 +82,7 @@
           "type": "collapsible_tab",
           "settings": {
             "heading": "How to Use",
-            "icon": "none",
+            "icon": "question_mark",
             "content": "{{ product.metafields.custom.how_to_use | metafield_tag }}",
             "page": ""
           }
@@ -91,7 +91,7 @@
           "type": "collapsible_tab",
           "settings": {
             "heading": "Refund & Return",
-            "icon": "none",
+            "icon": "chat_bubble",
             "content": "<p>- Receiving Time = Processing Time + Shipping Time</p><p>- Processing Time: 2-3 business days</p><p>- Estimated Shipping Time : 5-10 business days</p><p></p><p>- <a href=\"https://thebaerry.com/policies/shipping-policy\" target=\"_blank\" title=\"https://thebaerry.com/policies/shipping-policy\"><span style=\"text-decoration:underline\">International Shipping Policy</span></a></p><p>- <a href=\"https://thebaerry.com/policies/refund-policy\" title=\"https://thebaerry.com/policies/refund-policy\"><span style=\"text-decoration:underline\">Return Policy</span></a></p>",
             "page": ""
           }
