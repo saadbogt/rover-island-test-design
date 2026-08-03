@@ -135,7 +135,8 @@
       "custom_css": [
         ".product__title > * {font-size: 22px; font-weight: 700;}",
         ".price--on-sale {font-size: 22px; font-weight: 700; color: red;}",
-        ".product__inventory {font-size: 11px;}"
+        ".product__inventory {font-size: 11px;}",
+        "@media screen and (max-width: 749px) {.product__title > * {margin-top: 10px; font-size: 18px; font-weight: 900; } .price--on-sale {font-size: 20px; font-weight: 700; } .product__inventory {font-size: 10px; }}"
       ],
       "settings": {
         "enable_sticky_info": true,
