@@ -191,7 +191,7 @@
                         {%- endif -%}
                       {%- endif -%}
                       <span class="product__sku">
-                          SKU: {{ product.selected_or_first_available_variant.sku | default: 'N/A' }}
+                          | SKU: {{ product.selected_or_first_available_variant.sku | default: 'N/A' }}
                       </span>
                     {%- endif -%} 
                   </p>
