@@ -190,8 +190,10 @@
                           {{- 'products.product.inventory_out_of_stock' | t -}}
                         {%- endif -%}
                       {%- endif -%}
-                    {%- endif -%}
-                     | SKU: {% render product__sku %} 
+                      <span class="product__sku">
+                          SKU: {{ product.selected_or_first_available_variant.sku | default: 'N/A' }}
+                      </span>
+                    {%- endif -%} 
                   </p>
                 {%- when 'description' -%}
                   {%- if product.description != blank -%}
