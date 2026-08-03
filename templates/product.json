@@ -49,7 +49,7 @@
         "buy_buttons": {
           "type": "buy_buttons",
           "settings": {
-            "show_dynamic_checkout": true,
+            "show_dynamic_checkout": false,
             "show_gift_card_recipient": true
           }
         },
@@ -138,6 +138,9 @@
         "collapsible_tab_3nTnMK",
         "complementary_YHCeWB",
         "share"
+      ],
+      "custom_css": [
+        ".product-form__buttons{width: 100% !important;}"
       ],
       "settings": {
         "enable_sticky_info": true,
