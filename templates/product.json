@@ -27,6 +27,12 @@
           "type": "price",
           "settings": {}
         },
+        "sku_t9nHqj": {
+          "type": "sku",
+          "settings": {
+            "text_style": "body"
+          }
+        },
         "variant_picker": {
           "type": "variant_picker",
           "settings": {
@@ -51,12 +57,6 @@
           "settings": {
             "show_dynamic_checkout": false,
             "show_gift_card_recipient": true
-          }
-        },
-        "sku_t9nHqj": {
-          "type": "sku",
-          "settings": {
-            "text_style": "body"
           }
         },
         "vendor": {
@@ -126,11 +126,11 @@
         "text_eqjn3C",
         "title",
         "price",
+        "sku_t9nHqj",
         "variant_picker",
         "quantity_selector",
         "inventory_XnR3Qn",
         "buy_buttons",
-        "sku_t9nHqj",
         "vendor",
         "collapsible_tab_QPTmtT",
         "collapsible_tab_HhAkfD",
@@ -140,7 +140,10 @@
         "share"
       ],
       "custom_css": [
-        ".product-form__buttons{width: 100% !important;}"
+        ".product__title > * {font-size: 22px; font-weight: 700;}",
+        ".price--on-sale {font-size: 22px; font-weight: 700; color: red;}",
+        ".product__inventory {font-size: 11px;}",
+        ".product__sku{font-size: 11px;}"
       ],
       "settings": {
         "enable_sticky_info": true,
@@ -148,7 +151,7 @@
         "media_size": "small",
         "constrain_to_viewport": true,
         "media_fit": "contain",
-        "gallery_layout": "stacked",
+        "gallery_layout": "thumbnail_slider",
         "mobile_thumbnails": "show",
         "media_position": "left",
         "image_zoom": "lightbox",
