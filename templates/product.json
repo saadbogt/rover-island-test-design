@@ -142,9 +142,7 @@
       "custom_css": [
         ".product__title > * {font-size: 22px; font-weight: 700;}",
         ".price--on-sale {font-size: 22px; font-weight: 700; color: red;}",
-        ".product__inventory {font-size: 11px;}",
-        ".product__sku {font-size: 11px;}",
-        ".product__sku::before {}"
+        ".product__inventory {font-size: 11px;}"
       ],
       "settings": {
         "enable_sticky_info": true,
