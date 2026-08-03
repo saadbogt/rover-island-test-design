@@ -159,6 +159,11 @@
         "type": "shopify://apps/essential-upsell/blocks/app-embed/50627fd9-24fd-4250-8614-accc12826d80",
         "disabled": false,
         "settings": {}
+      },
+      "5336852973447841014": {
+        "type": "shopify://apps/essential-subscriptions/blocks/app-embed/019d2fcc-fee6-707d-96d6-4dc2fa06f54b",
+        "disabled": false,
+        "settings": {}
       }
     },
     "color_schemes": {
