@@ -12,10 +12,39 @@
     "banner": {
       "type": "main-collection-banner",
       "settings": {
-        "show_collection_description": true,
+        "show_collection_description": false,
         "show_collection_image": false,
         "color_scheme": "scheme-1"
       }
+    },
+    "1785826788a8e47ac6": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_9eb296c_gByY8m": {
+          "type": "ai_gen_block_9eb296c",
+          "settings": {
+            "content": "<p>ABIB is a Korean beauty brand specializing in innovative skincare solutions that combine nature-inspired ingredients with advanced cosmetic science. Known for their signature hydrating and soothing formulations, ABIB products are designed to address modern skin concerns while maintaining a commitment to gentle, effective care. From their popular mask sheets to targeted serums and essences, each product reflects a philosophy of accessible luxury and visible results. Discover how ABIB transforms everyday skincare into a ritual of self-care and skin wellness.</p>",
+            "show_more_text": "Show more",
+            "show_less_text": "Show less",
+            "content_alignment": "center",
+            "padding": 20,
+            "border_radius": 0,
+            "background_color": "#ffffff",
+            "text_color": "#272743",
+            "font_size": 16,
+            "line_height": 1.5,
+            "button_color": "#272743",
+            "button_hover_color": "#000000",
+            "button_font_size": 14,
+            "button_spacing": 12
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_9eb296c_gByY8m"
+      ],
+      "settings": {}
     },
     "product-grid": {
       "type": "main-collection-product-grid",
@@ -26,9 +55,9 @@
         "color_scheme": "scheme-1",
         "image_ratio": "adapt",
         "image_shape": "default",
-        "show_secondary_image": false,
-        "show_vendor": false,
-        "show_rating": false,
+        "show_secondary_image": true,
+        "show_vendor": true,
+        "show_rating": true,
         "quick_add": "none",
         "enable_filtering": true,
         "filter_type": "vertical",
@@ -40,6 +69,7 @@
   },
   "order": [
     "banner",
+    "1785826788a8e47ac6",
     "product-grid"
   ]
 }

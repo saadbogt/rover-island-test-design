@@ -24,7 +24,7 @@
     "animations_hover_elements": "default",
     "buttons_border_thickness": 1,
     "buttons_border_opacity": 100,
-    "buttons_radius": 0,
+    "buttons_radius": 10,
     "buttons_shadow_opacity": 0,
     "buttons_shadow_horizontal_offset": 0,
     "buttons_shadow_vertical_offset": 4,
@@ -38,7 +38,7 @@
     "variant_pills_shadow_blur": 5,
     "inputs_border_thickness": 1,
     "inputs_border_opacity": 55,
-    "inputs_radius": 0,
+    "inputs_radius": 10,
     "inputs_shadow_opacity": 0,
     "inputs_shadow_horizontal_offset": 0,
     "inputs_shadow_vertical_offset": 4,
@@ -89,8 +89,8 @@
     "text_boxes_shadow_vertical_offset": 4,
     "text_boxes_shadow_blur": 5,
     "media_border_thickness": 1,
-    "media_border_opacity": 5,
-    "media_radius": 0,
+    "media_border_opacity": 15,
+    "media_radius": 16,
     "media_shadow_opacity": 0,
     "media_shadow_horizontal_offset": 0,
     "media_shadow_vertical_offset": 4,
@@ -126,7 +126,7 @@
     "social_tumblr_link": "",
     "social_vimeo_link": "",
     "predictive_search_enabled": true,
-    "predictive_search_show_vendor": false,
+    "predictive_search_show_vendor": true,
     "predictive_search_show_price": false,
     "currency_code_enabled": false,
     "cart_type": "notification",
@@ -154,6 +154,16 @@
         "type": "shopify://apps/loox-reviews/blocks/loox-inject/5c3b337f-fd14-4df5-b1d6-80ec13e6e28e",
         "disabled": false,
         "settings": {}
+      },
+      "144831480468751239": {
+        "type": "shopify://apps/essential-upsell/blocks/app-embed/50627fd9-24fd-4250-8614-accc12826d80",
+        "disabled": false,
+        "settings": {}
+      },
+      "5336852973447841014": {
+        "type": "shopify://apps/essential-subscriptions/blocks/app-embed/019d2fcc-fee6-707d-96d6-4dc2fa06f54b",
+        "disabled": false,
+        "settings": {}
       }
     },
     "color_schemes": {
@@ -163,7 +173,7 @@
           "background_gradient": "",
           "text": "#272743",
           "button": "#272743",
-          "button_label": "#fdc3b7",
+          "button_label": "#FFFFFF",
           "secondary_button_label": "#272743",
           "shadow": "#272743"
         }
@@ -221,6 +231,17 @@
           "button_label": "#fdc3b7",
           "secondary_button_label": "#272743",
           "shadow": "#272743"
+        }
+      },
+      "scheme-d43bcfaa-9db6-40e9-8a47-876e114137b1": {
+        "settings": {
+          "background": "#ffffff",
+          "background_gradient": "",
+          "text": "#000000",
+          "button": "#000000",
+          "button_label": "#FFFFFF",
+          "secondary_button_label": "#000000",
+          "shadow": "#000000"
         }
       }
     }

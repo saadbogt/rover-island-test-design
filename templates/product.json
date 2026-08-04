@@ -12,6 +12,21 @@
     "main": {
       "type": "main-product",
       "blocks": {
+        "loox_reviews_loox_rating_pNxdGj": {
+          "type": "shopify://apps/loox-reviews/blocks/loox-rating/5c3b337f-fd14-4df5-b1d6-80ec13e6e28e",
+          "settings": {
+            "contentSize": 12,
+            "pattern": "",
+            "hideText": false,
+            "alignment": "",
+            "layout": "",
+            "textColor": "",
+            "starColor": "",
+            "showAllReviews": false,
+            "looxOpenFloatingWidget": false,
+            "emptyRatingWidget": false
+          }
+        },
         "text_eqjn3C": {
           "type": "text",
           "settings": {
@@ -49,14 +64,8 @@
         "buy_buttons": {
           "type": "buy_buttons",
           "settings": {
-            "show_dynamic_checkout": true,
+            "show_dynamic_checkout": false,
             "show_gift_card_recipient": true
-          }
-        },
-        "sku_t9nHqj": {
-          "type": "sku",
-          "settings": {
-            "text_style": "body"
           }
         },
         "vendor": {
@@ -70,7 +79,7 @@
           "type": "collapsible_tab",
           "settings": {
             "heading": "Product Details",
-            "icon": "none",
+            "icon": "clipboard",
             "content": "{{ product.description }}",
             "page": ""
           }
@@ -79,7 +88,7 @@
           "type": "collapsible_tab",
           "settings": {
             "heading": "Ingredients",
-            "icon": "none",
+            "icon": "plant",
             "content": "{{ product.metafields.custom.key_benefits | metafield_tag }}",
             "page": ""
           }
@@ -88,7 +97,7 @@
           "type": "collapsible_tab",
           "settings": {
             "heading": "How to Use",
-            "icon": "none",
+            "icon": "question_mark",
             "content": "{{ product.metafields.custom.how_to_use | metafield_tag }}",
             "page": ""
           }
@@ -97,7 +106,7 @@
           "type": "collapsible_tab",
           "settings": {
             "heading": "Refund & Return",
-            "icon": "none",
+            "icon": "chat_bubble",
             "content": "<p>- Receiving Time = Processing Time + Shipping Time</p><p>- Processing Time: 2-3 business days</p><p>- Estimated Shipping Time : 5-10 business days</p><p></p><p>- <a href=\"https://thebaerry.com/policies/shipping-policy\" target=\"_blank\" title=\"https://thebaerry.com/policies/shipping-policy\"><span style=\"text-decoration:underline\">International Shipping Policy</span></a></p><p>- <a href=\"https://thebaerry.com/policies/refund-policy\" title=\"https://thebaerry.com/policies/refund-policy\"><span style=\"text-decoration:underline\">Return Policy</span></a></p>",
             "page": ""
           }
@@ -123,6 +132,7 @@
         }
       },
       "block_order": [
+        "loox_reviews_loox_rating_pNxdGj",
         "text_eqjn3C",
         "title",
         "price",
@@ -130,7 +140,6 @@
         "quantity_selector",
         "inventory_XnR3Qn",
         "buy_buttons",
-        "sku_t9nHqj",
         "vendor",
         "collapsible_tab_QPTmtT",
         "collapsible_tab_HhAkfD",
@@ -139,13 +148,20 @@
         "complementary_YHCeWB",
         "share"
       ],
+      "custom_css": [
+        ".product__title > * {font-size: 22px; font-weight: 700;}",
+        ".price--on-sale {font-size: 22px; font-weight: 700; color: red;}",
+        ".product__inventory {font-size: 11px;}",
+        ".accordion__title {font-size: 18px; font-weight: 700;}",
+        "@media screen and (max-width: 749px) {.product__title > * {margin-top: 10px; font-size: 18px; font-weight: 900; } .price--on-sale {font-size: 20px; font-weight: 700; } .product__inventory {font-size: 10px; }}"
+      ],
       "settings": {
         "enable_sticky_info": true,
-        "color_scheme": "scheme-1",
+        "color_scheme": "scheme-d43bcfaa-9db6-40e9-8a47-876e114137b1",
         "media_size": "small",
         "constrain_to_viewport": true,
         "media_fit": "contain",
-        "gallery_layout": "stacked",
+        "gallery_layout": "thumbnail_slider",
         "mobile_thumbnails": "show",
         "media_position": "left",
         "image_zoom": "lightbox",
@@ -196,7 +212,7 @@
             "aggregated": false,
             "limit": 20,
             "hide_thumbnails": false,
-            "maxwidth": 1080,
+            "maxwidth": 1400,
             "is_sample": true
           }
         }
