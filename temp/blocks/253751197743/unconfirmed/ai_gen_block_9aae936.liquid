@@ -1,6 +1,259 @@
+{% doc %}
+  @prompt
+    Make a Expandable Content section in which the only first 3 lines of the Content is Displayed and All other content is Hidden and there is an un style Button with Underline at the end that say show more and when Click it Display full content 
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-expandable-content-{{ ai_gen_id }} {
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    display: block;
+  }
+
+  .ai-expandable-content__wrapper-{{ ai_gen_id }} {
+    background-color: {{ block.settings.background_color }};
+    padding: {{ block.settings.padding }}px;
+    border-radius: {{ block.settings.border_radius }}px;
+  }
+
+  .ai-expandable-content__text-{{ ai_gen_id }} {
+    color: {{ block.settings.text_color }};
+    font-size: {{ block.settings.font_size }}px;
+    line-height: {{ block.settings.line_height }};
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  .ai-expandable-content__text-{{ ai_gen_id }}.collapsed {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    max-height: calc({{ block.settings.font_size }}px * {{ block.settings.line_height }} * 3);
+  }
+
+  .ai-expandable-content__text-{{ ai_gen_id }}.expanded {
+    display: block;
+    max-height: none;
+  }
+
+  .ai-expandable-content__button-{{ ai_gen_id }} {
+    background: none;
+    border: none;
+    padding: 0;
+    margin-top: {{ block.settings.button_spacing }}px;
+    color: {{ block.settings.button_color }};
+    font-size: {{ block.settings.button_font_size }}px;
+    text-decoration: underline;
+    cursor: pointer;
+    display: inline-block;
+  }
+
+  .ai-expandable-content__button-{{ ai_gen_id }}:hover {
+    color: {{ block.settings.button_hover_color }};
+  }
+{% endstyle %}
+
+<expandable-content-{{ ai_gen_id }}
+  class="ai-expandable-content-{{ ai_gen_id }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="ai-expandable-content__wrapper-{{ ai_gen_id }}">
+    <div
+      class="ai-expandable-content__text-{{ ai_gen_id }} collapsed"
+      data-content
+    >
+      {{ block.settings.content }}
+    </div>
+    <button
+      class="ai-expandable-content__button-{{ ai_gen_id }}"
+      data-toggle
+      aria-expanded="false"
+    >
+      <span data-show-text>{{ block.settings.show_more_text }}</span>
+      <span data-hide-text style="display: none;">{{ block.settings.show_less_text }}</span>
+    </button>
+  </div>
+</expandable-content-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class ExpandableContent{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.contentElement = this.querySelector('[data-content]');
+        this.toggleButton = this.querySelector('[data-toggle]');
+        this.showText = this.querySelector('[data-show-text]');
+        this.hideText = this.querySelector('[data-hide-text]');
+
+        if (this.toggleButton) {
+          this.toggleButton.addEventListener('click', () => this.toggleContent());
+        }
+      }
+
+      toggleContent() {
+        const isExpanded = this.contentElement.classList.contains('expanded');
+
+        if (isExpanded) {
+          this.contentElement.classList.remove('expanded');
+          this.contentElement.classList.add('collapsed');
+          this.toggleButton.setAttribute('aria-expanded', 'false');
+          this.showText.style.display = 'inline';
+          this.hideText.style.display = 'none';
+        } else {
+          this.contentElement.classList.remove('collapsed');
+          this.contentElement.classList.add('expanded');
+          this.toggleButton.setAttribute('aria-expanded', 'true');
+          this.showText.style.display = 'none';
+          this.hideText.style.display = 'inline';
+        }
+      }
+    }
+
+    customElements.define('expandable-content-{{ ai_gen_id }}', ExpandableContent{{ ai_gen_id }});
+  })();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Expandable content",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "richtext",
+      "id": "content",
+      "label": "Content",
+      "default": "<p>This is an example of expandable content. When you add more text here, only the first three lines will be visible initially. The rest of the content will be hidden until the user clicks the show more button. You can customize the appearance and behavior of this block using the settings below.</p>"
+    },
+    {
+      "type": "text",
+      "id": "show_more_text",
+      "label": "Show more text",
+      "default": "Show more"
+    },
+    {
+      "type": "text",
+      "id": "show_less_text",
+      "label": "Show less text",
+      "default": "Show less"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "padding",
+      "label": "Padding",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Text style"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#272743"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "label": "Font size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "line_height",
+      "label": "Line height",
+      "min": 1,
+      "max": 2,
+      "step": 0.1,
+      "default": 1.5
+    },
+    {
+      "type": "header",
+      "content": "Button style"
+    },
+    {
+      "type": "color",
+      "id": "button_color",
+      "label": "Button color",
+      "default": "#272743"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_color",
+      "label": "Button hover color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "button_font_size",
+      "label": "Button font size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "button_spacing",
+      "label": "Button top spacing",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    }
+  ],
+  "presets": [
+    {
+      "name": "Expandable content"
+    }
+  ]
+}
 {% endschema %}
