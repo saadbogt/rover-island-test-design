@@ -142,47 +142,30 @@
   </div>
 </tabbed-collection>
 
-<script>
+{% javascript %}
   if (!customElements.get('tabbed-collection')) {
     class TabbedCollection extends HTMLElement {
       connectedCallback() {
-        // Guard against connectedCallback firing more than once
-        // (e.g. if the theme editor moves/reinserts the element, or the
-        // custom-element upgrade queue processes several <tabbed-collection>
-        // tags in the same batch). This flag MUST be set synchronously,
-        // right here - not inside the requestAnimationFrame callback below.
-        // Setting it late leaves a window where connectedCallback could
-        // fire again before the first rAF resolves, and since the flag was
-        // still false both times, both calls would pass the guard and each
-        // schedule their own init - doubling every event listener (tabs,
-        // arrows, drag) and causing exactly the "arrows do nothing" /
-        // "all tabs show at once" symptoms when this section is used more
-        // than once on a page.
         if (this._initialized) return;
-        this._initialized = true;
-
-        // IMPORTANT: do not read children here synchronously.
-        // When this section is used more than once on a page, the browser
-        // upgrades every instance after the first one the moment it sees
-        // the opening <tabbed-collection> tag - before its tabs/panels
-        // have actually been parsed into the DOM. Querying immediately
-        // would find nothing for those later instances. Deferring by one
-        // tick guarantees the full subtree exists first.
+        
         requestAnimationFrame(() => {
           this.tabs = this.querySelectorAll('.tabbed-collection__tab-btn');
           this.panels = this.querySelectorAll('.tabbed-collection__panel');
+          
+          if (!this.tabs.length || !this.panels.length) return;
+
+          this._initialized = true;
           this.normalizeActiveState();
           this.bindEvents();
           this.initSliders();
         });
       }
 
-      // Defensive: guarantee exactly one active tab/panel pair on load,
-      // regardless of what the server-rendered HTML actually shipped with.
-      // If more than one panel somehow arrives already marked is-active
-      // (e.g. from a stale cache, or duplicate section/block ids upstream),
-      // this forces it back to a single, correct active pair instead of
-      // silently rendering multiple panels stacked on top of each other.
+      disconnectedCallback() {
+        if (this._resizeObserver) this._resizeObserver.disconnect();
+        this._initialized = false; // Theme editor re-render fix
+      }
+
       normalizeActiveState() {
         let activeIndex = Array.from(this.tabs).findIndex(
           (t) => t.getAttribute('aria-selected') === 'true'
@@ -198,14 +181,6 @@
       }
 
       bindEvents() {
-        {% comment %} // Match each tab to its panel by POSITION (index), not by ID string.
-        // Tabs and panels are always rendered in the same order from the same
-        // {% for block in section.blocks %} loop, so tabs[i] and panels[i]
-        // always correspond - regardless of whether their id="..." strings
-        // are unique anywhere else on the page. This makes tab-switching
-        // completely immune to ID collisions between section/block instances
-        // (which can happen if a section or block was ever duplicated by
-        // copy-pasting raw JSON instead of through the theme editor). {% endcomment %}
         this.tabs.forEach((tab, index) => {
           tab.addEventListener('click', () => {
             this.tabs.forEach((t) => t.setAttribute('aria-selected', 'false'));
@@ -215,13 +190,27 @@
             const targetPanel = this.panels[index];
             if (targetPanel) {
               targetPanel.classList.add('is-active');
-              this.updateSliderButtons(targetPanel.querySelector('.tabbed-slider-track'));
+
+              // FIX: Browser layout recalculation ka wait karein phir slider status update karein
+              requestAnimationFrame(() => {
+                const track = targetPanel.querySelector('.tabbed-slider-track');
+                if (track) this.updateSliderButtons(track);
+              });
             }
           });
         });
       }
 
       initSliders() {
+        this._resizeObserver = new ResizeObserver((entries) => {
+          entries.forEach((entry) => {
+            // FIX: Hidden elements (offsetWidth === 0) par calculation ignore karein
+            if (entry.target.offsetWidth > 0) {
+              this.updateSliderButtons(entry.target);
+            }
+          });
+        });
+
         this.panels.forEach((panel) => {
           const track = panel.querySelector('.tabbed-slider-track');
           const prevBtn = panel.querySelector('.prev');
@@ -229,42 +218,40 @@
 
           if (!track) return;
 
-          // --- 1. Arrow Navigation ---
           if (prevBtn && nextBtn) {
-            const scrollAmount = () => {
+            const getScrollAmount = () => {
               const slide = track.querySelector('.tabbed-slider-slide');
               const slideCount = parseInt(track.dataset.slideCount, 10) || 1;
-              if (!slide) return track.clientWidth * 0.8;
               const gap = parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap) || 0;
-              return (slide.getBoundingClientRect().width + gap) * slideCount;
+              
+              // FIX: Slide width fallback agar tab switch delay ho
+              const slideWidth = (slide && slide.offsetWidth > 0) 
+                ? slide.getBoundingClientRect().width 
+                : (track.clientWidth / (parseInt(track.style.getPropertyValue('--tc-items-desktop')) || 4));
+
+              return (slideWidth + gap) * slideCount;
             };
 
             prevBtn.addEventListener('click', () => {
-              track.scrollBy({ left: -scrollAmount(), behavior: 'smooth' });
+              track.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
             });
 
             nextBtn.addEventListener('click', () => {
-              track.scrollBy({ left: scrollAmount(), behavior: 'smooth' });
+              track.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
             });
           }
 
-          // --- 2. Drag to Scroll (smooth, momentum-based, unifies mouse/touch/pen) ---
           this.attachSmoothDrag(track);
-
-          // --- 3. Arrow State Updates ---
           track.addEventListener('scroll', () => this.updateSliderButtons(track), { passive: true });
-          window.addEventListener('resize', () => this.updateSliderButtons(track));
+          this._resizeObserver.observe(track);
 
-          setTimeout(() => this.updateSliderButtons(track), 100);
+          // Initial load par active tab slider update karein
+          if (panel.classList.contains('is-active')) {
+            requestAnimationFrame(() => this.updateSliderButtons(track));
+          }
         });
       }
 
-      // Pointer Events give one consistent code path for mouse, touch, and pen -
-      // avoids the old bug where separate mouse + touch listeners could both
-      // fire on hybrid touchscreen laptops and fight each other. Tracks the
-      // pointer 1:1 (no artificial multiplier) for a direct-manipulation feel,
-      // then applies a friction-based momentum coast on release so the slider
-      // settles smoothly into its scroll-snap position instead of stopping dead.
       attachSmoothDrag(track) {
         let isDown = false;
         let moved = false;
@@ -292,13 +279,6 @@
           startScrollLeft = track.scrollLeft;
           lastT = performance.now();
           velocity = 0;
-          // NOTE: do NOT call setPointerCapture here. Capturing on every
-          // pointerdown - even a stationary click - stops several browsers
-          // (Safari especially) from firing the native click event on the
-          // <a> underneath, since the click never gets synthesized once an
-          // ancestor holds pointer capture. We only capture once we've
-          // confirmed an actual drag is happening (see pointermove below),
-          // so a real click passes straight through untouched.
         });
 
         track.addEventListener('pointermove', (e) => {
@@ -309,9 +289,7 @@
             track.classList.add('is-dragging');
             try {
               track.setPointerCapture(e.pointerId);
-            } catch (err) {
-              /* capture not available/needed */
-            }
+            } catch (err) {}
           }
           if (!moved) return;
           track.scrollLeft = startScrollLeft - dx;
@@ -330,12 +308,10 @@
           if (moved) {
             try {
               track.releasePointerCapture(e.pointerId);
-            } catch (err) {
-              /* pointer already released */
-            }
+            } catch (err) {}
           }
 
-          let v = velocity * 16; // approx px/frame at ~60fps
+          let v = velocity * 16;
           const friction = 0.94;
           const step = () => {
             if (Math.abs(v) < 0.5) {
@@ -352,7 +328,6 @@
         track.addEventListener('pointerup', endDrag);
         track.addEventListener('pointercancel', endDrag);
 
-        // Prevent a dragged card from also firing a click/navigation on release.
         track.addEventListener(
           'click',
           (e) => {
@@ -366,20 +341,24 @@
       }
 
       updateSliderButtons(track) {
-        if (!track) return;
-        const prevBtn = track.parentElement.querySelector('.prev');
-        const nextBtn = track.parentElement.querySelector('.next');
+        if (!track || track.offsetWidth === 0) return; // FIX: Skip hidden tracks
+        
+        const wrapper = track.parentElement;
+        if (!wrapper) return;
+        
+        const prevBtn = wrapper.querySelector('.prev');
+        const nextBtn = wrapper.querySelector('.next');
 
-        if (prevBtn) prevBtn.disabled = track.scrollLeft <= 0;
+        if (prevBtn) prevBtn.disabled = track.scrollLeft <= 1;
         if (nextBtn) {
-          const isAtEnd = track.scrollLeft + track.clientWidth >= track.scrollWidth - 2;
+          const isAtEnd = Math.ceil(track.scrollLeft + track.clientWidth) >= track.scrollWidth - 2;
           nextBtn.disabled = isAtEnd;
         }
       }
     }
     customElements.define('tabbed-collection', TabbedCollection);
   }
-</script>
+{% endjavascript %}
 
 {% schema %}
 {
