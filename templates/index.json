@@ -151,7 +151,7 @@
         "collection_t7jgPK": {
           "type": "collection",
           "settings": {
-            "collection": "",
+            "collection": "skincare",
             "title": "Skincare",
             "image": "shopify://shop_images/Skincare.png",
             "image_shape": "default"
@@ -178,9 +178,9 @@
         "collection_ezgLQj": {
           "type": "collection",
           "settings": {
-            "collection": "",
-            "title": "Bundles",
-            "image": "shopify://shop_images/01_0d8dba74-1505-4b6d-a94c-114fd6c78e03.webp",
+            "collection": "makeup",
+            "title": "Makeup",
+            "image": "shopify://shop_images/Makeup.png",
             "image_shape": "default"
           }
         }
@@ -246,7 +246,7 @@
       "settings": {
         "description": "Your Daily Glow, The Korean Way",
         "heading": "GLASS SKIN ROUTINE 💧",
-        "show_vendor": false,
+        "show_vendor": true,
         "show_rating": true,
         "heading_size_mobile": 24,
         "heading_size_tablet": 32,
