@@ -136,7 +136,7 @@
             "collection": "",
             "title": "New",
             "image": "shopify://shop_images/06_e6c552b0-a4ad-497a-a09b-9279e91db693.webp",
-            "image_shape": "default"
+            "image_shape": "circle"
           }
         },
         "collection_q9iYHX": {
@@ -145,7 +145,7 @@
             "collection": "",
             "title": "Best",
             "image": "shopify://shop_images/05_4c07bfbb-943a-4e11-bee6-3d6c16960752.webp",
-            "image_shape": "default"
+            "image_shape": "circle"
           }
         },
         "collection_t7jgPK": {
@@ -154,7 +154,7 @@
             "collection": "skincare",
             "title": "Skincare",
             "image": "shopify://shop_images/Skincare.png",
-            "image_shape": "default"
+            "image_shape": "circle"
           }
         },
         "collection_MnfJtG": {
@@ -163,7 +163,7 @@
             "collection": "",
             "title": "Hair Care",
             "image": "shopify://shop_images/Hair_Care.png",
-            "image_shape": "default"
+            "image_shape": "circle"
           }
         },
         "collection_y3fahN": {
@@ -172,7 +172,7 @@
             "collection": "",
             "title": "Body & Bath",
             "image": "shopify://shop_images/Body_Bath.png",
-            "image_shape": "default"
+            "image_shape": "circle"
           }
         },
         "collection_ezgLQj": {
@@ -181,7 +181,7 @@
             "collection": "makeup",
             "title": "Makeup",
             "image": "shopify://shop_images/Makeup.png",
-            "image_shape": "default"
+            "image_shape": "circle"
           }
         }
       },
