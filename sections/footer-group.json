@@ -11,15 +11,19 @@
   "name": "t:sections.footer.name",
   "type": "footer",
   "sections": {
+    "178600740537e65252": {
+      "type": "apps",
+      "settings": {
+        "include_margins": true
+      }
+    },
     "footer": {
       "type": "footer",
       "blocks": {
-        "image_itx83H": {
-          "type": "image",
+        "brand_information_yFBiyA": {
+          "type": "brand_information",
           "settings": {
-            "image": "shopify://shop_images/Rover_Island_LOGO_PEACH.png",
-            "image_width": 200,
-            "alignment": ""
+            "show_social": true
           }
         },
         "link_list_A8PzJK": {
@@ -45,11 +49,12 @@
         }
       },
       "block_order": [
-        "image_itx83H",
+        "brand_information_yFBiyA",
         "link_list_A8PzJK",
         "link_list_77z3kg",
         "link_list_WeFtNr"
       ],
+      "custom_css": [],
       "settings": {
         "color_scheme": "scheme-5",
         "newsletter_enable": false,
@@ -67,6 +72,7 @@
     }
   },
   "order": [
+    "178600740537e65252",
     "footer"
   ]
 }
