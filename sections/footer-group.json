@@ -25,14 +25,14 @@
         "link_list_A8PzJK": {
           "type": "link_list",
           "settings": {
-            "heading": "Quick links",
-            "menu": "footer"
+            "heading": "Popular Brands",
+            "menu": "footer-popular-brands"
           }
         },
         "link_list_77z3kg": {
           "type": "link_list",
           "settings": {
-            "heading": "Quick links",
+            "heading": "Terms & Conditions",
             "menu": "footer"
           }
         },
@@ -40,7 +40,7 @@
           "type": "link_list",
           "settings": {
             "heading": "Quick links",
-            "menu": "footer"
+            "menu": "footer-quick-links"
           }
         }
       },
