@@ -57,7 +57,7 @@
     "card_pc_media_aspect_ratio": "portrait",
     "card_pc_title_font_size_desktop": 14,
     "card_pc_compare_price_font_size": 12,
-    "card_pc_message_mode": "both",
+    "card_pc_message_mode": "dynamic",
     "card_pc_message_static_text": "FREE SHIPPING ABOVE 99 AED",
     "collection_card_style": "standard",
     "collection_card_image_padding": 0,
