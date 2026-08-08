@@ -126,11 +126,12 @@
     font-weight: 400;
   }
 
-  /* The plain single price shown when a product is NOT on sale. Reuses the
-     title color/weight scale rather than the sale-red, since the design
-     spec only defines colors for the sale/compare states. */
+  /* The plain single price shown when a product is NOT on sale. Now matches
+     the on-sale price color/weight (--card-pc-price-color) so price color is
+     consistent whether or not the product is discounted - only the badge and
+     the extra struck-through compare price communicate the sale itself. */
   .product-card-wrapper .price__regular .price-item--regular {
-    color: var(--card-pc-title-color, inherit);
+    color: var(--card-pc-price-color, inherit);
     font-size: var(--card-pc-price-font-size, 1.6rem);
     font-weight: var(--card-pc-price-font-weight, 600);
   }
@@ -155,3 +156,25 @@
     margin-left: 0.6rem;
     opacity: 0.6;
   }
+
+  /* Product Card - Dynamic Variant Price Range */
+
+.card-price-range {
+  display: inline-flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+}
+
+.card-price-range__min,
+.card-price-range__max {
+  color: var(--card-pc-price-color);
+  font-size: var(--card-pc-price-font-size);
+  font-weight: var(--card-pc-price-font-weight);
+}
+
+.card-price-range__separator {
+  color: var(--card-pc-price-color);
+  font-size: var(--card-pc-price-font-size);
+  font-weight: var(--card-pc-price-font-weight);
+  margin: 0 0.35em;
+}

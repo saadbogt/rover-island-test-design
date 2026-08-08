@@ -25,34 +25,34 @@
     width: 100%;
   }
   
-  /* Track and Drag Logic */
   .reels-slider__track {
     display: flex;
     flex-wrap: nowrap;
     overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
     scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
     scrollbar-width: none;
     gap: var(--grid-gap, 16px);
     padding: 0.5rem 0 2rem 0;
     margin: 0;
     list-style: none;
     cursor: grab;
+    /* HYBRID FIX: Reverted touch-action to default. Restored smooth scroll & mobile momentum */
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    -webkit-user-select: none;
     user-select: none;
   }
   
   .reels-slider__track.is-dragging {
     cursor: grabbing;
     scroll-snap-type: none;
-    scroll-behavior: auto;
+    scroll-behavior: auto; /* Disables smooth scroll only while mouse dragging */
   }
   
   .reels-slider__track::-webkit-scrollbar {
     display: none;
   }
   
-  /* Slide Cards - Dynamic Peek Calculations */
   .reels-slider__slide {
     scroll-snap-align: start;
     box-sizing: border-box;
@@ -65,26 +65,22 @@
     flex-direction: column;
   }
   
-  /* Mobile Layout */
   .reels-slider__slide {
     flex: 0 0 calc((100% - (var(--grid-gap) * var(--gap-count-mobile, 3))) / var(--items-mobile, 3.05));
   }
   
-  /* Tablet Layout */
   @media screen and (min-width: 750px) {
     .reels-slider__slide {
       flex: 0 0 calc((100% - (var(--grid-gap) * var(--gap-count-tablet, 6))) / var(--items-tablet, 6.1));
     }
   }
   
-  /* Desktop Layout */
   @media screen and (min-width: 990px) {
     .reels-slider__slide {
       flex: 0 0 calc((100% - (var(--grid-gap) * var(--gap-count-desktop, 6))) / var(--items-desktop, 6.1));
     }
   }
   
-  /* Media (Reel) Area */
   .reels-slider__media-wrapper {
     width: 100%;
     aspect-ratio: 9 / 16;
@@ -103,7 +99,6 @@
     display: block;
   }
   
-  /* Product Info Card */
   .reels-slider__link {
     text-decoration: none;
     color: inherit;
@@ -180,7 +175,6 @@
     line-height: 1;
   }
   
-  /* Navigation Arrows */
   .reels-slider__btn {
     position: absolute;
     top: calc(50% - 20px);
@@ -200,19 +194,10 @@
     transition: transform 0.2s ease, opacity 0.2s ease;
   }
   
-  .reels-slider__btn[disabled] {
-    opacity: 0;
-    pointer-events: none;
-  }
-  
-  .reels-slider__btn:not([disabled]):hover {
-    transform: translateY(-50%) scale(1.05);
-  }
-  
+  .reels-slider__btn[disabled] { opacity: 0; pointer-events: none; }
+  .reels-slider__btn:not([disabled]):hover { transform: translateY(-50%) scale(1.05); }
   .reels-slider__btn.prev { left: -15px; }
   .reels-slider__btn.next { right: -15px; }
   .reels-slider__btn svg { width: 14px; height: 14px; fill: currentColor; }
   
-  @media screen and (max-width: 749px) {
-    .reels-slider__btn { display: none; }
-  }
+  @media screen and (max-width: 749px) { .reels-slider__btn { display: none; } }

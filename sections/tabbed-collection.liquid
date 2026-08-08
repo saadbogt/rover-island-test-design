@@ -253,92 +253,95 @@
       }
 
       attachSmoothDrag(track) {
-        let isDown = false;
-        let moved = false;
-        let startX = 0;
-        let startScrollLeft = 0;
-        let lastX = 0;
-        let lastT = 0;
-        let velocity = 0;
-        let momentumId = null;
+  let isDown = false;
+  let moved = false;
+  let startX = 0;
+  let startScrollLeft = 0;
+  let lastX = 0;
+  let lastT = 0;
+  let velocity = 0;
+  let momentumId = null;
 
-        const cancelMomentum = () => {
-          if (momentumId) {
-            cancelAnimationFrame(momentumId);
-            momentumId = null;
-          }
-        };
+  const cancelMomentum = () => {
+    if (momentumId) {
+      cancelAnimationFrame(momentumId);
+      momentumId = null;
+    }
+  };
 
-        track.addEventListener('pointerdown', (e) => {
-          if (e.pointerType === 'mouse' && e.button !== 0) return;
-          cancelMomentum();
-          isDown = true;
-          moved = false;
-          startX = e.clientX;
-          lastX = e.clientX;
-          startScrollLeft = track.scrollLeft;
-          lastT = performance.now();
-          velocity = 0;
-        });
+  track.addEventListener('pointerdown', (e) => {
+    // Mobile Touch par native browser swipe chalne dein, Custom JS drag skip karein
+    if (e.pointerType === 'touch') return;
+    if (e.pointerType === 'mouse' && e.button !== 0) return;
 
-        track.addEventListener('pointermove', (e) => {
-          if (!isDown) return;
-          const dx = e.clientX - startX;
-          if (!moved && Math.abs(dx) > 3) {
-            moved = true;
-            track.classList.add('is-dragging');
-            try {
-              track.setPointerCapture(e.pointerId);
-            } catch (err) {}
-          }
-          if (!moved) return;
-          track.scrollLeft = startScrollLeft - dx;
+    cancelMomentum();
+    isDown = true;
+    moved = false;
+    startX = e.clientX;
+    lastX = e.clientX;
+    startScrollLeft = track.scrollLeft;
+    lastT = performance.now();
+    velocity = 0;
+  });
 
-          const now = performance.now();
-          const dt = now - lastT;
-          if (dt > 0) velocity = (e.clientX - lastX) / dt;
-          lastX = e.clientX;
-          lastT = now;
-        });
+  track.addEventListener('pointermove', (e) => {
+    if (!isDown || e.pointerType === 'touch') return;
+    const dx = e.clientX - startX;
+    if (!moved && Math.abs(dx) > 3) {
+      moved = true;
+      track.classList.add('is-dragging');
+      try {
+        track.setPointerCapture(e.pointerId);
+      } catch (err) {}
+    }
+    if (!moved) return;
+    track.scrollLeft = startScrollLeft - dx;
 
-        const endDrag = (e) => {
-          if (!isDown) return;
-          isDown = false;
-          track.classList.remove('is-dragging');
-          if (moved) {
-            try {
-              track.releasePointerCapture(e.pointerId);
-            } catch (err) {}
-          }
+    const now = performance.now();
+    const dt = now - lastT;
+    if (dt > 0) velocity = (e.clientX - lastX) / dt;
+    lastX = e.clientX;
+    lastT = now;
+  });
 
-          let v = velocity * 16;
-          const friction = 0.94;
-          const step = () => {
-            if (Math.abs(v) < 0.5) {
-              momentumId = null;
-              return;
-            }
-            track.scrollLeft -= v;
-            v *= friction;
-            momentumId = requestAnimationFrame(step);
-          };
-          if (Math.abs(v) > 1) momentumId = requestAnimationFrame(step);
-        };
+  const endDrag = (e) => {
+    if (!isDown || e.pointerType === 'touch') return;
+    isDown = false;
+    track.classList.remove('is-dragging');
+    if (moved) {
+      try {
+        track.releasePointerCapture(e.pointerId);
+      } catch (err) {}
+    }
 
-        track.addEventListener('pointerup', endDrag);
-        track.addEventListener('pointercancel', endDrag);
-
-        track.addEventListener(
-          'click',
-          (e) => {
-            if (moved) {
-              e.preventDefault();
-              e.stopPropagation();
-            }
-          },
-          true
-        );
+    let v = velocity * 16;
+    const friction = 0.94;
+    const step = () => {
+      if (Math.abs(v) < 0.5) {
+        momentumId = null;
+        return;
       }
+      track.scrollLeft -= v;
+      v *= friction;
+      momentumId = requestAnimationFrame(step);
+    };
+    if (Math.abs(v) > 1) momentumId = requestAnimationFrame(step);
+  };
+
+  track.addEventListener('pointerup', endDrag);
+  track.addEventListener('pointercancel', endDrag);
+
+  track.addEventListener(
+    'click',
+    (e) => {
+      if (moved) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    },
+    true
+  );
+}
 
       updateSliderButtons(track) {
         if (!track || track.offsetWidth === 0) return; // FIX: Skip hidden tracks

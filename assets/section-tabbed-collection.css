@@ -81,24 +81,23 @@
     margin: 0 auto;
 }
 
+
 /* Replace your existing .tabbed-slider-track with this: */
 .tabbed-slider-track {
     display: flex;
     flex-wrap: nowrap;
-    /* Forces items into a single row */
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
-    /* Enables native swipe on iOS */
     scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
+    /* scroll-behavior: smooth; -> Is line ko hata diya hai kyunki ye drag me jitter/lag lati hai */
     scrollbar-width: none;
     gap: var(--grid-gap, 15px);
     padding-bottom: 1rem;
     cursor: grab;
-    /* Shows a grab hand on desktop */
-    touch-action: pan-y;
-    /* Lets the page still scroll vertically while Pointer Events drive
-       horizontal drag - required for smooth touch dragging. */
+    
+    /* FIX: pan-x pan-y browser ko natively mobile par horizontal swipe karne deta hai */
+    touch-action: pan-x pan-y;
+    
     -webkit-user-select: none;
     user-select: none;
 }

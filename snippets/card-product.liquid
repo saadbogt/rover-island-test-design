@@ -34,6 +34,12 @@
   - Added: configurable Product Message (static text / dynamic stock status / both).
   - All new visual controls live in Theme Settings -> "Product Card Settings", so this
     card looks/behaves consistently everywhere it's rendered.
+  - Rating: reverted to Dawn's original, unmodified native implementation
+    (card_product.metafields.reviews.rating + component-rating.css). This is
+    Shopify's standard "reviews" metafield namespace - any review app that
+    supports it (Loox, Judge.me, Ali Reviews, Stamped, Shopify Product Reviews,
+    etc.) will auto-populate it, and this card will pick it up automatically
+    with zero app-specific code. No JS detector file, no custom placeholder.
 {% endcomment %}
 {%- unless skip_styles -%}
   {{ 'component-rating.css' | asset_url | stylesheet_tag }}
@@ -81,7 +87,7 @@
   -%}
 
   <product-component view-event-payload="{{ card_product | standard_event_data: 'view', context: product_view_context | escape }}">
-    <div class="card-wrapper product-card-wrapper underline-links-hover">
+    <div class="card-wrapper product-card-wrapper">
       <div
         class="
           card card--{{ settings.card_style }}
@@ -295,7 +301,21 @@
                   </p>
                 {%- endif -%}
 
-                {% render 'price', product: card_product, price_class: '', show_compare_at_price: true %}
+                {%- if card_product.price_min != card_product.price_max -%}
+                  <div class="card-price-range">
+                    <span class="card-price-range__min">
+                      {{ card_product.price_min | money }} 
+                    </span>
+
+                    <span class="card-price-range__separator" aria-hidden="true"> - </span>
+
+                    <span class="card-price-range__max"> 
+                      {{ card_product.price_max | money }}
+                    </span>
+                  </div>
+                {%- else -%}
+                  {% render 'price', product: card_product, price_class: '', show_compare_at_price: true %}
+                {%- endif -%}
 
                 {%- if message_mode != 'none' -%}
                   {%- liquid
@@ -687,7 +707,7 @@
       assign ratio = 0.8
     endif
   -%}
-  <div class="card-wrapper product-card-wrapper underline-links-hover">
+  <div class="card-wrapper product-card-wrapper">
     <div
       class="
         card card--{{ settings.card_style }}

@@ -20,7 +20,6 @@
   color: rgba(var(--color-foreground), 0.75);
 }
 
-/* Slider Container & Track */
 .collection-list-slider__container {
   position: relative;
   width: 100%;
@@ -30,16 +29,16 @@
   display: flex;
   flex-wrap: nowrap;
   overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
   scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
   scrollbar-width: none;
   gap: var(--grid-gap, 16px);
   padding: 0.5rem 0 1.5rem 0;
   margin: 0;
   list-style: none;
   cursor: grab;
-  touch-action: pan-y;
+  /* HYBRID FIX: Reverted touch-action to default. Restored smooth scroll & mobile momentum */
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch; 
   -webkit-user-select: none;
   user-select: none;
 }
@@ -47,35 +46,31 @@
 .collection-list-slider__track.is-dragging {
   cursor: grabbing;
   scroll-snap-type: none;
-  scroll-behavior: auto;
+  scroll-behavior: auto; /* Disables smooth scroll only while mouse dragging */
 }
 
 .collection-list-slider__track::-webkit-scrollbar {
   display: none;
 }
 
-/* Mobile: configurable item count, default 2 items + peek of the next (accounts for N gaps) */
 .collection-list-slider__slide {
   scroll-snap-align: start;
   flex: 0 0 calc((100% - (var(--grid-gap) * var(--cls-gap-count-mobile, 2))) / var(--cls-items-mobile, 2.05));
   box-sizing: border-box;
 }
 
-/* Tablet: configurable item count, default 6 items + peek of the next */
 @media screen and (min-width: 750px) {
   .collection-list-slider__slide {
     flex: 0 0 calc((100% - (var(--grid-gap) * var(--cls-gap-count-tablet, 6))) / var(--cls-items-tablet, 6.1));
   }
 }
 
-/* Desktop: configurable item count, default 6 items + peek of the next */
 @media screen and (min-width: 990px) {
   .collection-list-slider__slide {
     flex: 0 0 calc((100% - (var(--grid-gap) * var(--cls-gap-count-desktop, 6))) / var(--cls-items-desktop, 6.1));
   }
 }
 
-/* Card Visuals */
 .collection-list-slider__link {
   display: flex;
   flex-direction: column;
@@ -89,9 +84,6 @@
   opacity: 0.85;
 }
 
-/* Image wrapper: DEFAULT is a natural, non-cropped container.
-   The image keeps its own aspect ratio and is simply contained
-   within the slide's width - no forced circle/square crop. */
 .collection-list-slider__image-wrapper {
   position: relative;
   width: 100%;
@@ -109,10 +101,6 @@
   transition: transform 0.3s ease;
 }
 
-/* Shape modifiers - opt-in per block via the "Image Shape" setting.
-   These set an explicit aspect-ratio on the wrapper, so the image
-   needs height: 100% to fill it (object-fit: contain still avoids
-   cropping/stretching the image itself). */
 .collection-list-slider__image-wrapper--circle,
 .collection-list-slider__image-wrapper--square,
 .collection-list-slider__image-wrapper--portrait {
@@ -151,7 +139,6 @@
   word-break: break-word;
 }
 
-/* Navigation Arrows */
 .collection-list-slider__btn {
   position: absolute;
   top: calc(50% - 22px);
@@ -180,23 +167,10 @@
   transform: translateY(-50%) scale(1.08);
 }
 
-.collection-list-slider__btn.prev {
-  left: -15px;
-}
-
-.collection-list-slider__btn.next {
-  right: -15px;
-}
-
-.collection-list-slider__btn svg {
-  width: 14px;
-  height: 14px;
-  fill: currentColor;
-}
+.collection-list-slider__btn.prev { left: -15px; }
+.collection-list-slider__btn.next { right: -15px; }
+.collection-list-slider__btn svg { width: 14px; height: 14px; fill: currentColor; }
 
 @media screen and (max-width: 749px) {
-  .collection-list-slider__btn {
-    display: none;
-    /* Hide arrows on mobile, rely on drag/swipe */
-  }
+  .collection-list-slider__btn { display: none; }
 }
