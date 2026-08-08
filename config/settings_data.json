@@ -215,7 +215,7 @@
         "settings": {
           "background": "#272743",
           "background_gradient": "",
-          "text": "#FFDFD8",
+          "text": "#ffdfd8",
           "button": "#fdc3b7",
           "button_label": "#272743",
           "secondary_button_label": "#fdc3b7",
@@ -437,5 +437,10 @@
         }
       }
     }
+  },
+  "platform_customizations": {
+    "custom_css": [
+      ".product-card-wrapper .rating-star {/* Star size */ --font-size: 1.2; /* increase/decrease for bigger/smaller stars */ --color-rating-star: #f5a623; /* Spacing between individual stars */ --letter-spacing: 0.2; font-family: \"Potta One\", cursive;}"
+    ]
   }
 }
