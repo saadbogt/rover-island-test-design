@@ -105,6 +105,12 @@
               endif
               assign products_limit = section.settings.products_limit | default: 10
             -%}
+            {%- liquid
+              assign quick_add_value = false
+              if section.settings.enable_quick_buy
+                assign quick_add_value = 'standard'
+              endif
+            -%}
             {%- for product in products_to_render limit: products_limit -%}
               <div class="tabbed-slider-slide">
                 {% render 'card-product',
@@ -113,6 +119,8 @@
                   show_secondary_image: true,
                   show_vendor: section.settings.show_vendor,
                   show_rating: section.settings.show_rating,
+                  quick_add: quick_add_value,
+                  section_id: section.id,
                   lazy_load: true
                 %}
               </div>
@@ -400,6 +408,13 @@
       "id": "show_rating",
       "default": true,
       "label": "Show Product Rating"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_quick_buy",
+      "default": true,
+      "label": "Show Quick Buy Button",
+      "info": "Lets shoppers pick options and add to cart from a popup without leaving this page."
     },
     {
       "type": "header",
