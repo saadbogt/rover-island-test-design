@@ -12,28 +12,6 @@
     "main": {
       "type": "main-product",
       "blocks": {
-        "loox_reviews_loox_rating_pNxdGj": {
-          "type": "shopify://apps/loox-reviews/blocks/loox-rating/5c3b337f-fd14-4df5-b1d6-80ec13e6e28e",
-          "settings": {
-            "contentSize": 12,
-            "pattern": "",
-            "hideText": false,
-            "alignment": "",
-            "layout": "",
-            "textColor": "",
-            "starColor": "",
-            "showAllReviews": false,
-            "looxOpenFloatingWidget": false,
-            "emptyRatingWidget": false
-          }
-        },
-        "text_eqjn3C": {
-          "type": "text",
-          "settings": {
-            "text": "{{ product.vendor }}",
-            "text_style": "uppercase"
-          }
-        },
         "title": {
           "type": "title",
           "settings": {}
@@ -44,191 +22,28 @@
         },
         "variant_picker": {
           "type": "variant_picker",
-          "settings": {
-            "picker_type": "button",
-            "swatch_shape": "circle"
-          }
-        },
-        "quantity_selector": {
-          "type": "quantity_selector",
           "settings": {}
-        },
-        "inventory_XnR3Qn": {
-          "type": "inventory",
-          "settings": {
-            "text_style": "body",
-            "inventory_threshold": 10,
-            "show_inventory_quantity": true
-          }
         },
         "buy_buttons": {
           "type": "buy_buttons",
-          "settings": {
-            "show_dynamic_checkout": false,
-            "show_gift_card_recipient": true
-          }
+          "settings": {}
         },
-        "vendor": {
-          "type": "text",
-          "settings": {
-            "text": "",
-            "text_style": "uppercase"
-          }
-        },
-        "collapsible_tab_QPTmtT": {
-          "type": "collapsible_tab",
-          "settings": {
-            "heading": "Product Details",
-            "icon": "clipboard",
-            "content": "{{ product.description }}",
-            "page": ""
-          }
-        },
-        "collapsible_tab_HhAkfD": {
-          "type": "collapsible_tab",
-          "settings": {
-            "heading": "Ingredients",
-            "icon": "plant",
-            "content": "{{ product.metafields.custom.key_benefits | metafield_tag }}",
-            "page": ""
-          }
-        },
-        "collapsible_tab_DERWmy": {
-          "type": "collapsible_tab",
-          "settings": {
-            "heading": "How to Use",
-            "icon": "question_mark",
-            "content": "{{ product.metafields.custom.how_to_use | metafield_tag }}",
-            "page": ""
-          }
-        },
-        "collapsible_tab_3nTnMK": {
-          "type": "collapsible_tab",
-          "settings": {
-            "heading": "Refund & Return",
-            "icon": "chat_bubble",
-            "content": "<p>- Receiving Time = Processing Time + Shipping Time</p><p>- Processing Time: 2-3 business days</p><p>- Estimated Shipping Time : 5-10 business days</p><p></p><p>- <a href=\"https://thebaerry.com/policies/shipping-policy\" target=\"_blank\" title=\"https://thebaerry.com/policies/shipping-policy\"><span style=\"text-decoration:underline\">International Shipping Policy</span></a></p><p>- <a href=\"https://thebaerry.com/policies/refund-policy\" title=\"https://thebaerry.com/policies/refund-policy\"><span style=\"text-decoration:underline\">Return Policy</span></a></p>",
-            "page": ""
-          }
-        },
-        "complementary_YHCeWB": {
-          "type": "complementary",
-          "settings": {
-            "block_heading": "Pairs well with",
-            "make_collapsible_row": false,
-            "icon": "price_tag",
-            "product_list_limit": 10,
-            "products_per_page": 3,
-            "pagination_style": "counter",
-            "image_ratio": "portrait",
-            "enable_quick_add": true
-          }
-        },
-        "share": {
-          "type": "share",
-          "settings": {
-            "share_label": "Share"
-          }
+        "description": {
+          "type": "description",
+          "settings": {}
         }
       },
       "block_order": [
-        "loox_reviews_loox_rating_pNxdGj",
-        "text_eqjn3C",
         "title",
         "price",
         "variant_picker",
-        "quantity_selector",
-        "inventory_XnR3Qn",
         "buy_buttons",
-        "vendor",
-        "collapsible_tab_QPTmtT",
-        "collapsible_tab_HhAkfD",
-        "collapsible_tab_DERWmy",
-        "collapsible_tab_3nTnMK",
-        "complementary_YHCeWB",
-        "share"
+        "description"
       ],
-      "custom_css": [
-        ".product__title > * {font-size: 22px; font-weight: 700;}",
-        ".price--on-sale {font-size: 22px; font-weight: 700; color: red;}",
-        ".product__inventory {font-size: 11px;}",
-        ".accordion__title {font-size: 18px; font-weight: 700;}",
-        "@media screen and (max-width: 749px) {.product__title > * {margin-top: 10px; font-size: 18px; font-weight: 900; } .price--on-sale {font-size: 20px; font-weight: 700; } .product__inventory {font-size: 10px; }}"
-      ],
-      "settings": {
-        "enable_sticky_info": true,
-        "color_scheme": "scheme-d43bcfaa-9db6-40e9-8a47-876e114137b1",
-        "media_size": "small",
-        "constrain_to_viewport": true,
-        "media_fit": "contain",
-        "gallery_layout": "thumbnail_slider",
-        "mobile_thumbnails": "show",
-        "media_position": "left",
-        "image_zoom": "lightbox",
-        "hide_variants": true,
-        "enable_video_looping": false,
-        "padding_top": 36,
-        "padding_bottom": 12
-      }
-    },
-    "disclosures": {
-      "type": "disclosures",
-      "settings": {
-        "heading": "Disclosures",
-        "heading_size": "h2",
-        "open_by_default": false,
-        "color_scheme": "",
-        "padding_top": 36,
-        "padding_bottom": 0
-      }
-    },
-    "related-products": {
-      "type": "related-products",
-      "settings": {
-        "heading": "You may also like",
-        "heading_size": "h2",
-        "products_to_show": 4,
-        "columns_desktop": 4,
-        "columns_mobile": "2",
-        "color_scheme": "scheme-1",
-        "image_ratio": "square",
-        "image_shape": "default",
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "padding_top": 36,
-        "padding_bottom": 28
-      }
-    },
-    "17854972177db2b6c6": {
-      "type": "apps",
-      "blocks": {
-        "loox_reviews_loox_dynamic_section_BTpCtT": {
-          "type": "shopify://apps/loox-reviews/blocks/loox-dynamic-section/5c3b337f-fd14-4df5-b1d6-80ec13e6e28e",
-          "settings": {
-            "reviews_to_display": "",
-            "default_tab": "automatic",
-            "only_photos": false,
-            "aggregated": false,
-            "limit": 20,
-            "hide_thumbnails": false,
-            "maxwidth": 1400,
-            "is_sample": true
-          }
-        }
-      },
-      "block_order": [
-        "loox_reviews_loox_dynamic_section_BTpCtT"
-      ],
-      "settings": {
-        "include_margins": true
-      }
+      "settings": {}
     }
   },
   "order": [
-    "main",
-    "disclosures",
-    "related-products",
-    "17854972177db2b6c6"
+    "main"
   ]
 }
