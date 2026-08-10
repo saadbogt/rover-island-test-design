@@ -12,6 +12,7 @@
     "main": {
       "type": "main-product",
       "blocks": {
+<<<<<<< HEAD
         "loox_reviews_loox_rating_pNxdGj": {
           "type": "shopify://apps/loox-reviews/blocks/loox-rating/5c3b337f-fd14-4df5-b1d6-80ec13e6e28e",
           "settings": {
@@ -25,6 +26,18 @@
             "showAllReviews": false,
             "looxOpenFloatingWidget": false,
             "emptyRatingWidget": false
+=======
+        "cwilltrustoo_reviews_star_rating_widget_97EEAL": {
+          "type": "shopify://apps/cwilltrustoo-reviews/blocks/star-rating-widget/c8f15077-6475-4e86-ad06-b66038d5ba2c",
+          "settings": {
+            "star_size": 14,
+            "font_size": 12,
+            "text_color": "#585858",
+            "block_aligment": "left",
+            "rating_decimal_places": "1",
+            "margin_top": 10,
+            "margin_bottom": 0
+>>>>>>> 81df0dce8af46950fed7ca610a079686a4be129d
           }
         },
         "text_eqjn3C": {
@@ -132,7 +145,11 @@
         }
       },
       "block_order": [
+<<<<<<< HEAD
         "loox_reviews_loox_rating_pNxdGj",
+=======
+        "cwilltrustoo_reviews_star_rating_widget_97EEAL",
+>>>>>>> 81df0dce8af46950fed7ca610a079686a4be129d
         "text_eqjn3C",
         "title",
         "price",
@@ -171,6 +188,7 @@
         "padding_bottom": 12
       }
     },
+<<<<<<< HEAD
     "disclosures": {
       "type": "disclosures",
       "settings": {
@@ -182,6 +200,8 @@
         "padding_bottom": 0
       }
     },
+=======
+>>>>>>> 81df0dce8af46950fed7ca610a079686a4be129d
     "related-products": {
       "type": "related-products",
       "settings": {
@@ -199,6 +219,7 @@
         "padding_top": 36,
         "padding_bottom": 28
       }
+<<<<<<< HEAD
     },
     "17854972177db2b6c6": {
       "type": "apps",
@@ -223,12 +244,18 @@
       "settings": {
         "include_margins": true
       }
+=======
+>>>>>>> 81df0dce8af46950fed7ca610a079686a4be129d
     }
   },
   "order": [
     "main",
+<<<<<<< HEAD
     "disclosures",
     "related-products",
     "17854972177db2b6c6"
+=======
+    "related-products"
+>>>>>>> 81df0dce8af46950fed7ca610a079686a4be129d
   ]
 }
