@@ -334,19 +334,9 @@
                     {%- if show_static and settings.card_pc_message_static_text != blank -%}
                       <span class="card__message-static">{{ settings.card_pc_message_static_text }}</span>
                     {%- endif -%}
-                    {%- if show_dynamic -%}
+                    {%- if show_dynamic and inv <= settings.card_pc_message_low_stock_threshold and  card_product.available == true -%}
                       <span class="card__message-dynamic">
-                        {%- if variant.inventory_management == blank -%}
-                          In Stock
-                        {%- elsif card_product.available == false -%}
-                          {{ 'products.product.sold_out' | t }}
-                        {%- elsif inv <= 0 -%}
-                          In Stock
-                        {%- elsif inv <= settings.card_pc_message_low_stock_threshold -%}
                           Only {{ inv }} left
-                        {%- else -%}
-                          In Stock
-                        {%- endif -%}
                       </span>
                     {%- endif -%}
                   </div>

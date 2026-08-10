@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Potta+One&display=swap');
 
-product-component,
+/* product-component,
 collection-component {
   display: block;
-}
+} */
 
 :root {
   --alpha-button-background: 1;
