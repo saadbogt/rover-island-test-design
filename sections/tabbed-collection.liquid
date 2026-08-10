@@ -1,6 +1,10 @@
 {{ 'section-tabbed-collection.css' | asset_url | stylesheet_tag }}
 {{ 'component-card.css' | asset_url | stylesheet_tag }}
 {{ 'component-price.css' | asset_url | stylesheet_tag }}
+{{ 'quick-add.css' | asset_url | stylesheet_tag }}
+
+<script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'quick-add.js' | asset_url }}" defer="defer"></script>
 
 {%- style -%}
   .section-{{ section.id }}-padding {
@@ -105,12 +109,7 @@
               endif
               assign products_limit = section.settings.products_limit | default: 10
             -%}
-            {%- liquid
-              assign quick_add_value = false
-              if section.settings.enable_quick_buy
-                assign quick_add_value = 'standard'
-              endif
-            -%}
+            
             {%- for product in products_to_render limit: products_limit -%}
               <div class="tabbed-slider-slide">
                 {% render 'card-product',
@@ -119,7 +118,7 @@
                   show_secondary_image: true,
                   show_vendor: section.settings.show_vendor,
                   show_rating: section.settings.show_rating,
-                  quick_add: quick_add_value,
+                  quick_add: section.settings.quick_add,
                   section_id: section.id,
                   lazy_load: true
                 %}
@@ -171,7 +170,7 @@
 
       disconnectedCallback() {
         if (this._resizeObserver) this._resizeObserver.disconnect();
-        this._initialized = false; // Theme editor re-render fix
+        this._initialized = false;
       }
 
       normalizeActiveState() {
@@ -199,7 +198,6 @@
             if (targetPanel) {
               targetPanel.classList.add('is-active');
 
-              // FIX: Browser layout recalculation ka wait karein phir slider status update karein
               requestAnimationFrame(() => {
                 const track = targetPanel.querySelector('.tabbed-slider-track');
                 if (track) this.updateSliderButtons(track);
@@ -212,7 +210,6 @@
       initSliders() {
         this._resizeObserver = new ResizeObserver((entries) => {
           entries.forEach((entry) => {
-            // FIX: Hidden elements (offsetWidth === 0) par calculation ignore karein
             if (entry.target.offsetWidth > 0) {
               this.updateSliderButtons(entry.target);
             }
@@ -232,7 +229,6 @@
               const slideCount = parseInt(track.dataset.slideCount, 10) || 1;
               const gap = parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap) || 0;
               
-              // FIX: Slide width fallback agar tab switch delay ho
               const slideWidth = (slide && slide.offsetWidth > 0) 
                 ? slide.getBoundingClientRect().width 
                 : (track.clientWidth / (parseInt(track.style.getPropertyValue('--tc-items-desktop')) || 4));
@@ -253,7 +249,6 @@
           track.addEventListener('scroll', () => this.updateSliderButtons(track), { passive: true });
           this._resizeObserver.observe(track);
 
-          // Initial load par active tab slider update karein
           if (panel.classList.contains('is-active')) {
             requestAnimationFrame(() => this.updateSliderButtons(track));
           }
@@ -278,7 +273,6 @@
   };
 
   track.addEventListener('pointerdown', (e) => {
-    // Mobile Touch par native browser swipe chalne dein, Custom JS drag skip karein
     if (e.pointerType === 'touch') return;
     if (e.pointerType === 'mouse' && e.button !== 0) return;
 
@@ -352,7 +346,7 @@
 }
 
       updateSliderButtons(track) {
-        if (!track || track.offsetWidth === 0) return; // FIX: Skip hidden tracks
+        if (!track || track.offsetWidth === 0) return;
         
         const wrapper = track.parentElement;
         if (!wrapper) return;
@@ -410,11 +404,25 @@
       "label": "Show Product Rating"
     },
     {
-      "type": "checkbox",
-      "id": "enable_quick_buy",
-      "default": true,
-      "label": "Show Quick Buy Button",
-      "info": "Lets shoppers pick options and add to cart from a popup without leaving this page."
+      "type": "select",
+      "id": "quick_add",
+      "default": "none",
+      "label": "Quick add",
+      "info": "Keep shoppers on the page when they add to cart.",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "standard",
+          "label": "Standard"
+        },
+        {
+          "value": "bulk",
+          "label": "Bulk"
+        }
+      ]
     },
     {
       "type": "header",
