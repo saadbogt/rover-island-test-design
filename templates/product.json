@@ -167,8 +167,8 @@
         "image_ratio": "square",
         "image_shape": "default",
         "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
+        "show_vendor": true,
+        "show_rating": true,
         "padding_top": 36,
         "padding_bottom": 28
       }
@@ -176,22 +176,15 @@
     "1786428629464945f7": {
       "type": "apps",
       "blocks": {
-        "loox_reviews_loox_dynamic_section_Mideq4": {
-          "type": "shopify://apps/loox-reviews/blocks/loox-dynamic-section/5c3b337f-fd14-4df5-b1d6-80ec13e6e28e",
+        "cwilltrustoo_reviews_review_widget_fNpNGe": {
+          "type": "shopify://apps/cwilltrustoo-reviews/blocks/review-widget/c8f15077-6475-4e86-ad06-b66038d5ba2c",
           "settings": {
-            "reviews_to_display": "",
-            "default_tab": "automatic",
-            "only_photos": false,
-            "aggregated": false,
-            "limit": 20,
-            "hide_thumbnails": false,
-            "maxwidth": 1400,
-            "is_sample": true
+            "product": "{{ product }}"
           }
         }
       },
       "block_order": [
-        "loox_reviews_loox_dynamic_section_Mideq4"
+        "cwilltrustoo_reviews_review_widget_fNpNGe"
       ],
       "settings": {
         "include_margins": true
