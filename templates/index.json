@@ -71,7 +71,7 @@
         "image_3yVWXp",
         "image_hJCQqi"
       ],
-      "name": "Custom Carousel Banner",
+      "name": "HERO BANNER",
       "settings": {
         "page_width": true,
         "hidden_h1": "",
@@ -102,7 +102,7 @@
         "collection_fxhHYg",
         "collection_3VjmPK"
       ],
-      "name": "Tabbed Product Grid",
+      "name": "VIRAL PICKS",
       "settings": {
         "description": "What Everyone's Reaching For",
         "heading": "VIRAL PICKS 🍒",
@@ -243,7 +243,7 @@
         "collection_FFndF9",
         "collection_GhLBG6"
       ],
-      "name": "Tabbed Product Grid",
+      "name": "GLASS SKIN ROUTINE",
       "settings": {
         "description": "Your Daily Glow, The Korean Way",
         "heading": "GLASS SKIN ROUTINE 💧",
@@ -325,7 +325,7 @@
         "collection_CwTQUG",
         "collection_iPrMmM"
       ],
-      "name": "Collection List Slider",
+      "name": "POPULAR BRANDS",
       "settings": {
         "page_width": true,
         "heading": "BUZZ IN THE MARKET 🧺",
@@ -374,7 +374,7 @@
         "collection_x6PP9E",
         "collection_LqAbmt"
       ],
-      "name": "Tabbed Product Grid",
+      "name": "CLEARANCE SALE",
       "settings": {
         "description": "Upto 70% OFF",
         "heading": "CLEARANCE SALE ⚡",
@@ -470,9 +470,9 @@
   },
   "order": [
     "custom_carousel_banner_P3jKjA",
-    "tabbed_collection_C8TPcq",
-    "collection_list_slider_CxULqk",
     "tabbed_collection_3MaELi",
+    "collection_list_slider_CxULqk",
+    "tabbed_collection_C8TPcq",
     "collection_list_slider_ADjdfJ",
     "tabbed_collection_Wkxnpr",
     "reels_slider_fT8A3H"
