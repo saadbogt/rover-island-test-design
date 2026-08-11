@@ -80,32 +80,32 @@
         "padding_bottom": 16
       }
     },
-    "tabbed_collection_C8TPcq": {
+    "tabbed_collection_3MaELi": {
       "type": "tabbed-collection",
       "blocks": {
-        "collection_fxhHYg": {
+        "collection_FFndF9": {
           "type": "collection",
           "settings": {
-            "collection": "foodology",
-            "title": "FOODOLOGY"
+            "collection": "skin-care",
+            "title": "Skincare"
           }
         },
-        "collection_3VjmPK": {
+        "collection_GhLBG6": {
           "type": "collection",
           "settings": {
-            "collection": "medicube",
-            "title": "MEDICUBE"
+            "collection": "hair-care",
+            "title": "Hair Care"
           }
         }
       },
       "block_order": [
-        "collection_fxhHYg",
-        "collection_3VjmPK"
+        "collection_FFndF9",
+        "collection_GhLBG6"
       ],
-      "name": "VIRAL PICKS",
+      "name": "GLASS SKIN ROUTINE",
       "settings": {
-        "description": "What Everyone's Reaching For",
-        "heading": "VIRAL PICKS 🍒",
+        "description": "Your Daily Glow, The Korean Way",
+        "heading": "GLASS SKIN ROUTINE 💧",
         "show_vendor": true,
         "show_rating": true,
         "quick_add": "standard",
@@ -118,7 +118,7 @@
         "desc_size_desktop": 16,
         "desc_line_height": "1.5",
         "show_in_stock_only": true,
-        "products_limit": 16,
+        "products_limit": 10,
         "products_to_slide": 1,
         "products_per_view_mobile": 2,
         "products_per_view_tablet": 3,
@@ -181,7 +181,7 @@
           "settings": {
             "collection": "makeup",
             "title": "Makeup",
-            "image": "shopify://shop_images/Makeup.png",
+            "image": "shopify://shop_images/Makeup_d274b901-97af-4da7-9b68-2f39d3f421cb.png",
             "image_shape": "circle"
           }
         }
@@ -221,32 +221,32 @@
         "padding_bottom": 36
       }
     },
-    "tabbed_collection_3MaELi": {
+    "tabbed_collection_C8TPcq": {
       "type": "tabbed-collection",
       "blocks": {
-        "collection_FFndF9": {
+        "collection_fxhHYg": {
           "type": "collection",
           "settings": {
-            "collection": "skin-care",
-            "title": "Skincare"
+            "collection": "foodology",
+            "title": "FOODOLOGY"
           }
         },
-        "collection_GhLBG6": {
+        "collection_3VjmPK": {
           "type": "collection",
           "settings": {
-            "collection": "hair-care",
-            "title": "Hair Care"
+            "collection": "medicube",
+            "title": "MEDICUBE"
           }
         }
       },
       "block_order": [
-        "collection_FFndF9",
-        "collection_GhLBG6"
+        "collection_fxhHYg",
+        "collection_3VjmPK"
       ],
-      "name": "GLASS SKIN ROUTINE",
+      "name": "VIRAL PICKS",
       "settings": {
-        "description": "Your Daily Glow, The Korean Way",
-        "heading": "GLASS SKIN ROUTINE 💧",
+        "description": "What Everyone's Reaching For",
+        "heading": "VIRAL PICKS 🍒",
         "show_vendor": true,
         "show_rating": true,
         "quick_add": "standard",
@@ -259,7 +259,7 @@
         "desc_size_desktop": 16,
         "desc_line_height": "1.5",
         "show_in_stock_only": true,
-        "products_limit": 10,
+        "products_limit": 16,
         "products_to_slide": 1,
         "products_per_view_mobile": 2,
         "products_per_view_tablet": 3,
