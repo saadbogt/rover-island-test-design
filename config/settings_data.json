@@ -9,9 +9,9 @@
  */
 {
   "current": {
-    "logo": "shopify://shop_images/Rover_Island_Logo_19fe9114-1b11-4760-923b-553a7ea9d75a.png",
+    "logo": "shopify://shop_images/Rover_Island_Logo.png",
     "logo_width": 120,
-    "favicon": "shopify://shop_images/Screenshot_2026-07-22_130816_fe1f135d-83d3-4116-bb1a-bdfe47aa98fc.png",
+    "favicon": "shopify://shop_images/Rover_Island_Favicon.png",
     "type_header_font": "plus_jakarta_sans_n4",
     "heading_scale": 100,
     "type_body_font": "inter_n4",
@@ -149,23 +149,6 @@
       }
     },
     "content_for_index": [],
-    "blocks": {
-      "11532412952436166569": {
-        "type": "shopify://apps/loox-reviews/blocks/loox-inject/5c3b337f-fd14-4df5-b1d6-80ec13e6e28e",
-        "disabled": false,
-        "settings": {}
-      },
-      "144831480468751239": {
-        "type": "shopify://apps/essential-upsell/blocks/app-embed/50627fd9-24fd-4250-8614-accc12826d80",
-        "disabled": false,
-        "settings": {}
-      },
-      "5336852973447841014": {
-        "type": "shopify://apps/essential-subscriptions/blocks/app-embed/019d2fcc-fee6-707d-96d6-4dc2fa06f54b",
-        "disabled": false,
-        "settings": {}
-      }
-    },
     "color_schemes": {
       "scheme-1": {
         "settings": {
