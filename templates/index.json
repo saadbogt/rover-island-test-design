@@ -86,8 +86,8 @@
         "collection_fxhHYg": {
           "type": "collection",
           "settings": {
-            "collection": "abib",
-            "title": "ABIB"
+            "collection": "foodology",
+            "title": "FOODOLOGY"
           }
         },
         "collection_3VjmPK": {
@@ -227,15 +227,15 @@
         "collection_FFndF9": {
           "type": "collection",
           "settings": {
-            "collection": "skincare",
+            "collection": "skin-care",
             "title": "Skincare"
           }
         },
         "collection_GhLBG6": {
           "type": "collection",
           "settings": {
-            "collection": "makeup",
-            "title": "Makeup"
+            "collection": "hair-care",
+            "title": "Hair Care"
           }
         }
       },
@@ -275,45 +275,45 @@
         "collection_W8gtia": {
           "type": "collection",
           "settings": {
-            "collection": "",
+            "collection": "foodology",
             "title": "FOODOLOGY",
-            "image": "shopify://shop_images/FOODOLOGY_45fd92ae-6c9f-4723-8941-016d36506a20.png",
+            "image": "shopify://shop_images/FOODOLOGY.png",
             "image_shape": "default"
           }
         },
         "collection_wwChew": {
           "type": "collection",
           "settings": {
-            "collection": "",
+            "collection": "shiseido",
             "title": "Shiseido FINO",
-            "image": "shopify://shop_images/FINO_1.png",
+            "image": "shopify://shop_images/FINO.png",
             "image_shape": "default"
           }
         },
         "collection_aLwK8C": {
           "type": "collection",
           "settings": {
-            "collection": "",
+            "collection": "medicube",
             "title": "Medicube",
-            "image": "shopify://shop_images/Medicube_8e281c75-7187-42fa-bbfa-423d82fcffe8.png",
+            "image": "shopify://shop_images/Medicube.png",
             "image_shape": "default"
           }
         },
         "collection_CwTQUG": {
           "type": "collection",
           "settings": {
-            "collection": "",
+            "collection": "cosrx",
             "title": "COSRX",
-            "image": "shopify://shop_images/COSRX_4693f9be-034f-439f-ae5f-75997f9b21e6.png",
+            "image": "shopify://shop_images/COSRX_01a9ff06-d778-4912-ab4c-29e707dec451.png",
             "image_shape": "default"
           }
         },
         "collection_iPrMmM": {
           "type": "collection",
           "settings": {
-            "collection": "",
+            "collection": "dr-althea",
             "title": "Dr. Althea",
-            "image": "shopify://shop_images/Dr._Althea_f8f97cce-cf67-45fc-915d-f1db6c1a457a.png",
+            "image": "shopify://shop_images/Dr._Althea.png",
             "image_shape": "default"
           }
         }
@@ -358,14 +358,14 @@
         "collection_x6PP9E": {
           "type": "collection",
           "settings": {
-            "collection": "body-and-bath",
-            "title": "Body & Bath"
+            "collection": "clearance-sale",
+            "title": "Skincare"
           }
         },
         "collection_LqAbmt": {
           "type": "collection",
           "settings": {
-            "collection": "skincare",
+            "collection": "hair-care",
             "title": ""
           }
         }
@@ -405,23 +405,38 @@
       "blocks": {
         "reel_TEHHyn": {
           "type": "reel",
-          "settings": {}
+          "settings": {
+            "product": "la-roche-posay-anthelios-uvmune-400-oil-control-fluid-spf50-50ml",
+            "shopify_video": "shopify://files/videos/Reel - la roche posay - SUNSCREEN.webm"
+          }
         },
         "reel_gAQMeN": {
           "type": "reel",
-          "settings": {}
+          "settings": {
+            "product": "foodology-coleology-cutting-stick-jelly-pomegranate-dietary-fiber-supplement-for-healthy-weight-management-chia-seeds-garcinia-cambogia-10-sticks",
+            "shopify_video": "shopify://files/videos/Kylie Jenner Reviewing FOODOLOGY Coleology Pomegranate Jelly Stick - Rover Island UAE.mp4"
+          }
         },
         "reel_7KjaUG": {
           "type": "reel",
-          "settings": {}
+          "settings": {
+            "product": "valentine-special-deal-4",
+            "shopify_video": "shopify://files/videos/OLAPLEX Premium Products Available on Rover Island.mp4"
+          }
         },
         "reel_qEzymi": {
           "type": "reel",
-          "settings": {}
+          "settings": {
+            "product": "medicube-summer-deal",
+            "shopify_video": "shopify://files/videos/Medicube Age-R Beauty.mp4"
+          }
         },
         "reel_3fgKnQ": {
           "type": "reel",
-          "settings": {}
+          "settings": {
+            "product": "tirtir-foundation-mask-fit-red-cushion-32-shades-0-63oz",
+            "shopify_video": "shopify://files/videos/TirTir.mp4"
+          }
         }
       },
       "block_order": [
