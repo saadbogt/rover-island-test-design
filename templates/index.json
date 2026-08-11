@@ -16,49 +16,49 @@
           "type": "image",
           "settings": {
             "image": "shopify://shop_images/AUNA_s_Deep_Hydration_for_Plump_Healthy_Skin___Rover_Island_UAE.jpg",
-            "link": ""
+            "link": "shopify://collections/anua"
           }
         },
         "image_hUJNgV": {
           "type": "image",
           "settings": {
             "image": "shopify://shop_images/Transforming_Korean_Hair_Scalp_Treatments___Rover_Island_UAE.jpg",
-            "link": ""
+            "link": "shopify://collections/shiseido"
           }
         },
         "image_jkGgRx": {
           "type": "image",
           "settings": {
             "image": "shopify://shop_images/Lightweight_No-White-Cast_Korean_Sunscreens___Rover_Island_UAE.jpg",
-            "link": ""
+            "link": "shopify://collections/sun-screen"
           }
         },
         "image_nNVya8": {
           "type": "image",
           "settings": {
             "image": "shopify://shop_images/Shop_Trending_Korean_Lip_Tints_Blushes___Rover_Island_UAE.jpg",
-            "link": ""
+            "link": "shopify://collections/makeup"
           }
         },
         "image_9UhXhm": {
           "type": "image",
           "settings": {
             "image": "shopify://shop_images/Enjoy_Free_Shipping_on_All_Orders_Over_99_AED___Rover_Island_UAE.jpg",
-            "link": ""
+            "link": "shopify://collections/all"
           }
         },
         "image_3yVWXp": {
           "type": "image",
           "settings": {
             "image": "shopify://shop_images/Your_Ultimate_Destination_for_Authentic_K-Beauty___Rover_Island_UAE.jpg",
-            "link": ""
+            "link": "shopify://collections/skin-care"
           }
         },
         "image_hJCQqi": {
           "type": "image",
           "settings": {
             "image": "shopify://shop_images/The_K-Beauty_Must-Haves_Everyone_is_Talking_About___Rover_Island_UAE.jpg",
-            "link": ""
+            "link": "shopify://collections/all"
           }
         }
       },
