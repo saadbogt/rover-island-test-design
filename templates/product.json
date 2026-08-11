@@ -12,18 +12,6 @@
     "main": {
       "type": "main-product",
       "blocks": {
-        "cwilltrustoo_reviews_star_rating_widget_97EEAL": {
-          "type": "shopify://apps/cwilltrustoo-reviews/blocks/star-rating-widget/c8f15077-6475-4e86-ad06-b66038d5ba2c",
-          "settings": {
-            "star_size": 14,
-            "font_size": 12,
-            "text_color": "#585858",
-            "block_aligment": "left",
-            "rating_decimal_places": "1",
-            "margin_top": 10,
-            "margin_bottom": 0
-          }
-        },
         "text_eqjn3C": {
           "type": "text",
           "settings": {
@@ -129,7 +117,6 @@
         }
       },
       "block_order": [
-        "cwilltrustoo_reviews_star_rating_widget_97EEAL",
         "text_eqjn3C",
         "title",
         "price",
@@ -185,10 +172,35 @@
         "padding_top": 36,
         "padding_bottom": 28
       }
+    },
+    "1786428629464945f7": {
+      "type": "apps",
+      "blocks": {
+        "loox_reviews_loox_dynamic_section_Mideq4": {
+          "type": "shopify://apps/loox-reviews/blocks/loox-dynamic-section/5c3b337f-fd14-4df5-b1d6-80ec13e6e28e",
+          "settings": {
+            "reviews_to_display": "",
+            "default_tab": "automatic",
+            "only_photos": false,
+            "aggregated": false,
+            "limit": 20,
+            "hide_thumbnails": false,
+            "maxwidth": 1400,
+            "is_sample": true
+          }
+        }
+      },
+      "block_order": [
+        "loox_reviews_loox_dynamic_section_Mideq4"
+      ],
+      "settings": {
+        "include_margins": true
+      }
     }
   },
   "order": [
     "main",
-    "related-products"
+    "related-products",
+    "1786428629464945f7"
   ]
 }
