@@ -51,7 +51,7 @@
           "type": "image",
           "settings": {
             "image": "shopify://shop_images/Your_Ultimate_Destination_for_Authentic_K-Beauty___Rover_Island_UAE.jpg",
-            "link": "shopify://collections/skin-care"
+            "link": "shopify://collections/skincare"
           }
         },
         "image_hJCQqi": {
@@ -86,7 +86,7 @@
         "collection_FFndF9": {
           "type": "collection",
           "settings": {
-            "collection": "skin-care",
+            "collection": "skincare",
             "title": "Skincare"
           }
         },
