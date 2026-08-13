@@ -12,6 +12,18 @@
     "main": {
       "type": "main-product",
       "blocks": {
+        "cwilltrustoo_reviews_star_rating_widget_WnmgBn": {
+          "type": "shopify://apps/cwilltrustoo-reviews/blocks/star-rating-widget/c8f15077-6475-4e86-ad06-b66038d5ba2c",
+          "settings": {
+            "star_size": 15,
+            "font_size": 11,
+            "text_color": "#585858",
+            "block_aligment": "left",
+            "rating_decimal_places": "1",
+            "margin_top": 10,
+            "margin_bottom": 0
+          }
+        },
         "text_eqjn3C": {
           "type": "text",
           "settings": {
@@ -117,6 +129,7 @@
         }
       },
       "block_order": [
+        "cwilltrustoo_reviews_star_rating_widget_WnmgBn",
         "text_eqjn3C",
         "title",
         "price",
