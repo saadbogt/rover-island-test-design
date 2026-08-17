@@ -30,21 +30,21 @@
           "type": "link_list",
           "settings": {
             "heading": "Popular Brands",
-            "menu": ""
+            "menu": "rover-popular-brands"
           }
         },
         "link_list_77z3kg": {
           "type": "link_list",
           "settings": {
-            "heading": "Terms & Conditions",
-            "menu": "footer"
+            "heading": "Quick Links",
+            "menu": "quick-links-footer"
           }
         },
-        "link_list_WeFtNr": {
-          "type": "link_list",
+        "text_wVh7qz": {
+          "type": "text",
           "settings": {
-            "heading": "Quick links",
-            "menu": ""
+            "heading": "Contact Us",
+            "subtext": "<p>Email: support@roverisland.com<br/>WhatsApp: +971 55 640 7089<br/>Wholesale Inquiries: +971555444732 (WhatsApp Only)</p>"
           }
         }
       },
@@ -52,7 +52,7 @@
         "brand_information_yFBiyA",
         "link_list_A8PzJK",
         "link_list_77z3kg",
-        "link_list_WeFtNr"
+        "text_wVh7qz"
       ],
       "custom_css": [],
       "settings": {
