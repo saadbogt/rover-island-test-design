@@ -16,6 +16,60 @@
         "padding_bottom": 36
       }
     },
+    "multicolumn_3e68AP": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_fFgqmF": {
+          "type": "column",
+          "settings": {
+            "title": "Email",
+            "text": "<p>suppor@roverisland.com</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_ArEgd4": {
+          "type": "column",
+          "settings": {
+            "title": "Phone:",
+            "text": "<p><strong>Customer Support</strong>: +971 55 640 7089</p><p><strong>Wholesale inquiry</strong>: +971 55 544 4732</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_MxH8T9": {
+          "type": "column",
+          "settings": {
+            "title": "Address",
+            "text": "<p>Dubai, UAE</p>",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "column_fFgqmF",
+        "column_ArEgd4",
+        "column_MxH8T9"
+      ],
+      "name": "t:sections.multicolumn.presets.name",
+      "settings": {
+        "title": "",
+        "heading_size": "h1",
+        "image_width": "full",
+        "image_ratio": "adapt",
+        "button_label": "",
+        "button_link": "",
+        "columns_desktop": 3,
+        "column_alignment": "left",
+        "background_style": "primary",
+        "color_scheme": "scheme-31478177-fb35-4588-b443-9c04388809ed",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
     "form": {
       "type": "contact-form",
       "settings": {
@@ -29,6 +83,7 @@
   },
   "order": [
     "main",
+    "multicolumn_3e68AP",
     "form"
   ]
 }
