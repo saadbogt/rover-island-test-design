@@ -14,15 +14,23 @@
     "announcement-bar": {
       "type": "announcement-bar",
       "blocks": {
+        "announcement_ggRt7m": {
+          "type": "announcement",
+          "settings": {
+            "text": "Welcome to our store",
+            "link": ""
+          }
+        },
         "announcement-bar-0": {
           "type": "announcement",
           "settings": {
-            "text": "Free Shipping Above 150 AED",
+            "text": "Get 10% on full Catalog on Saturday",
             "link": "shopify://collections/all"
           }
         }
       },
       "block_order": [
+        "announcement_ggRt7m",
         "announcement-bar-0"
       ],
       "settings": {
