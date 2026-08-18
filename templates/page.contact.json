@@ -79,6 +79,9 @@
     },
     "form": {
       "type": "contact-form",
+      "custom_css": [
+        ".button {width: 100%;}"
+      ],
       "settings": {
         "heading": "",
         "heading_size": "h1",
