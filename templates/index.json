@@ -161,7 +161,7 @@
         "collection_MnfJtG": {
           "type": "collection",
           "settings": {
-            "collection": "",
+            "collection": "hair-care",
             "title": "Hair Care",
             "image": "shopify://shop_images/Hair_Care.png",
             "image_shape": "circle"
@@ -170,7 +170,7 @@
         "collection_y3fahN": {
           "type": "collection",
           "settings": {
-            "collection": "",
+            "collection": "bath-body",
             "title": "Body & Bath",
             "image": "shopify://shop_images/Body_Bath.png",
             "image_shape": "circle"
