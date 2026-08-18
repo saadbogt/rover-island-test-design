@@ -13,7 +13,7 @@
       "type": "main-page",
       "settings": {
         "padding_top": 36,
-        "padding_bottom": 36
+        "padding_bottom": 0
       }
     },
     "multicolumn_3e68AP": {
@@ -66,7 +66,7 @@
         "color_scheme": "scheme-31478177-fb35-4588-b443-9c04388809ed",
         "columns_mobile": "1",
         "swipe_on_mobile": false,
-        "padding_top": 36,
+        "padding_top": 0,
         "padding_bottom": 36
       }
     },
