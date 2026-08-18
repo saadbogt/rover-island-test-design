@@ -35,7 +35,7 @@
           "type": "column",
           "settings": {
             "title": "Phone:",
-            "text": "<p><strong>Customer Support</strong>: +971 55 640 7089</p><p><strong>Wholesale inquiry</strong>: +971 55 544 4732</p>",
+            "text": "<p><strong>Customer Support</strong>:</p><p><a href=\"tel:(971)-55-640-7089\" title=\"tel:+971556407089\">(971)-55-640-7089</a></p><p><strong>Wholesale inquiry</strong>:</p><p><a href=\"tel:+971555444732\" title=\"tel:+971555444732\">(971)-55-544-4732</a></p>",
             "link_label": "",
             "link": ""
           }
