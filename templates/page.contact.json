@@ -55,6 +55,10 @@
         "column_ArEgd4",
         "column_MxH8T9"
       ],
+      "custom_css": [
+        ".multicolumn-card__info {text-align: center;}",
+        ".rte a {text-decoration-line: none; font-size: 14px;}"
+      ],
       "name": "t:sections.multicolumn.presets.name",
       "settings": {
         "title": "",
@@ -70,7 +74,7 @@
         "columns_mobile": "1",
         "swipe_on_mobile": false,
         "padding_top": 0,
-        "padding_bottom": 36
+        "padding_bottom": 0
       }
     },
     "form": {
