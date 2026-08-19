@@ -15,9 +15,47 @@
         "padding_top": 28,
         "padding_bottom": 28
       }
+    },
+    "brand_grid_ypmNBN": {
+      "type": "brand-grid",
+      "blocks": {
+        "brand_Nzn9et": {
+          "type": "brand",
+          "settings": {
+            "image": "shopify://shop_images/abib_6f656725-dab1-477b-8004-de4dc9169981.jpg",
+            "name": "",
+            "link": "shopify://collections/abib"
+          }
+        },
+        "brand_6zmkJN": {
+          "type": "brand",
+          "settings": {
+            "image": "shopify://shop_images/abib_6f656725-dab1-477b-8004-de4dc9169981.jpg",
+            "name": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "brand_Nzn9et",
+        "brand_6zmkJN"
+      ],
+      "name": "Brand Grid",
+      "settings": {
+        "heading": "",
+        "heading_size": "h1",
+        "color_scheme": "",
+        "image_ratio": "adapt",
+        "columns_desktop": 6,
+        "columns_mobile": 3,
+        "enable_structured_data": true,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "brand_grid_ypmNBN"
   ]
 }
