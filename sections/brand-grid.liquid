@@ -1,0 +1,348 @@
+{%- comment -%}
+  Brand Grid — sections/brand-grid.liquid
+  ------------------------------------------------------------------
+  A manually curated logo grid, one block per brand. Add each block's
+  image + collection link yourself in the theme editor. No metafields,
+  no automation — just add a block, upload a logo, paste a link.
+
+  Built to match Dawn conventions:
+    - color scheme wrapper (color-{scheme} gradient), same as every
+      other Dawn section
+    - page-width container + section-{id}-padding pattern (theme's
+      global padding controls apply consistently)
+    - title-wrapper / title classes for the heading, same type scale
+      as the rest of the theme
+    - .grid base class so gutter spacing matches Dawn's grid system
+
+  SEO / crawlability:
+    - Real <a href> tags, server-rendered — fully crawlable, no JS
+      required to see or follow the links
+    - Real <ul>/<li> list markup (this is a list of brands)
+    - Meaningful alt text sourced from each block's Brand Name field
+    - Optional ItemList JSON-LD so search engines understand this is
+      a directory of brand pages (toggle in section settings)
+
+  Performance / Core Web Vitals:
+    - Responsive image widths + sizes attribute (right-sized image
+      per device, not one giant file for everyone)
+    - width/height locked via aspect-ratio box — no layout shift
+      while images load
+    - First row loads eager (helps LCP), everything below the fold
+      loads lazy
+
+  Tracking (GTM / Meta Pixel / GA4):
+    - Plain <a> elements with real hrefs — standard outbound/navigation
+      tracking just works, no custom JS needed
+    - Each link carries data-brand-name so you can target these
+      clicks specifically in GTM trigger conditions if you want
+      brand-level click tracking
+{%- endcomment -%}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  #brand-grid-{{ section.id }} {
+    display: grid;
+    grid-template-columns: repeat({{ section.settings.columns_mobile }}, 1fr);
+    gap: 1rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  @media screen and (min-width: 750px) {
+    #brand-grid-{{ section.id }} {
+      grid-template-columns: repeat({{ section.settings.columns_desktop }}, 1fr);
+      gap: 1.6rem;
+    }
+  }
+
+  .brand-grid__link {
+    display: block;
+    text-decoration: none;
+    color: currentColor;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .brand-grid__card {
+    position: relative;
+    width: 100%;
+    padding-bottom: var(--ratio-percent, 100%); /* aspect ratio box, prevents CLS */
+    background: rgb(var(--color-background, 255, 255, 255));
+    border: 1px solid rgba(var(--color-foreground, 0, 0, 0), 0.08);
+    border-radius: 0.8rem;
+    overflow: hidden;
+    transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+  }
+  .brand-grid__link:hover .brand-grid__card,
+  .brand-grid__link:focus-visible .brand-grid__card {
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+    border-color: rgba(var(--color-foreground, 0, 0, 0), 0.16);
+  }
+  .brand-grid__link:focus-visible {
+    outline: 2px solid rgba(var(--color-foreground, 0, 0, 0), 0.5);
+    outline-offset: 2px;
+    border-radius: 0.8rem;
+  }
+  .brand-grid__image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 14%;
+    box-sizing: border-box;
+  }
+  .brand-grid__fallback {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    font-size: 1.3rem;
+    font-weight: 600;
+    text-align: center;
+  }
+  .brand-grid__empty {
+    text-align: center;
+    opacity: 0.7;
+  }
+{%- endstyle -%}
+
+<div class="color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+  <div class="page-width">
+    {%- unless section.settings.heading == blank -%}
+      <div class="title-wrapper title-wrapper--no-top-margin">
+        <h2 class="title inline-richtext {{ section.settings.heading_size }}">
+          {{ section.settings.heading }}
+        </h2>
+      </div>
+    {%- endunless -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <ul id="brand-grid-{{ section.id }}" role="list">
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign brand_name = block.settings.name | default: 'Brand'
+            assign loading_attr = 'lazy'
+            if forloop.index <= section.settings.columns_desktop
+              assign loading_attr = 'eager'
+            endif
+
+            comment
+              Dawn's own image-ratio logic (same as Collection List /
+              List Collections sections): square = 1, portrait = 0.8,
+              adapt = the image's real aspect ratio.
+            endcomment
+            assign ratio = 1
+            if block.settings.image and section.settings.image_ratio == 'portrait'
+              assign ratio = 0.8
+            elsif block.settings.image and section.settings.image_ratio == 'adapt'
+              assign ratio = block.settings.image.aspect_ratio
+            endif
+            if ratio == 0 or ratio == blank
+              assign ratio = 1
+            endif
+          -%}
+          <li {{ block.shopify_attributes }}>
+            {%- if block.settings.link != blank -%}
+              <a
+                href="{{ block.settings.link }}"
+                class="brand-grid__link"
+                aria-label="Shop {{ brand_name | escape }}"
+                data-brand-name="{{ brand_name | escape }}"
+              >
+            {%- endif -%}
+
+            <div class="brand-grid__card" style="--ratio-percent: {{ 1.0 | divided_by: ratio | times: 100 }}%;">
+              {%- if block.settings.image -%}
+                {{
+                  block.settings.image
+                  | image_url: width: 600
+                  | image_tag:
+                    loading: loading_attr,
+                    widths: '165, 220, 330, 440, 600',
+                    sizes: '(min-width: 990px) 200px, (min-width: 750px) 25vw, 40vw',
+                    class: 'brand-grid__image',
+                    alt: brand_name
+                }}
+              {%- else -%}
+                <span class="brand-grid__fallback">{{ brand_name }}</span>
+              {%- endif -%}
+            </div>
+
+            {%- if block.settings.link != blank -%}
+              </a>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+
+      {%- if section.settings.enable_structured_data -%}
+        {%- capture list_items -%}
+          {%- for block in section.blocks -%}
+            {%- if block.settings.link != blank -%}
+              {
+                "@type": "ListItem",
+                "position": {{ forloop.index }},
+                "name": {{ block.settings.name | default: 'Brand' | json }},
+                "url": {{ block.settings.link | json }}
+              }{% unless forloop.last %},{% endunless %}
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endcapture -%}
+        <script type="application/ld+json">
+          {
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            "name": {{ section.settings.heading | default: 'Shop by Brand' | json }},
+            "itemListElement": [{{ list_items }}]
+          }
+        </script>
+      {%- endif -%}
+    {%- else -%}
+      <p class="brand-grid__empty">Add brand blocks in the theme editor to populate this grid.</p>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Brand Grid",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Shop by Brand"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading size",
+      "options": [
+        { "value": "h2", "label": "Small" },
+        { "value": "h1", "label": "Medium" },
+        { "value": "h0", "label": "Large" }
+      ],
+      "default": "h1"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "label": "Image ratio",
+      "options": [
+        { "value": "adapt", "label": "Adapt to image" },
+        { "value": "portrait", "label": "Portrait" },
+        { "value": "square", "label": "Square" }
+      ],
+      "default": "adapt",
+      "info": "Same behavior as Dawn's Collection List section: Adapt keeps each logo's natural proportions, Portrait/Square force a consistent shape."
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 3,
+      "max": 8,
+      "step": 1,
+      "default": 6,
+      "label": "Columns on desktop"
+    },
+    {
+      "type": "range",
+      "id": "columns_mobile",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 3,
+      "label": "Columns on mobile"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_structured_data",
+      "label": "Add structured data (JSON-LD) for search engines",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "brand",
+      "name": "Brand",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Logo image",
+          "info": "Square logos on a transparent/white background look best."
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Brand name",
+          "info": "Used for alt text, accessibility, aria-label, and structured data — always fill this in."
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Collection link",
+          "info": "Pick the brand's actual collection, e.g. /collections/abib — not a filtered/search URL."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brand Grid",
+      "blocks": [
+        { "type": "brand" },
+        { "type": "brand" },
+        { "type": "brand" },
+        { "type": "brand" },
+        { "type": "brand" },
+        { "type": "brand" }
+      ]
+    }
+  ]
+}
+{% endschema %}
