@@ -11,9 +11,109 @@
   "sections": {
     "main": {
       "type": "main-page",
+      "custom_css": [
+        "h1 {text-align: center;}"
+      ],
       "settings": {
         "padding_top": 28,
-        "padding_bottom": 28
+        "padding_bottom": 0
+      }
+    },
+    "collection_list_slider_kkjD8r": {
+      "type": "collection-list-slider",
+      "blocks": {
+        "collection_xdgKKi": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "title": "",
+            "image": "shopify://shop_images/FOODOLOGY.png",
+            "image_shape": "default"
+          }
+        },
+        "collection_TVqrVm": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "title": "",
+            "image_shape": "default"
+          }
+        },
+        "collection_jay8yK": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "title": "",
+            "image_shape": "default"
+          }
+        },
+        "collection_EM8Yxp": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "title": "",
+            "image_shape": "default"
+          }
+        },
+        "collection_Ezfyhy": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "title": "",
+            "image_shape": "default"
+          }
+        },
+        "collection_VdbnPE": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "title": "",
+            "image_shape": "default"
+          }
+        },
+        "collection_xCtgj8": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "title": "",
+            "image_shape": "default"
+          }
+        }
+      },
+      "block_order": [
+        "collection_xdgKKi",
+        "collection_TVqrVm",
+        "collection_jay8yK",
+        "collection_EM8Yxp",
+        "collection_Ezfyhy",
+        "collection_VdbnPE",
+        "collection_xCtgj8"
+      ],
+      "name": "Collection List Slider",
+      "settings": {
+        "page_width": true,
+        "heading": "Buss in the Market 🛒",
+        "heading_size_mobile": 24,
+        "heading_size_tablet": 32,
+        "heading_size_desktop": 40,
+        "heading_line_height": "1.2",
+        "description": "",
+        "desc_size_mobile": 14,
+        "desc_size_tablet": 16,
+        "desc_size_desktop": 16,
+        "desc_line_height": "1.5",
+        "title_size_mobile": 16,
+        "title_size_tablet": 18,
+        "title_size_desktop": 20,
+        "show_in_stock_only": false,
+        "max_items": 0,
+        "items_to_slide": 1,
+        "items_per_view_mobile": 2,
+        "items_per_view_tablet": 6,
+        "items_per_view_desktop": 6,
+        "item_gap": 16,
+        "padding_top": 36,
+        "padding_bottom": 36
       }
     },
     "brand_grid_ypmNBN": {
@@ -21,24 +121,535 @@
       "blocks": {
         "brand_Nzn9et": {
           "type": "brand",
+          "name": "abib",
           "settings": {
             "image": "shopify://shop_images/abib_6f656725-dab1-477b-8004-de4dc9169981.jpg",
-            "name": "",
+            "name": "ABIB",
             "link": "shopify://collections/abib"
           }
         },
         "brand_6zmkJN": {
           "type": "brand",
           "settings": {
-            "image": "shopify://shop_images/abib_6f656725-dab1-477b-8004-de4dc9169981.jpg",
-            "name": "",
-            "link": ""
+            "image": "shopify://shop_images/Advanced_Clinicals.jpg",
+            "name": "Advanced Clinicals",
+            "link": "shopify://collections/advanced-clinicals"
+          }
+        },
+        "brand_T7NwcN": {
+          "type": "brand",
+          "name": "ANUA",
+          "settings": {
+            "image": "shopify://shop_images/ANUA_83d88e41-1e83-4654-a8bb-4b1759172931.jpg",
+            "name": "ANUA",
+            "link": "shopify://collections/anua"
+          }
+        },
+        "brand_XMAHnM": {
+          "type": "brand",
+          "name": "anastasia",
+          "settings": {
+            "image": "shopify://shop_images/ANASTASIA.jpg",
+            "name": "anastasia",
+            "link": "shopify://collections/anastasia"
+          }
+        },
+        "brand_rc8KUp": {
+          "type": "brand",
+          "name": "ARENCIA",
+          "settings": {
+            "image": "shopify://shop_images/ARENCIA.jpg",
+            "name": "ARENCIA",
+            "link": "shopify://collections/arencia"
+          }
+        },
+        "brand_jdMg8U": {
+          "type": "brand",
+          "name": "aveeno",
+          "settings": {
+            "image": "shopify://shop_images/AVEENO.jpg",
+            "name": "aveeno",
+            "link": "shopify://collections/aveeno"
+          }
+        },
+        "brand_rtaaAx": {
+          "type": "brand",
+          "name": "Beauty Of Joseon",
+          "settings": {
+            "image": "shopify://shop_images/AXIS-Y_2.jpg",
+            "name": "Beauty Of Joseon",
+            "link": "shopify://collections/beauty-of-joseon"
+          }
+        },
+        "brand_mPMebM": {
+          "type": "brand",
+          "name": "AXIS-Y",
+          "settings": {
+            "image": "shopify://shop_images/AXIS-Y_23596604-630f-48f2-acc7-a574c5498ad8.jpg",
+            "name": "AXIS-Y",
+            "link": "shopify://collections/axis-y"
+          }
+        },
+        "brand_kmMdYC": {
+          "type": "brand",
+          "name": "BEBREEZE",
+          "settings": {
+            "image": "shopify://shop_images/bebreeze.jpg",
+            "name": "BEBREEZE",
+            "link": "shopify://collections/bebreeze"
+          }
+        },
+        "brand_68hAjg": {
+          "type": "brand",
+          "name": "bioderma",
+          "settings": {
+            "image": "shopify://shop_images/BIODERMA.jpg",
+            "name": "bioderma",
+            "link": "shopify://collections/bioderma"
+          }
+        },
+        "brand_HahgJX": {
+          "type": "brand",
+          "name": "CELIMAX",
+          "settings": {
+            "image": "shopify://shop_images/celimax.jpg",
+            "name": "CELIMAX",
+            "link": "shopify://collections/celimax"
+          }
+        },
+        "brand_8jAiqY": {
+          "type": "brand",
+          "name": "CENTRUM",
+          "settings": {
+            "image": "shopify://shop_images/Centrum.jpg",
+            "name": "CENTRUM",
+            "link": "shopify://collections/centrum"
+          }
+        },
+        "brand_Yz8Kr7": {
+          "type": "brand",
+          "name": "CeraVe",
+          "settings": {
+            "image": "shopify://shop_images/CERAVE_a28e1d91-a8c4-43a9-a7c7-84a8110d2c87.jpg",
+            "name": "CeraVe",
+            "link": "shopify://collections/cerave"
+          }
+        },
+        "brand_zpPaed": {
+          "type": "brand",
+          "name": "Cetaphil",
+          "settings": {
+            "image": "shopify://shop_images/Cetaphil.jpg",
+            "name": "Cetaphil",
+            "link": "shopify://collections/cetaphil"
+          }
+        },
+        "brand_76FAC9": {
+          "type": "brand",
+          "name": "CLINIQUE",
+          "settings": {
+            "image": "shopify://shop_images/Clinique.jpg",
+            "name": "CLINIQUE",
+            "link": "shopify://collections/clinique"
+          }
+        },
+        "brand_QYCwMx": {
+          "type": "brand",
+          "name": "COLORWOW",
+          "settings": {
+            "image": "shopify://shop_images/Color_Wow.jpg",
+            "name": "COLORWOW",
+            "link": "shopify://collections/color-wow"
+          }
+        },
+        "brand_hgEMTT": {
+          "type": "brand",
+          "name": "COSRX",
+          "settings": {
+            "image": "shopify://shop_images/COSRX_e70e1404-bee6-4d7b-b921-a72ccf7ef065.jpg",
+            "name": "COSRX",
+            "link": "shopify://collections/cosrx"
+          }
+        },
+        "brand_HHiqdB": {
+          "type": "brand",
+          "name": "CREMO",
+          "settings": {
+            "image": "shopify://shop_images/cremo.jpg",
+            "name": "CREMO",
+            "link": "shopify://collections/cremo-1"
+          }
+        },
+        "brand_jRhmL7": {
+          "type": "brand",
+          "name": "Dr. Teal's",
+          "settings": {
+            "image": "shopify://shop_images/Dr_Teal_s.jpg",
+            "name": "Dr. Teal's",
+            "link": "shopify://collections/dr-teals"
+          }
+        },
+        "brand_zfwF3i": {
+          "type": "brand",
+          "name": "Dr. Althea",
+          "settings": {
+            "image": "shopify://shop_images/Dr._Althea.jpg",
+            "name": "Dr. Althea",
+            "link": "shopify://collections/dr-althea"
+          }
+        },
+        "brand_GLCp66": {
+          "type": "brand",
+          "name": "EQQUALBERRY",
+          "settings": {
+            "image": "shopify://shop_images/EQQUALBERRY.jpg",
+            "name": "EQQUALBERRY",
+            "link": "shopify://collections/eqqualberry"
+          }
+        },
+        "brand_HHHpnz": {
+          "type": "brand",
+          "name": "ESSENCE",
+          "settings": {
+            "image": "shopify://shop_images/essence.jpg",
+            "name": "ESSENCE",
+            "link": "shopify://collections/essence"
+          }
+        },
+        "brand_hDQKkq": {
+          "type": "brand",
+          "name": "Estee Lauder",
+          "settings": {
+            "image": "shopify://shop_images/Estee_Lauder.jpg",
+            "name": "Estee Lauder",
+            "link": "shopify://collections/estee-lauder"
+          }
+        },
+        "brand_Bfrnnd": {
+          "type": "brand",
+          "name": "ETUDE",
+          "settings": {
+            "image": "shopify://shop_images/Etude.jpg",
+            "name": "ETUDE",
+            "link": "shopify://collections/etude"
+          }
+        },
+        "brand_aLgG3m": {
+          "type": "brand",
+          "name": "Eucerin",
+          "settings": {
+            "image": "shopify://shop_images/Eucerin.jpg",
+            "name": "Eucerin",
+            "link": "shopify://collections/eucerin"
+          }
+        },
+        "brand_8EeifF": {
+          "type": "brand",
+          "name": "FINO Shisedo",
+          "settings": {
+            "image": "shopify://shop_images/FINO_Shisedio.jpg",
+            "name": "FINO Shisedo",
+            "link": "shopify://collections/shiseido"
+          }
+        },
+        "brand_96f8Vt": {
+          "type": "brand",
+          "name": "FOODOLOGY",
+          "settings": {
+            "image": "shopify://shop_images/FOODOLOGY.jpg",
+            "name": "FOODOLOGY",
+            "link": "shopify://collections/foodology"
+          }
+        },
+        "brand_cD63CX": {
+          "type": "brand",
+          "name": "goli",
+          "settings": {
+            "image": "shopify://shop_images/Goli.jpg",
+            "name": "goli",
+            "link": "shopify://collections/goli"
+          }
+        },
+        "brand_FXaydQ": {
+          "type": "brand",
+          "name": "HARUHARU",
+          "settings": {
+            "image": "shopify://shop_images/HARUHARU.jpg",
+            "name": "HARUHARU",
+            "link": "shopify://collections/haruharu"
+          }
+        },
+        "brand_xN99Pr": {
+          "type": "brand",
+          "name": "HEIMISH",
+          "settings": {
+            "image": "shopify://shop_images/HEIMISH.jpg",
+            "name": "HEIMISH",
+            "link": "shopify://collections/heimish"
+          }
+        },
+        "brand_3FTpBw": {
+          "type": "brand",
+          "name": "HUDA BEAUTY",
+          "settings": {
+            "image": "shopify://shop_images/HUDA_BEAUTY.jpg",
+            "name": "HUDA BEAUTY",
+            "link": "shopify://collections/huda-beauty"
+          }
+        },
+        "brand_68Rnix": {
+          "type": "brand",
+          "name": "I'm Sorry For My Skin",
+          "settings": {
+            "image": "shopify://shop_images/I_m_Sorry_For_My_Skin.jpg",
+            "name": "I'm Sorry For My Skin",
+            "link": "shopify://collections/i-m-sorry-for-my-skin"
+          }
+        },
+        "brand_7WAHBC": {
+          "type": "brand",
+          "name": "ISNTREE",
+          "settings": {
+            "image": "shopify://shop_images/ISNTREE.jpg",
+            "name": "ISNTREE",
+            "link": "shopify://collections/isntree"
+          }
+        },
+        "brand_AUtagV": {
+          "type": "brand",
+          "name": "Jumiso",
+          "settings": {
+            "image": "shopify://shop_images/Jumiso.jpg",
+            "name": "Jumiso",
+            "link": "shopify://collections/jumiso"
+          }
+        },
+        "brand_rYBbJH": {
+          "type": "brand",
+          "name": "K-Secret",
+          "settings": {
+            "image": "shopify://shop_images/K-Secret_89a7137b-1afa-461c-bae4-9490cb598b4c.jpg",
+            "name": "K-Secret",
+            "link": "shopify://collections/k-secret"
+          }
+        },
+        "brand_NYPzcX": {
+          "type": "brand",
+          "name": "La Roche",
+          "settings": {
+            "image": "shopify://shop_images/La_Roche.jpg",
+            "name": "La Roche",
+            "link": "shopify://collections/la-roche-posay"
+          }
+        },
+        "brand_yeGkjJ": {
+          "type": "brand",
+          "name": "LOREAL",
+          "settings": {
+            "image": "shopify://shop_images/LOREAL.jpg",
+            "name": "LOREAL",
+            "link": "shopify://collections/loreal"
+          }
+        },
+        "brand_x3YeDc": {
+          "type": "brand",
+          "name": "Make Up For Ever",
+          "settings": {
+            "image": "shopify://shop_images/Make_Up_For_Ever.jpg",
+            "name": "Make Up For Ever",
+            "link": "shopify://collections/makeup-forever"
+          }
+        },
+        "brand_tNaW3Y": {
+          "type": "brand",
+          "name": "MARY & MAY",
+          "settings": {
+            "image": "shopify://shop_images/MARY_MAY.jpg",
+            "name": "MARY & MAY",
+            "link": "shopify://collections/mary-n-may"
+          }
+        },
+        "brand_dgAMjW": {
+          "type": "brand",
+          "name": "MAYBELLINE",
+          "settings": {
+            "image": "shopify://shop_images/MAYBELLINE.jpg",
+            "name": "MAYBELLINE",
+            "link": "shopify://collections/maybelline"
+          }
+        },
+        "brand_htfB47": {
+          "type": "brand",
+          "name": "Medicube",
+          "settings": {
+            "image": "shopify://shop_images/medicube_94f5ca13-3603-4261-8def-e346a632beb7.jpg",
+            "name": "Medicube",
+            "link": "shopify://collections/medicube"
+          }
+        },
+        "brand_zr9WeW": {
+          "type": "brand",
+          "name": "Medix 5.5",
+          "settings": {
+            "image": "shopify://shop_images/Medix_5.5.jpg",
+            "name": "Medix 5.5",
+            "link": "shopify://collections/medix"
+          }
+        },
+        "brand_FzA9WD": {
+          "type": "brand",
+          "name": "MIELLE",
+          "settings": {
+            "image": "shopify://shop_images/MIELLE_57f24975-2571-474d-a285-17383d8f377a.jpg",
+            "name": "MIELLE",
+            "link": "shopify://collections/mielle"
+          }
+        },
+        "brand_3Fz87F": {
+          "type": "brand",
+          "name": "NARS",
+          "settings": {
+            "image": "shopify://shop_images/NARS_a19f109d-8e00-4d74-8b32-bcc335cc9cb8.jpg",
+            "name": "NARS",
+            "link": "shopify://collections/nars"
+          }
+        },
+        "brand_DLRYAi": {
+          "type": "brand",
+          "name": "NOW Foods",
+          "settings": {
+            "image": "shopify://shop_images/NOW_Foods.jpg",
+            "name": "NOW Foods",
+            "link": "shopify://collections/now"
+          }
+        },
+        "brand_r9mqX8": {
+          "type": "brand",
+          "name": "Numbuzin",
+          "settings": {
+            "image": "shopify://shop_images/Numbuzin.jpg",
+            "name": "Numbuzin",
+            "link": "shopify://collections/numbuzin"
+          }
+        },
+        "brand_JRxVtn": {
+          "type": "brand",
+          "name": "NYX",
+          "settings": {
+            "image": "shopify://shop_images/NYX_80b6dddb-cd95-4c28-84b6-e63422d17829.jpg",
+            "name": "NYX",
+            "link": "shopify://collections/nyx"
+          }
+        },
+        "brand_Uymdz7": {
+          "type": "brand",
+          "name": "Purito Seoul",
+          "settings": {
+            "image": "shopify://shop_images/Purito_Seoul.jpg",
+            "name": "Purito Seoul",
+            "link": "shopify://collections/purito"
+          }
+        },
+        "brand_jB9JzM": {
+          "type": "brand",
+          "name": "SKIN1004",
+          "settings": {
+            "image": "shopify://shop_images/SKIN1004.jpg",
+            "name": "SKIN1004",
+            "link": "shopify://collections/skin1004"
+          }
+        },
+        "brand_fYQGhC": {
+          "type": "brand",
+          "name": "SOME BY MI",
+          "settings": {
+            "image": "shopify://shop_images/SOME_BY_MI.jpg",
+            "name": "SOME BY MI",
+            "link": "shopify://collections/some-by-mi"
+          }
+        },
+        "brand_VKAA8d": {
+          "type": "brand",
+          "name": "TIR TIR",
+          "settings": {
+            "image": "shopify://shop_images/tirtir.jpg",
+            "name": "TIR TIR",
+            "link": "shopify://collections/tirtir"
+          }
+        },
+        "brand_x84Cyx": {
+          "type": "brand",
+          "name": "TOCOBO",
+          "settings": {
+            "image": "shopify://shop_images/TOCOBO.jpg",
+            "name": "TOCOBO",
+            "link": "shopify://collections/tocobo"
+          }
+        },
+        "brand_nVVWeL": {
+          "type": "brand",
+          "name": "VT Cosmetics",
+          "settings": {
+            "image": "shopify://shop_images/VT_Cosmetics.jpg",
+            "name": "VT Cosmetics",
+            "link": "shopify://collections/vtcosmetics"
           }
         }
       },
       "block_order": [
         "brand_Nzn9et",
-        "brand_6zmkJN"
+        "brand_6zmkJN",
+        "brand_T7NwcN",
+        "brand_XMAHnM",
+        "brand_rc8KUp",
+        "brand_jdMg8U",
+        "brand_rtaaAx",
+        "brand_mPMebM",
+        "brand_kmMdYC",
+        "brand_68hAjg",
+        "brand_HahgJX",
+        "brand_8jAiqY",
+        "brand_Yz8Kr7",
+        "brand_zpPaed",
+        "brand_76FAC9",
+        "brand_QYCwMx",
+        "brand_hgEMTT",
+        "brand_HHiqdB",
+        "brand_jRhmL7",
+        "brand_zfwF3i",
+        "brand_GLCp66",
+        "brand_HHHpnz",
+        "brand_hDQKkq",
+        "brand_Bfrnnd",
+        "brand_aLgG3m",
+        "brand_8EeifF",
+        "brand_96f8Vt",
+        "brand_cD63CX",
+        "brand_FXaydQ",
+        "brand_xN99Pr",
+        "brand_3FTpBw",
+        "brand_68Rnix",
+        "brand_7WAHBC",
+        "brand_AUtagV",
+        "brand_rYBbJH",
+        "brand_NYPzcX",
+        "brand_yeGkjJ",
+        "brand_x3YeDc",
+        "brand_tNaW3Y",
+        "brand_dgAMjW",
+        "brand_htfB47",
+        "brand_zr9WeW",
+        "brand_FzA9WD",
+        "brand_3Fz87F",
+        "brand_DLRYAi",
+        "brand_r9mqX8",
+        "brand_JRxVtn",
+        "brand_Uymdz7",
+        "brand_jB9JzM",
+        "brand_fYQGhC",
+        "brand_VKAA8d",
+        "brand_x84Cyx",
+        "brand_nVVWeL"
       ],
       "name": "Brand Grid",
       "settings": {
@@ -56,6 +667,7 @@
   },
   "order": [
     "main",
+    "collection_list_slider_kkjD8r",
     "brand_grid_ypmNBN"
   ]
 }
