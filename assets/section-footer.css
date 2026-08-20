@@ -415,8 +415,9 @@
 .footer-block__brand-info {
   text-align: left;
   font-size: 14px;
-  padding-left: 30px;
-  letter-spacing:00.1rem;
+  padding-right: 30px;
+  letter-spacing: 0.1px;
+  line-height: 1.3;
 }
 
 .footer-block:only-child .footer-block__brand-info {
