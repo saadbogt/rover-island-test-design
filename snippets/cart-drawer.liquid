@@ -120,6 +120,7 @@
 
                   <tbody role="rowgroup">
                     {%- for item in cart.items -%}
+                      <hr>
                       <tr
                         id="CartDrawer-Item-{{ item.index | plus: 1 }}"
                         class="cart-item{% if item.parent_relationship.parent != null %} cart-item__nested-line{% endif %}"
