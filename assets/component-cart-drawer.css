@@ -213,7 +213,8 @@ cart-drawer-items {
 }
 
 .cart-drawer .cart-item__media {
-  grid-row: 1 / 3;
+  /* grid-row: 1 / 3; */
+  width:15%;
 }
 
 .cart-drawer .cart-item__image {
@@ -271,8 +272,9 @@ cart-drawer-items {
 }
 
 .cart-drawer .cart-item__details {
-  width: auto;
-  grid-column: 2 / 4;
+  /* width: auto;
+  grid-column: 2 / 4; */
+  width:80%;
 }
 
 .cart-drawer .cart-item__totals {
