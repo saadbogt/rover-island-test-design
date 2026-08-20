@@ -412,7 +412,7 @@
   max-width: 100%;
 }
 
-.footer-block__brand-info {
+.footer-block__brand-info > p {
   text-align: left;
   font-size: 14px;
   padding-right: 30px;
