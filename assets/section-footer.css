@@ -117,7 +117,7 @@
 @media screen and (min-width: 750px) {
   .footer-block {
     display: block;
-    margin-top: 0;
+    margin-top: 10px;
   }
 }
 
@@ -399,12 +399,7 @@
   .footer-block-image.right {
     justify-content: center;
   }
-    .footer-block__brand-info {
-  text-align: left;
-  font-size: 14px;
-  letter-spacing: 0.1px;
-  line-height: 1.3;
-  }
+  
   
 }
 
@@ -422,7 +417,6 @@
 .footer-block__brand-info {
   text-align: left;
   font-size: 14px;
-  padding-right: 30px;
   letter-spacing: 0.1px;
   line-height: 1.3;
 }
