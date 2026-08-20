@@ -92,7 +92,7 @@
               <div class="drawer__cart-items-wrapper">
                 <table class="cart-items" role="table">
                   <thead role="rowgroup">
-                    <tr role="row">
+                    {% comment %} <tr role="row">
                       <th id="CartDrawer-ColumnProductImage" role="columnheader">
                         <span class="visually-hidden">{{ 'sections.cart.headings.image' | t }}</span>
                       </th>
@@ -115,7 +115,7 @@
                       <th id="CartDrawer-ColumnQuantity" role="columnheader">
                         <span class="visually-hidden">{{ 'sections.cart.headings.quantity' | t }}</span>
                       </th>
-                    </tr>
+                    </tr> {% endcomment %}
                   </thead>
 
                   <tbody role="rowgroup">
