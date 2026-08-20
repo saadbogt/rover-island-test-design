@@ -19,85 +19,71 @@
         "padding_bottom": 0
       }
     },
-    "collection_list_slider_kkjD8r": {
+    "collection_list_slider_g96rdw": {
       "type": "collection-list-slider",
       "blocks": {
-        "collection_xdgKKi": {
+        "collection_MB4XmL": {
           "type": "collection",
           "settings": {
-            "collection": "",
-            "title": "",
+            "collection": "foodology",
+            "title": "FOODOLOGY",
             "image": "shopify://shop_images/FOODOLOGY.png",
             "image_shape": "default"
           }
         },
-        "collection_TVqrVm": {
+        "collection_GxTUbA": {
           "type": "collection",
           "settings": {
-            "collection": "",
-            "title": "",
+            "collection": "shiseido",
+            "title": "Shiseido FINO",
+            "image": "shopify://shop_images/FINO.png",
             "image_shape": "default"
           }
         },
-        "collection_jay8yK": {
+        "collection_AJGcVf": {
           "type": "collection",
           "settings": {
-            "collection": "",
-            "title": "",
+            "collection": "medicube",
+            "title": "Medicube",
+            "image": "shopify://shop_images/Medicube.png",
             "image_shape": "default"
           }
         },
-        "collection_EM8Yxp": {
+        "collection_gGBARe": {
           "type": "collection",
           "settings": {
-            "collection": "",
-            "title": "",
+            "collection": "cosrx",
+            "title": "COSRX",
+            "image": "shopify://shop_images/COSRX_01a9ff06-d778-4912-ab4c-29e707dec451.png",
             "image_shape": "default"
           }
         },
-        "collection_Ezfyhy": {
+        "collection_PdDLbG": {
           "type": "collection",
           "settings": {
-            "collection": "",
-            "title": "",
-            "image_shape": "default"
-          }
-        },
-        "collection_VdbnPE": {
-          "type": "collection",
-          "settings": {
-            "collection": "",
-            "title": "",
-            "image_shape": "default"
-          }
-        },
-        "collection_xCtgj8": {
-          "type": "collection",
-          "settings": {
-            "collection": "",
-            "title": "",
+            "collection": "dr-althea",
+            "title": "Dr. Althea",
+            "image": "shopify://shop_images/Dr._Althea.png",
             "image_shape": "default"
           }
         }
       },
       "block_order": [
-        "collection_xdgKKi",
-        "collection_TVqrVm",
-        "collection_jay8yK",
-        "collection_EM8Yxp",
-        "collection_Ezfyhy",
-        "collection_VdbnPE",
-        "collection_xCtgj8"
+        "collection_MB4XmL",
+        "collection_GxTUbA",
+        "collection_AJGcVf",
+        "collection_gGBARe",
+        "collection_PdDLbG"
       ],
-      "name": "Collection List Slider",
+      "name": "POPULAR BRANDS",
       "settings": {
         "page_width": true,
-        "heading": "Buss in the Market 🛒",
+        "heading": "BUZZ IN THE MARKET 🧺",
         "heading_size_mobile": 24,
         "heading_size_tablet": 32,
         "heading_size_desktop": 40,
         "heading_line_height": "1.2",
-        "description": "",
+        "description": "Trending K-Beauty Brands",
         "desc_size_mobile": 14,
         "desc_size_tablet": 16,
         "desc_size_desktop": 16,
@@ -109,11 +95,11 @@
         "max_items": 0,
         "items_to_slide": 1,
         "items_per_view_mobile": 2,
-        "items_per_view_tablet": 6,
-        "items_per_view_desktop": 6,
+        "items_per_view_tablet": 5,
+        "items_per_view_desktop": 5,
         "item_gap": 16,
-        "padding_top": 36,
-        "padding_bottom": 36
+        "padding_top": 0,
+        "padding_bottom": 0
       }
     },
     "brand_grid_ypmNBN": {
@@ -651,9 +637,12 @@
         "brand_x84Cyx",
         "brand_nVVWeL"
       ],
+      "custom_css": [
+        "h2 {text-align: center;}"
+      ],
       "name": "Brand Grid",
       "settings": {
-        "heading": "",
+        "heading": "Popular Brands",
         "heading_size": "h1",
         "color_scheme": "",
         "image_ratio": "adapt",
@@ -667,7 +656,7 @@
   },
   "order": [
     "main",
-    "collection_list_slider_kkjD8r",
+    "collection_list_slider_g96rdw",
     "brand_grid_ypmNBN"
   ]
 }
