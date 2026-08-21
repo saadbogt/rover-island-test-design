@@ -17,14 +17,14 @@
         "announcement_ggRt7m": {
           "type": "announcement",
           "settings": {
-            "text": "Welcome to our store",
+            "text": "Free Delivery on Order above 150 AED",
             "link": ""
           }
         },
         "announcement-bar-0": {
           "type": "announcement",
           "settings": {
-            "text": "Get 10% on full Catalog on Saturday",
+            "text": "4hr Express Delivery Available (Only in Dubai)",
             "link": "shopify://collections/all"
           }
         }
@@ -34,8 +34,8 @@
         "announcement-bar-0"
       ],
       "settings": {
-        "auto_rotate": false,
-        "change_slides_speed": 5,
+        "auto_rotate": true,
+        "change_slides_speed": 3,
         "color_scheme": "scheme-c1b5c753-e7fc-40ea-ab2c-ac9193891a01",
         "show_line_separator": true,
         "show_social": true,
