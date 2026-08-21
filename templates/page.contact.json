@@ -26,7 +26,7 @@
           "type": "column",
           "settings": {
             "title": "Email",
-            "text": "<p>suppor@roverisland.com</p>",
+            "text": "<p><a href=\"mailto:support@roverisland.com\" title=\"mailto:support@roverisland.com\">support@roverisland.com</a></p>",
             "link_label": "",
             "link": ""
           }
