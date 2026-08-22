@@ -80,6 +80,46 @@
         "padding_bottom": 16
       }
     },
+    "tabbed_collection_Wkxnpr": {
+      "type": "tabbed-collection",
+      "blocks": {
+        "collection_x6PP9E": {
+          "type": "collection",
+          "settings": {
+            "collection": "offers-bundles",
+            "title": "Skincare"
+          }
+        }
+      },
+      "block_order": [
+        "collection_x6PP9E"
+      ],
+      "name": "CLEARANCE SALE",
+      "settings": {
+        "description": "Your Daily Glow, The Korean Way",
+        "heading": "GLASS SKIN ROUTINE 💧",
+        "show_vendor": true,
+        "show_rating": true,
+        "quick_add": "standard",
+        "heading_size_mobile": 24,
+        "heading_size_tablet": 32,
+        "heading_size_desktop": 40,
+        "heading_line_height": "1.2",
+        "desc_size_mobile": 14,
+        "desc_size_tablet": 16,
+        "desc_size_desktop": 16,
+        "desc_line_height": "1.5",
+        "show_in_stock_only": true,
+        "products_limit": 10,
+        "products_to_slide": 1,
+        "products_per_view_mobile": 2,
+        "products_per_view_tablet": 3,
+        "products_per_view_desktop": 4,
+        "item_gap": 16,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
     "tabbed_collection_3MaELi": {
       "type": "tabbed-collection",
       "blocks": {
@@ -112,8 +152,8 @@
       ],
       "name": "GLASS SKIN ROUTINE",
       "settings": {
-        "description": "Your Daily Glow, The Korean Way",
-        "heading": "GLASS SKIN ROUTINE 💧",
+        "description": "Best Selling Products",
+        "heading": "HOT IN MARKET 🔥",
         "show_vendor": true,
         "show_rating": true,
         "quick_add": "standard",
@@ -166,24 +206,6 @@
             "image_shape": "circle"
           }
         },
-        "collection_MnfJtG": {
-          "type": "collection",
-          "settings": {
-            "collection": "hair-care",
-            "title": "Hair Care",
-            "image": "shopify://shop_images/Hair_Care.png",
-            "image_shape": "circle"
-          }
-        },
-        "collection_y3fahN": {
-          "type": "collection",
-          "settings": {
-            "collection": "bath-body",
-            "title": "Body & Bath",
-            "image": "shopify://shop_images/Body_Bath.png",
-            "image_shape": "circle"
-          }
-        },
         "collection_ezgLQj": {
           "type": "collection",
           "settings": {
@@ -192,15 +214,33 @@
             "image": "shopify://shop_images/Makeup_d274b901-97af-4da7-9b68-2f39d3f421cb.png",
             "image_shape": "circle"
           }
+        },
+        "collection_MnfJtG": {
+          "type": "collection",
+          "settings": {
+            "collection": "hair-body",
+            "title": "Hair & Body",
+            "image": "shopify://shop_images/Hair_Care.png",
+            "image_shape": "circle"
+          }
+        },
+        "collection_y3fahN": {
+          "type": "collection",
+          "settings": {
+            "collection": "offers-bundles",
+            "title": "Bundles & Sets",
+            "image": "shopify://shop_images/K-beauty_82640db4-4e3e-4215-be1e-cfaa51369651.png",
+            "image_shape": "circle"
+          }
         }
       },
       "block_order": [
         "collection_z9rLyP",
         "collection_q9iYHX",
         "collection_t7jgPK",
+        "collection_ezgLQj",
         "collection_MnfJtG",
-        "collection_y3fahN",
-        "collection_ezgLQj"
+        "collection_y3fahN"
       ],
       "name": "Main Categories",
       "settings": {
@@ -368,10 +408,10 @@
         "padding_bottom": 36
       }
     },
-    "tabbed_collection_Wkxnpr": {
+    "tabbed_collection_MUB3Bt": {
       "type": "tabbed-collection",
       "blocks": {
-        "collection_x6PP9E": {
+        "collection_aA6KxW": {
           "type": "collection",
           "settings": {
             "collection": "clearance-sale",
@@ -380,7 +420,7 @@
         }
       },
       "block_order": [
-        "collection_x6PP9E"
+        "collection_aA6KxW"
       ],
       "name": "CLEARANCE SALE",
       "settings": {
@@ -478,11 +518,12 @@
   },
   "order": [
     "custom_carousel_banner_P3jKjA",
+    "tabbed_collection_Wkxnpr",
     "tabbed_collection_3MaELi",
     "collection_list_slider_CxULqk",
     "tabbed_collection_C8TPcq",
     "collection_list_slider_ADjdfJ",
-    "tabbed_collection_Wkxnpr",
+    "tabbed_collection_MUB3Bt",
     "reels_slider_fT8A3H"
   ]
 }
