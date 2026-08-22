@@ -93,14 +93,22 @@
         "collection_GhLBG6": {
           "type": "collection",
           "settings": {
-            "collection": "hair-care",
-            "title": "Hair Care"
+            "collection": "best-seller-hair-body",
+            "title": "Hair & Body"
+          }
+        },
+        "collection_Ar6gQp": {
+          "type": "collection",
+          "settings": {
+            "collection": "best-seller-makeup",
+            "title": "Makeup"
           }
         }
       },
       "block_order": [
         "collection_FFndF9",
-        "collection_GhLBG6"
+        "collection_GhLBG6",
+        "collection_Ar6gQp"
       ],
       "name": "GLASS SKIN ROUTINE",
       "settings": {
@@ -237,11 +245,19 @@
             "collection": "medicube",
             "title": "MEDICUBE"
           }
+        },
+        "collection_KCGqEh": {
+          "type": "collection",
+          "settings": {
+            "collection": "cosrx",
+            "title": ""
+          }
         }
       },
       "block_order": [
         "collection_fxhHYg",
-        "collection_3VjmPK"
+        "collection_3VjmPK",
+        "collection_KCGqEh"
       ],
       "name": "VIRAL PICKS",
       "settings": {
@@ -361,18 +377,10 @@
             "collection": "clearance-sale",
             "title": "Skincare"
           }
-        },
-        "collection_LqAbmt": {
-          "type": "collection",
-          "settings": {
-            "collection": "hair-care",
-            "title": ""
-          }
         }
       },
       "block_order": [
-        "collection_x6PP9E",
-        "collection_LqAbmt"
+        "collection_x6PP9E"
       ],
       "name": "CLEARANCE SALE",
       "settings": {
