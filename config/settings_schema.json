@@ -1744,5 +1744,62 @@
         "default": "scheme-1"
       }
     ]
+  },
+// -------------------------------------------------------------------------Progress BAR CART CUSTOM
+    {
+    "name": "Cart Progress Bar",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Cart Progress Thresholds are set in Market Metafields"
+      },   
+      {
+        "type": "checkbox",
+        "id": "enable_cart_progress_bar",
+        "label": "Enable Cart Progress Bar",
+        "default": false
+      },
+      {
+        "type": "text",
+        "id": "cart_pre_goal_message",
+        "label": "Pre-Goal Message",
+        "default": "You're only [remaining_for_goal] away from <strong>FREE SHIPPING</strong>",
+        "info": "Message displayed before reaching the goal. Use [remaining_for_goal] to insert the dynamic remaining amount."
+      },
+      {
+        "type": "text",
+        "id": "cart_post_goal_message",
+        "label": "Post-Goal Message",
+        "default": "🎉 Congrats! You've unlocked <strong>FREE SHIPPING</strong>",
+        "info": "Message displayed after reaching the goal."
+      },
+      {
+        "type": "color",
+        "id": "cart_progress_bar_color",
+        "label": "Progress Bar Color",
+        "default": "#d53600",
+        "info": "Color of the progress bar."
+      },
+      {
+        "type": "color",
+        "id": "cart_progress_bar_full_color",
+        "label": "Progress Bar Full Color",
+        "default": "#d53600",
+        "info": "Color of the progress bar when complete."
+      },
+      {
+        "type": "color",
+        "id": "cart_progress_bar_background_color",
+        "label": "Progress Bar Background Color",
+        "default": "#eee",
+        "info": "Color of the progress bar background."
+      },
+      {
+        "type": "color",
+        "id": "cart_progress_bar_text_color",
+        "label": "Progress Bar Text Color",
+        "default": "#333"
+      }
+    ]
   }
 ]
