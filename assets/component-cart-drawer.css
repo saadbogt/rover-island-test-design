@@ -13,6 +13,7 @@
 
 .drawer.active {
   visibility: visible;
+  z-index:99999999999999999999;
 }
 
 .drawer__inner {
