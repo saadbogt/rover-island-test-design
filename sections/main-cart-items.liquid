@@ -24,11 +24,6 @@
 {%- endunless -%}
 
 <script src="{{ 'quantity-popover.js' | asset_url }}" defer="defer"></script>
-    {% comment %}--------------------------START-------------------------CUSTOM PROGRESS BAR ROVER {% endcomment %}
-{%- unless settings.cart_type == 'drawer' -%}
-	{% render 'cart-progress-bar-custom' %}
-{%- endunless -%}
-    {% comment %}------------------------END---------------------------CUSTOM PROGRESS BAR ROVER {% endcomment %}
 <cart-items
   class="gradient color-{{ section.settings.color_scheme }} isolate{% if cart == empty %} is-empty{% else %} section-{{ section.id }}-padding{% endif %}"
   view-event-payload="{{ cart | standard_event_data: 'view', context: 'page' | escape }}"
@@ -40,6 +35,11 @@
         {{- 'general.continue_shopping' | t -}}
       </a>
     </div>
+        {% comment %}--------------------------START-------------------------CUSTOM PROGRESS BAR ROVER {% endcomment %}
+{%- unless settings.cart_type == 'drawer' -%}
+	{% render 'cart-progress-bar-custom' %}
+{%- endunless -%}
+    {% comment %}------------------------END---------------------------CUSTOM PROGRESS BAR ROVER {% endcomment %}
 
     <div class="cart__warnings">
       <h1 class="cart__empty-text">{{ 'sections.cart.empty' | t }}</h1>
