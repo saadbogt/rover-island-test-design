@@ -36,6 +36,9 @@
         {{- 'general.continue_shopping' | t -}}
       </a>
     </div>
+{%- unless settings.cart_type == 'drawer' -%}
+	{% render 'cart-progress-bar-custom' %}
+{%- endunless -%}
 
     <div class="cart__warnings">
       <h1 class="cart__empty-text">{{ 'sections.cart.empty' | t }}</h1>
