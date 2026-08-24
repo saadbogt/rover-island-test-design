@@ -74,6 +74,9 @@
           </span>
         </button>
       </div>
+      {% comment %} CUSTOM PROGRESS BAR ------------------------------------------- {% endcomment %}
+      {% render 'cart-progress-bar-custom' %}
+      {% comment %} CUSTOM PROGRESS BAR ------------------------------------------- {% endcomment %}
       <cart-drawer-items
         view-event-payload="{{ cart | standard_event_data: 'view', context: 'dialog' | escape }}"
         view-event-trigger="manual"
