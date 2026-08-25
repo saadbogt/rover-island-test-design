@@ -89,7 +89,7 @@
           "settings": {
             "heading": "Ingredients",
             "icon": "plant",
-            "content": "{{ product.metafields.custom.ingredients | metafield_tag }}",
+            "content": "{{ product.metafields.custom.ingredients | metafield_tag }}<p><em>Note: Ingredients are subject to change at the manufacturer's discretion. For the most complete and up-to-date list, please refer to your product packaging.</em></p>",
             "page": ""
           }
         },
