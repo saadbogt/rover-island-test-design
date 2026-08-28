@@ -147,6 +147,21 @@
         "settings": {
           "color_scheme": "scheme-1"
         }
+      },
+      "breadcrumbs": {
+        "type": "breadcrumbs",
+        "settings": {
+          "breadcrumbs_enabled": true,
+          "breadcrumbs_menu_definition": "rover-island-mega-menu",
+          "prefer_shortest_path": false,
+          "separator_shape": "slash",
+          "font_size": 13,
+          "color_scheme": "scheme-2",
+          "enable_divider": false,
+          "divider_color": "#cccccc",
+          "padding_top": 12,
+          "padding_bottom": 12
+        }
       }
     },
     "content_for_index": [],
