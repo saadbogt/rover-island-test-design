@@ -156,7 +156,7 @@
           "prefer_shortest_path": false,
           "separator_shape": "slash",
           "font_size": 13,
-          "color_scheme": "scheme-2",
+          "color_scheme": "scheme-1",
           "enable_divider": false,
           "divider_color": "#cccccc",
           "padding_top": 12,
