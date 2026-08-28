@@ -120,7 +120,7 @@
         "complementary_YHCeWB": {
           "type": "complementary",
           "settings": {
-            "block_heading": "Goes well with",
+            "block_heading": "Complete Your Routine",
             "make_collapsible_row": false,
             "icon": "price_tag",
             "product_list_limit": 10,
