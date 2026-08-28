@@ -191,7 +191,7 @@
         "collection_q9iYHX": {
           "type": "collection",
           "settings": {
-            "collection": "best-seller",
+            "collection": "bestsellers",
             "title": "Best",
             "image": "shopify://shop_images/05_4c07bfbb-943a-4e11-bee6-3d6c16960752.webp",
             "image_shape": "circle"
