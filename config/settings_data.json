@@ -515,9 +515,7 @@
   },
   "platform_customizations": {
     "custom_css": [
-      ".product-card-wrapper .rating-star {/* Star size */ --font-size: 1.2; /* increase/decrease for bigger/smaller stars */ --color-rating-star: #f5a623; /* Spacing between individual stars */ --letter-spacing: 0.2; font-family: \"Potta One\", cursive;}",
-      ".shopify-policy__container {max-width: 1200px; padding-bottom: 50px;}",
-      ".rte table {width: 100%;}"
+      ".wa__widget_container{z-index: 1;}"
     ]
   }
 }
