@@ -9,108 +9,61 @@
  */
 {
   "sections": {
-    "banner": {
-      "type": "main-collection-banner",
-      "settings": {
-        "show_collection_description": false,
-        "show_collection_image": true,
-        "color_scheme": "scheme-1"
-      }
-    },
-    "collection_list_slider_riabeH": {
-      "type": "collection-list-slider",
+    "rover_image_grid_CUGcFX": {
+      "type": "rover-image-grid",
       "blocks": {
-        "collection_gtbGM7": {
-          "type": "collection",
+        "image_B3C6bc": {
+          "type": "image",
           "settings": {
-            "collection": "",
-            "title": "",
-            "image_shape": "default"
-          }
-        },
-        "collection_dihnQ7": {
-          "type": "collection",
-          "settings": {
-            "collection": "",
-            "title": "",
-            "image_shape": "default"
-          }
-        },
-        "collection_HbTMqQ": {
-          "type": "collection",
-          "settings": {
-            "collection": "",
-            "title": "",
-            "image_shape": "default"
-          }
-        },
-        "collection_pp4Rr7": {
-          "type": "collection",
-          "settings": {
-            "collection": "",
-            "title": "",
-            "image_shape": "default"
-          }
-        },
-        "collection_W34c6w": {
-          "type": "collection",
-          "settings": {
-            "collection": "",
-            "title": "",
-            "image_shape": "default"
-          }
-        },
-        "collection_pELf6t": {
-          "type": "collection",
-          "settings": {
-            "collection": "",
-            "title": "",
-            "image_shape": "default"
-          }
-        },
-        "collection_9qe7qi": {
-          "type": "collection",
-          "settings": {
-            "collection": "",
-            "title": "",
-            "image_shape": "default"
+            "image": "shopify://shop_images/Rover_Collection_Banner_dark.jpg",
+            "image_alt": "",
+            "link": "",
+            "link_new_tab": false,
+            "show_title": false,
+            "title_text": "",
+            "title_tag": "h3",
+            "title_color": "#1a1a1a",
+            "title_size_desktop": 22,
+            "title_size_mobile": 18,
+            "show_desc": false,
+            "desc_text": "",
+            "desc_color": "#4a4a4a",
+            "desc_size_desktop": 15,
+            "desc_size_mobile": 14,
+            "gap_title_desc": 8,
+            "gap_text_image": 12,
+            "text_position": "bottom_left",
+            "overlay_heading": "",
+            "overlay_heading_color": "#ffffff",
+            "overlay_subtext": "",
+            "overlay_subtext_color": "#f0f0f0",
+            "overlay_bg": "rgba(0,0,0,0)"
           }
         }
       },
       "block_order": [
-        "collection_gtbGM7",
-        "collection_dihnQ7",
-        "collection_HbTMqQ",
-        "collection_pp4Rr7",
-        "collection_W34c6w",
-        "collection_pELf6t",
-        "collection_9qe7qi"
+        "image_B3C6bc"
       ],
-      "name": "Collection List Slider",
+      "name": "Image Grid",
       "settings": {
-        "page_width": true,
-        "heading": "",
-        "heading_size_mobile": 24,
-        "heading_size_tablet": 32,
-        "heading_size_desktop": 40,
-        "heading_line_height": "1.2",
-        "description": "",
-        "desc_size_mobile": 14,
-        "desc_size_tablet": 16,
-        "desc_size_desktop": 16,
-        "desc_line_height": "1.5",
-        "title_size_mobile": 16,
-        "title_size_tablet": 18,
-        "title_size_desktop": 20,
-        "show_in_stock_only": false,
-        "max_items": 0,
-        "items_to_slide": 1,
-        "items_per_view_mobile": 2,
-        "items_per_view_tablet": 6,
-        "items_per_view_desktop": 6,
-        "item_gap": 16,
-        "padding_top": 36,
-        "padding_bottom": 36
+        "layout_type": "single",
+        "use_custom_width": false,
+        "custom_width": 1800,
+        "columns_desktop": 3,
+        "columns_mobile": 1,
+        "gap_columns": 0,
+        "gap_rows": 0,
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "banner": {
+      "type": "main-collection-banner",
+      "custom_css": [],
+      "settings": {
+        "show_collection_description": false,
+        "show_collection_image": true,
+        "color_scheme": "scheme-1"
       }
     },
     "product-grid": {
@@ -164,8 +117,8 @@
     }
   },
   "order": [
+    "rover_image_grid_CUGcFX",
     "banner",
-    "collection_list_slider_riabeH",
     "product-grid",
     "1785826788a8e47ac6"
   ]
