@@ -15,7 +15,7 @@
         "image_B3C6bc": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/Rover_Collection_Banner_dark.jpg",
+            "image": "shopify://shop_images/Rover_Collection_Banner_dark.svg",
             "image_alt": "",
             "link": "",
             "link_new_tab": false,
