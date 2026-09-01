@@ -1,3 +1,59 @@
+{% comment %} <span class="field-currency">{{ cart.currency.symbol }}</span>
+
+<div class="field">
+  <input
+    class="field__input"
+    name="{{ filter.min_value.param_name }}"
+    id="{{ id_prefix }}{{ filter.label | escape }}-GTE"
+    {%- if filter.min_value.value -%}
+      value="{{ filter.min_value.value | money_without_currency }}"
+    {%- endif -%}
+    type="text"
+    inputmode="decimal"
+    placeholder="0"
+    data-pattern="\d| |,|\."
+    data-min="0"
+    data-max="{{ filter.range_max | money_without_currency }}"
+  >
+  <label class="field__label" for="{{ id_prefix }}{{ filter.label | escape }}-GTE">
+    {{- 'products.facets.from' | t -}}
+  </label>
+</div>
+
+{%- if filter_type != 'vertical' -%}
+  <span class="field-currency">{{ cart.currency.symbol }}</span>
+{%- endif -%}
+
+<div class="field">
+  <input
+    class="field__input"
+    name="{{ filter.max_value.param_name }}"
+    id="{{ id_prefix }}{{ filter.label | escape }}-LTE"
+    {%- if filter.max_value.value -%}
+      value="{{ filter.max_value.value | money_without_currency }}"
+    {%- endif -%}
+    type="text"
+    inputmode="decimal"
+    placeholder="{{ filter.range_max | money_without_currency }}"
+    data-pattern="\d| |,|\."
+    data-min="0"
+    data-max="{{ filter.range_max | money_without_currency }}"
+  >
+  <label class="field__label" for="{{ id_prefix }}{{ filter.label | escape }}-LTE">
+    {{- 'products.facets.to' | t -}}
+  </label>
+</div> {% endcomment %}
+{%- comment -%}
+  Rover Island — Premium Price Range Slider
+  Single-file replacement for the original price-facet.liquid.
+
+  - Native Dawn inputs (name/id/data-min/data-max) are unchanged, so
+    facets.js keeps submitting/filtering exactly as before.
+  - Inputs are visually hidden; the slider above them writes into them
+    and fires 'input' / 'change' so Dawn's existing debounced submit
+    logic runs untouched.
+{%- endcomment -%}
+
 <span class="field-currency">{{ cart.currency.symbol }}</span>
 
 <div class="field">
@@ -43,3 +99,249 @@
     {{- 'products.facets.to' | t -}}
   </label>
 </div>
+
+{%- comment -%} ============ ROVER SLIDER LAYER ============ {%- endcomment -%}
+{%- liquid
+  assign rover_range_min = 0
+  assign rover_range_max = filter.range_max | money_without_currency | remove: ',' | plus: 0
+  assign rover_current_min = filter.min_value.value | money_without_currency | remove: ',' | default: rover_range_min
+  assign rover_current_max = filter.max_value.value | money_without_currency | remove: ',' | default: rover_range_max
+  assign rover_uid = id_prefix | append: filter.label | handle
+-%}
+
+<div
+  class="rover-price-slider"
+  id="RoverPriceSlider-{{ rover_uid }}"
+  data-range-min="{{ rover_range_min }}"
+  data-range-max="{{ rover_range_max }}"
+  data-current-min="{{ rover_current_min }}"
+  data-current-max="{{ rover_current_max }}"
+  data-input-min="{{ id_prefix }}{{ filter.label | escape }}-GTE"
+  data-input-max="{{ id_prefix }}{{ filter.label | escape }}-LTE"
+>
+  <div class="rover-price-slider__track" data-rover-track>
+    <div class="rover-price-slider__range" data-rover-range></div>
+  </div>
+  <div class="rover-price-slider__handles">
+    <button
+      type="button"
+      class="rover-price-slider__handle"
+      data-rover-handle="min"
+      role="slider"
+      aria-valuemin="{{ rover_range_min }}"
+      aria-valuemax="{{ rover_range_max }}"
+      aria-valuenow="{{ rover_current_min }}"
+      aria-label="{{ 'products.facets.from' | t }}"
+    ></button>
+    <button
+      type="button"
+      class="rover-price-slider__handle"
+      data-rover-handle="max"
+      role="slider"
+      aria-valuemin="{{ rover_range_min }}"
+      aria-valuemax="{{ rover_range_max }}"
+      aria-valuenow="{{ rover_current_max }}"
+      aria-label="{{ 'products.facets.to' | t }}"
+    ></button>
+  </div>
+</div>
+
+<style>
+  /* Hide native Dawn fields visually only — keep them in the DOM/tab flow for facets.js */
+  #RoverPriceSlider-{{ rover_uid }} ~ .field,
+  #RoverPriceSlider-{{ rover_uid }}::before {
+    display: none;
+  }
+</style>
+
+<style>
+  .rover-price-slider {
+    --rover-track-h: 3px;
+    --rover-handle-size: 18px;
+    --rover-track-color: rgba(0, 0, 0, 0.08);
+    --rover-range-color: var(--color-foreground, #111111);
+    --rover-handle-bg: var(--color-background, #ffffff);
+    --rover-handle-border: var(--color-foreground, #111111);
+    position: relative;
+    width: 100%;
+    padding: 1.5rem 0.5rem 0.25rem;
+  }
+  .rover-price-slider__track {
+    position: relative;
+    height: var(--rover-track-h);
+    margin: 0 9px;
+    border-radius: 999px;
+    background: var(--rover-track-color);
+  }
+  .rover-price-slider__range {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0%;
+    right: 0%;
+    border-radius: 999px;
+    background: var(--rover-range-color);
+  }
+  .rover-price-slider__handles {
+    position: relative;
+    height: 0;
+  }
+  .rover-price-slider__handle {
+    position: absolute;
+    top: calc(-1.5rem - (var(--rover-handle-size) / 2) + (var(--rover-track-h) / 2));
+    width: var(--rover-handle-size);
+    height: var(--rover-handle-size);
+    border-radius: 50%;
+    background: var(--rover-handle-bg);
+    border: 2px solid var(--rover-handle-border);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+    padding: 0;
+    cursor: grab;
+    transform: translateX(-50%);
+    touch-action: none;
+  }
+  .rover-price-slider__handle:active {
+    cursor: grabbing;
+    transform: translateX(-50%) scale(1.1);
+  }
+  .rover-price-slider__handle:focus-visible {
+    outline: 2px solid var(--rover-range-color);
+    outline-offset: 3px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .rover-price-slider__handle { transition: none; }
+  }
+</style>
+
+<script>
+  (function () {
+    function initRoverSlider(root) {
+      if (root.dataset.roverInit) return;
+      root.dataset.roverInit = 'true';
+
+      var track = root.querySelector('[data-rover-track]');
+      var rangeEl = root.querySelector('[data-rover-range]');
+      var minHandle = root.querySelector('[data-rover-handle="min"]');
+      var maxHandle = root.querySelector('[data-rover-handle="max"]');
+      var minInput = document.getElementById(root.dataset.inputMin);
+      var maxInput = document.getElementById(root.dataset.inputMax);
+
+      var rangeMin = parseFloat(root.dataset.rangeMin) || 0;
+      var rangeMax = parseFloat(root.dataset.rangeMax) || 100;
+      var currentMin = clamp(parseFloat(root.dataset.currentMin) || rangeMin);
+      var currentMax = clamp(parseFloat(root.dataset.currentMax) || rangeMax);
+      var activeHandle = null;
+      var submitTimer = null;
+
+      function clamp(v) {
+        return Math.min(Math.max(v, rangeMin), rangeMax);
+      }
+      function percentFor(v) {
+        if (rangeMax === rangeMin) return 0;
+        return ((v - rangeMin) / (rangeMax - rangeMin)) * 100;
+      }
+      function valueForPercent(p) {
+        return Math.round(clamp(rangeMin + (p / 100) * (rangeMax - rangeMin)));
+      }
+      function render() {
+        var minPct = percentFor(currentMin);
+        var maxPct = percentFor(currentMax);
+        rangeEl.style.left = minPct + '%';
+        rangeEl.style.right = (100 - maxPct) + '%';
+        minHandle.style.left = minPct + '%';
+        maxHandle.style.left = maxPct + '%';
+        minHandle.setAttribute('aria-valuenow', Math.round(currentMin));
+        maxHandle.setAttribute('aria-valuenow', Math.round(currentMax));
+      }
+      function syncInputs(dispatchSubmit) {
+        if (minInput) {
+          minInput.value = Math.round(currentMin);
+          minInput.dispatchEvent(new Event('input', { bubbles: true }));
+        }
+        if (maxInput) {
+          maxInput.value = Math.round(currentMax);
+          maxInput.dispatchEvent(new Event('input', { bubbles: true }));
+        }
+        if (dispatchSubmit) {
+          clearTimeout(submitTimer);
+          submitTimer = setTimeout(function () {
+            if (maxInput) maxInput.dispatchEvent(new Event('change', { bubbles: true }));
+          }, 500);
+        }
+      }
+      function startDrag(e, handle) {
+        e.preventDefault();
+        activeHandle = handle;
+        var target = handle === 'min' ? minHandle : maxHandle;
+        target.setPointerCapture(e.pointerId);
+
+        function onMove(moveEvent) {
+          var rect = track.getBoundingClientRect();
+          var percent = ((moveEvent.clientX - rect.left) / rect.width) * 100;
+          percent = Math.min(Math.max(percent, 0), 100);
+          var value = valueForPercent(percent);
+          if (activeHandle === 'min') {
+            currentMin = Math.min(value, currentMax);
+          } else {
+            currentMax = Math.max(value, currentMin);
+          }
+          render();
+          syncInputs(false);
+        }
+        function onUp() {
+          target.releasePointerCapture(e.pointerId);
+          window.removeEventListener('pointermove', onMove);
+          window.removeEventListener('pointerup', onUp);
+          syncInputs(true);
+          activeHandle = null;
+        }
+        window.addEventListener('pointermove', onMove);
+        window.addEventListener('pointerup', onUp);
+      }
+      function handleKeydown(e, handle) {
+        var step = (rangeMax - rangeMin) / 100 || 1;
+        var delta = 0;
+        switch (e.key) {
+          case 'ArrowLeft':
+          case 'ArrowDown':
+            delta = -step;
+            break;
+          case 'ArrowRight':
+          case 'ArrowUp':
+            delta = step;
+            break;
+          case 'Home':
+            delta = handle === 'min' ? rangeMin - currentMin : rangeMin - currentMax;
+            break;
+          case 'End':
+            delta = handle === 'min' ? rangeMax - currentMin : rangeMax - currentMax;
+            break;
+          default:
+            return;
+        }
+        e.preventDefault();
+        if (handle === 'min') {
+          currentMin = clamp(Math.min(currentMin + delta, currentMax));
+        } else {
+          currentMax = clamp(Math.max(currentMax + delta, currentMin));
+        }
+        render();
+        syncInputs(true);
+      }
+
+      minHandle.addEventListener('pointerdown', function (e) { startDrag(e, 'min'); });
+      maxHandle.addEventListener('pointerdown', function (e) { startDrag(e, 'max'); });
+      minHandle.addEventListener('keydown', function (e) { handleKeydown(e, 'min'); });
+      maxHandle.addEventListener('keydown', function (e) { handleKeydown(e, 'max'); });
+
+      render();
+    }
+
+    document.querySelectorAll('.rover-price-slider').forEach(initRoverSlider);
+
+    // Re-init after Dawn re-renders facets (AJAX filter results replace DOM nodes)
+    document.addEventListener('facet:updated', function () {
+      document.querySelectorAll('.rover-price-slider').forEach(initRoverSlider);
+    });
+  })();
+</script>
