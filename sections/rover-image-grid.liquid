@@ -86,53 +86,53 @@
     {%- case text_pos -%}
       {%- when 'top_left' -%}
         #rover-img-block-{{ bid }} .rover-img-block__overlay {
-          top: 0; left: 0; right: auto; bottom: auto;
-          align-items: flex-start; justify-content: flex-start;
+          justify-content: flex-start;
+          align-items: flex-start;
         }
       {%- when 'top_center' -%}
         #rover-img-block-{{ bid }} .rover-img-block__overlay {
-          top: 0; left: 0; right: 0; bottom: auto;
-          align-items: flex-start; justify-content: center;
+          justify-content: flex-start;
+          align-items: center;
           text-align: center;
         }
       {%- when 'top_right' -%}
         #rover-img-block-{{ bid }} .rover-img-block__overlay {
-          top: 0; right: 0; left: auto; bottom: auto;
-          align-items: flex-end; justify-content: flex-start;
+          justify-content: flex-start;
+          align-items: flex-end;
           text-align: right;
         }
       {%- when 'middle_left' -%}
         #rover-img-block-{{ bid }} .rover-img-block__overlay {
-          top: 0; left: 0; right: auto; bottom: 0;
-          align-items: flex-start; justify-content: center;
+          justify-content: center;
+          align-items: flex-start;
         }
       {%- when 'middle_center' -%}
         #rover-img-block-{{ bid }} .rover-img-block__overlay {
-          top: 0; left: 0; right: 0; bottom: 0;
-          align-items: center; justify-content: center;
+          justify-content: center;
+          align-items: center;
           text-align: center;
         }
       {%- when 'middle_right' -%}
         #rover-img-block-{{ bid }} .rover-img-block__overlay {
-          top: 0; right: 0; left: auto; bottom: 0;
-          align-items: flex-end; justify-content: center;
+          justify-content: center;
+          align-items: flex-end;
           text-align: right;
         }
       {%- when 'bottom_left' -%}
         #rover-img-block-{{ bid }} .rover-img-block__overlay {
-          bottom: 0; left: 0; right: auto; top: auto;
-          align-items: flex-start; justify-content: flex-end;
+          justify-content: flex-end;
+          align-items: flex-start;
         }
       {%- when 'bottom_center' -%}
         #rover-img-block-{{ bid }} .rover-img-block__overlay {
-          bottom: 0; left: 0; right: 0; top: auto;
-          align-items: center; justify-content: flex-end;
+          justify-content: flex-end;
+          align-items: center;
           text-align: center;
         }
       {%- when 'bottom_right' -%}
         #rover-img-block-{{ bid }} .rover-img-block__overlay {
-          bottom: 0; right: 0; left: auto; top: auto;
-          align-items: flex-end; justify-content: flex-end;
+          justify-content: flex-end;
+          align-items: flex-end;
           text-align: right;
         }
     {%- endcase -%}
