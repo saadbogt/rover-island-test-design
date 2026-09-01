@@ -116,11 +116,14 @@
 /* ── Overlay ── */
 .rover-img-block__overlay {
   position: absolute;
+  inset: 0; /* always covers the full image — position setting then aligns content inside */
   display: flex;
+  flex-direction: column; /* main axis = vertical, cross axis = horizontal */
   padding: 1rem;
   pointer-events: none;
-  /* top / bottom / left / right / align-items / justify-content
-     are all set via scoped style tag based on text_position setting */
+  /* justify-content controls vertical placement (main axis)  */
+  /* align-items controls horizontal placement (cross axis)   */
+  /* both are written per-block via the scoped <style> tag    */
 }
 
 .rover-img-block__overlay-bg {
