@@ -47,71 +47,32 @@
   assign range_max = filter.range_max | money_without_currency | remove: ',' | strip | plus: 0
   assign min_value = filter.min_value.value | default: 0
   assign max_value = filter.max_value.value | default: range_max
-
-  if min_value > range_max
-    assign min_value = 0
-  endif
-
-  if max_value > range_max
-    assign max_value = range_max
-  endif
 -%}
 
-<div
-  class="custom-price-range"
-  data-price-range
-  data-range-max="{{ range_max }}"
->
-
-  <!-- =====================================================
-       PRICE VALUES
-       ===================================================== -->
-
+<div class="custom-price-range" data-price-range>
+  
   <div class="custom-price-range__values">
-
-    <span
-      class="custom-price-range__value"
-      data-price-min-display
-    >
+    <span class="custom-price-range__value" data-price-min-display>
       {{ min_value | money }}
     </span>
 
-    <span class="custom-price-range__separator">
-      –
-    </span>
+    <span class="custom-price-range__separator">–</span>
 
-    <span
-      class="custom-price-range__value"
-      data-price-max-display
-    >
+    <span class="custom-price-range__value" data-price-max-display>
       {{ max_value | money }}
     </span>
-
   </div>
 
+  <div
+    class="custom-price-range__slider"
+    data-min="{{ range_max | times: 0 }}"
+    data-max="{{ range_max }}"
+  >
 
-  <!-- =====================================================
-       SLIDER
-       ===================================================== -->
+    <div class="custom-price-range__track"></div>
 
-  <div class="custom-price-range__slider">
+    <div class="custom-price-range__progress" data-price-progress></div>
 
-    <!-- Background / inactive track -->
-    <div
-      class="custom-price-range__track"
-      aria-hidden="true"
-    ></div>
-
-
-    <!-- Active black track -->
-    <div
-      class="custom-price-range__progress"
-      data-price-progress
-      aria-hidden="true"
-    ></div>
-
-
-    <!-- Minimum price slider -->
     <input
       type="range"
       class="custom-price-range__input custom-price-range__input--min"
@@ -123,8 +84,6 @@
       data-price-min-slider
     >
 
-
-    <!-- Maximum price slider -->
     <input
       type="range"
       class="custom-price-range__input custom-price-range__input--max"
@@ -135,16 +94,13 @@
       aria-label="Maximum price"
       data-price-max-slider
     >
-
   </div>
 
-
-  <!-- =====================================================
-       SHOPIFY NATIVE FILTER INPUTS
-
-       These are kept so Shopify's existing filtering
-       system continues to work.
-       ===================================================== -->
+  {%- comment -%}
+    Keep Shopify's original price filter inputs.
+    They are visually hidden but remain functional so
+    Shopify filtering/AJAX continues to work normally.
+  {%- endcomment -%}
 
   <div class="custom-price-range__hidden-fields">
 
@@ -156,9 +112,8 @@
       inputmode="decimal"
       value="{{ min_value }}"
       data-price-min-input
-      autocomplete="off"
-      tabindex="-1"
       aria-hidden="true"
+      tabindex="-1"
     >
 
     <input
@@ -166,749 +121,278 @@
       name="{{ filter.max_value.param_name }}"
       id="{{ id_prefix }}{{ filter.label | escape }}-LTE"
       type="text"
-      inputmode="decimal"
       value="{{ max_value }}"
       data-price-max-input
-      autocomplete="off"
-      tabindex="-1"
       aria-hidden="true"
+      tabindex="-1"
     >
 
   </div>
 
 </div>
 
-
 <style>
-
-/* =========================================================
-   PRICE RANGE CONTAINER
-   ========================================================= */
-
-.custom-price-range {
-  width: 100%;
-  display: block;
-
-  padding: 8px 0 12px;
-
-  box-sizing: border-box;
-}
-
-
-/* =========================================================
-   PRICE VALUES
-   ========================================================= */
-
-.custom-price-range__values {
-  width: 100%;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  margin: 0 0 18px 0;
-  padding: 0;
-
-  font-size: 13px;
-  line-height: 1.4;
-
-  color: #000000;
-
-  box-sizing: border-box;
-}
-
-.custom-price-range__value {
-  display: block;
-
-  color: #000000;
-
-  font-weight: 400;
-
-  white-space: nowrap;
-}
-
-.custom-price-range__separator {
-  display: block;
-
-  margin: 0 8px;
-
-  color: #000000;
-
-  opacity: 0.35;
-}
-
-
-/* =========================================================
-   SLIDER CONTAINER
-   ========================================================= */
-
-.custom-price-range__slider {
-  position: relative;
-
-  display: block;
-
-  width: 100%;
-  height: 28px;
-
-  margin: 0;
-  padding: 0;
-
-  overflow: visible;
-
-  box-sizing: border-box;
-}
-
-
-/* =========================================================
-   BASE / INACTIVE TRACK
-   ========================================================= */
-
-.custom-price-range__track {
-  position: absolute;
-
-  display: block;
-
-  left: 0;
-  right: 0;
-
-  top: 50%;
-
-  width: 100%;
-  height: 2px;
-
-  margin: 0;
-  padding: 0;
-
-  transform: translateY(-50%);
-
-  background: #d5d5d5 !important;
-
-  border: 0 !important;
-  border-radius: 2px;
-
-  opacity: 1 !important;
-
-  z-index: 1;
-
-  pointer-events: none;
-
-  box-sizing: border-box;
-}
-
-
-/* =========================================================
-   ACTIVE TRACK
-   ========================================================= */
-
-.custom-price-range__progress {
-  position: absolute;
-
-  display: block;
-
-  top: 50%;
-
-  height: 2px;
-
-  margin: 0;
-  padding: 0;
-
-  transform: translateY(-50%);
-
-  background: #000000 !important;
-
-  border: 1 !important;
-  border-radius: 2px;
-
-  opacity: 1 !important;
-
-  z-index: 2;
-
-  pointer-events: none;
-
-  box-sizing: border-box;
-}
-
-
-/* =========================================================
-   RANGE INPUT
-   ========================================================= */
-
-.custom-price-range__input {
-  position: absolute !important;
-
-  display: block !important;
-
-  left: 0 !important;
-  top: 0 !important;
-
-  width: 100% !important;
-  height: 28px !important;
-
-  margin: 0 !important;
-  padding: 0 !important;
-
-  background: transparent !important;
-
-  border: 0 !important;
-
-  outline: none !important;
-
-  appearance: none !important;
-  -webkit-appearance: none !important;
-
-  pointer-events: none;
-
-  z-index: 3;
-
-  box-sizing: border-box;
-}
-
-
-/* =========================================================
-   RANGE TRACK - CHROME / SAFARI
-   ========================================================= */
-
-.custom-price-range__input::-webkit-slider-runnable-track {
-  width: 100%;
-
-  height: 2px;
-
-  background: transparent !important;
-
-  border: none !important;
-
-  box-shadow: none !important;
-}
-
-
-/* =========================================================
-   RANGE TRACK - FIREFOX
-   ========================================================= */
-
-.custom-price-range__input::-moz-range-track {
-  width: 100%;
-
-  height: 2px;
-
-  background: transparent !important;
-
-  border: none !important;
-
-  box-shadow: none !important;
-}
-
-
-/* =========================================================
-   MINIMUM SLIDER
-   ========================================================= */
-
-.custom-price-range__input--min {
-  z-index: 5 !important;
-}
-
-
-/* =========================================================
-   MAXIMUM SLIDER
-   ========================================================= */
-
-.custom-price-range__input--max {
-  z-index: 4 !important;
-}
-
-
-/* =========================================================
-   HANDLE - CHROME / SAFARI
-   ========================================================= */
-
-.custom-price-range__input::-webkit-slider-thumb {
-  appearance: none !important;
-  -webkit-appearance: none !important;
-
-  width: 16px !important;
-  height: 16px !important;
-
-  margin-top: -7px !important;
-
-  padding: 0 !important;
-
-  background: #ffffff !important;
-
-  border: 1px solid #000000 !important;
-
-  border-radius: 50% !important;
-
-  box-shadow: none !important;
-
-  cursor: pointer;
-
-  pointer-events: auto;
-
-  box-sizing: border-box;
-}
-
-
-/* =========================================================
-   HANDLE - FIREFOX
-   ========================================================= */
-
-.custom-price-range__input::-moz-range-thumb {
-  width: 16px !important;
-  height: 16px !important;
-
-  margin: 0 !important;
-  padding: 0 !important;
-
-  background: #ffffff !important;
-
-  border: 1px solid #000000 !important;
-
-  border-radius: 50% !important;
-
-  box-shadow: none !important;
-
-  cursor: pointer;
-
-  pointer-events: auto;
-
-  box-sizing: border-box;
-}
-
-
-/* =========================================================
-   HANDLE HOVER
-   ========================================================= */
-
-.custom-price-range__input::-webkit-slider-thumb:hover {
-  background: #000000 !important;
-}
-
-.custom-price-range__input::-moz-range-thumb:hover {
-  background: #000000 !important;
-}
-
-
-/* =========================================================
-   HANDLE ACTIVE
-   ========================================================= */
-
-.custom-price-range__input:active::-webkit-slider-thumb {
-  background: #000000 !important;
-}
-
-.custom-price-range__input:active::-moz-range-thumb {
-  background: #000000 !important;
-}
-
-
-/* =========================================================
-   HIDE SHOPIFY ORIGINAL INPUTS
-   ========================================================= */
-
-.custom-price-range__hidden-fields {
-  position: absolute !important;
-
-  width: 1px !important;
-  height: 1px !important;
-
-  padding: 0 !important;
-  margin: -1px !important;
-
-  overflow: hidden !important;
-
-  clip: rect(0, 0, 0, 0) !important;
-  clip-path: inset(50%) !important;
-
-  white-space: nowrap !important;
-
-  border: 0 !important;
-}
-
-
-/* =========================================================
-   MOBILE
-   ========================================================= */
-
-@media screen and (max-width: 749px) {
-
   .custom-price-range {
-    padding: 6px 0 12px;
+    width: 100%;
+    padding: 8px 0 10px;
   }
 
   .custom-price-range__values {
-    font-size: 13px;
-
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     margin-bottom: 18px;
+    font-size: 13px;
+    line-height: 1.4;
+  }
+
+  .custom-price-range__value {
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .custom-price-range__separator {
+    margin: 0 8px;
+    opacity: 0.5;
   }
 
   .custom-price-range__slider {
-    height: 30px;
+    position: relative;
+    height: 24px;
+    width: 100%;
+  }
+
+  .custom-price-range__track,
+  .custom-price-range__progress {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 3px;
+    border-radius: 3px;
+    pointer-events: none;
+  }
+
+  .custom-price-range__track {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.15);
+  }
+
+  .custom-price-range__progress {
+    background: #000000;
   }
 
   .custom-price-range__input {
-    height: 30px !important;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 24px;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    appearance: none;
+    -webkit-appearance: none;
+    pointer-events: none;
+    outline: none;
+  }
+
+  .custom-price-range__input::-webkit-slider-runnable-track {
+    height: 3px;
+    background: transparent;
+  }
+
+  .custom-price-range__input::-moz-range-track {
+    height: 3px;
+    background: transparent;
   }
 
   .custom-price-range__input::-webkit-slider-thumb {
-    width: 18px !important;
-    height: 18px !important;
-
-    margin-top: -8px !important;
+    width: 18px;
+    height: 18px;
+    margin-top: -7.5px;
+    border: 1px solid currentColor;
+    border-radius: 50%;
+    background: rgb(var(--color-background));
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    pointer-events: auto;
   }
 
   .custom-price-range__input::-moz-range-thumb {
-    width: 18px !important;
-    height: 18px !important;
+    width: 18px;
+    height: 18px;
+    border: 1px solid currentColor;
+    border-radius: 50%;
+    background: rgb(var(--color-background));
+    cursor: pointer;
+    pointer-events: auto;
   }
 
-}
+  .custom-price-range__input--max {
+    z-index: 2;
+  }
 
+  .custom-price-range__input--min {
+    z-index: 3;
+  }
 
-/* =========================================================
-   ACCESSIBILITY
-   ========================================================= */
+  .custom-price-range__hidden-fields {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+  }
 
-.custom-price-range__input:focus-visible::-webkit-slider-thumb {
-  outline: 2px solid #000000;
+  @media screen and (max-width: 749px) {
+    .custom-price-range {
+      padding-top: 5px;
+    }
 
-  outline-offset: 2px;
-}
+    .custom-price-range__values {
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
 
-.custom-price-range__input:focus-visible::-moz-range-thumb {
-  outline: 2px solid #000000;
+    .custom-price-range__input::-webkit-slider-thumb {
+      width: 20px;
+      height: 20px;
+      margin-top: -8.5px;
+    }
 
-  outline-offset: 2px;
-}
-
+    .custom-price-range__input::-moz-range-thumb {
+      width: 20px;
+      height: 20px;
+    }
+  }
 </style>
 
-
 <script>
+  (() => {
+    function initPriceRanges() {
+      document.querySelectorAll('[data-price-range]').forEach((range) => {
+        if (range.dataset.initialized === 'true') return;
 
-(function () {
+        range.dataset.initialized = 'true';
 
-  function initializePriceRanges() {
+        const minSlider = range.querySelector('[data-price-min-slider]');
+        const maxSlider = range.querySelector('[data-price-max-slider]');
 
-    var priceRanges =
-      document.querySelectorAll('[data-price-range]');
+        const minInput = range.querySelector('[data-price-min-input]');
+        const maxInput = range.querySelector('[data-price-max-input]');
 
+        const minDisplay = range.querySelector('[data-price-min-display]');
+        const maxDisplay = range.querySelector('[data-price-max-display]');
 
-    priceRanges.forEach(function (range) {
+        const progress = range.querySelector('[data-price-progress]');
 
-      /*
-       * Prevent duplicate initialization
-       */
-      if (range.dataset.priceInitialized === 'true') {
-        return;
-      }
+        if (!minSlider || !maxSlider || !minInput || !maxInput) return;
 
-      range.dataset.priceInitialized = 'true';
+        const maxPrice = Number(maxSlider.max);
 
-
-      /* =====================================================
-         ELEMENTS
-         ===================================================== */
-
-      var minSlider =
-        range.querySelector('[data-price-min-slider]');
-
-      var maxSlider =
-        range.querySelector('[data-price-max-slider]');
-
-      var minInput =
-        range.querySelector('[data-price-min-input]');
-
-      var maxInput =
-        range.querySelector('[data-price-max-input]');
-
-      var minDisplay =
-        range.querySelector('[data-price-min-display]');
-
-      var maxDisplay =
-        range.querySelector('[data-price-max-display]');
-
-      var progress =
-        range.querySelector('[data-price-progress]');
-
-
-      if (
-        !minSlider ||
-        !maxSlider ||
-        !minInput ||
-        !maxInput ||
-        !minDisplay ||
-        !maxDisplay ||
-        !progress
-      ) {
-        return;
-      }
-
-
-      /* =====================================================
-         RANGE MAXIMUM
-         ===================================================== */
-
-      var rangeMax =
-        Number(range.dataset.rangeMax);
-
-
-      if (!rangeMax || rangeMax <= 0) {
-        return;
-      }
-
-
-      /* =====================================================
-         FORMAT PRICE
-         ===================================================== */
-
-      function formatPrice(value) {
-
-        return new Intl.NumberFormat('en-AE', {
-
-          style: 'currency',
-
-          currency: '{{ cart.currency.iso_code }}',
-
-          minimumFractionDigits: 2,
-
-          maximumFractionDigits: 2
-
-        }).format(Number(value));
-
-      }
-
-
-      /* =====================================================
-         UPDATE SLIDER
-         ===================================================== */
-
-      function updateSlider() {
-
-        var min =
-          Number(minSlider.value);
-
-        var max =
-          Number(maxSlider.value);
-
-
-        /*
-         * Prevent minimum from going above maximum
-         */
-
-        if (min >= max) {
-
-          if (
-            document.activeElement === minSlider
-          ) {
-
-            min =
-              Math.max(0, max - 1);
-
-            minSlider.value =
-              min;
-
-          } else {
-
-            max =
-              Math.min(rangeMax, min + 1);
-
-            maxSlider.value =
-              max;
-
-          }
-
+        function formatPrice(value) {
+          return new Intl.NumberFormat('en-AE', {
+            style: 'currency',
+            currency: '{{ cart.currency.iso_code }}',
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+          }).format(Number(value));
         }
 
+        function updateSlider() {
+          let min = Number(minSlider.value);
+          let max = Number(maxSlider.value);
+
+          /*
+           * Prevent the handles from crossing.
+           */
+          if (min >= max) {
+            if (document.activeElement === minSlider) {
+              min = max - 1;
+              minSlider.value = min;
+            } else {
+              max = min + 1;
+              maxSlider.value = max;
+            }
+          }
+
+          /*
+           * Calculate progress bar position.
+           */
+          const minPercent = (min / maxPrice) * 100;
+          const maxPercent = (max / maxPrice) * 100;
+
+          progress.style.left = minPercent + '%';
+          progress.style.width = (maxPercent - minPercent) + '%';
+
+          /*
+           * Update visible prices.
+           */
+          minDisplay.textContent = formatPrice(min);
+          maxDisplay.textContent = formatPrice(max);
+
+          /*
+           * Update Shopify's real filter inputs.
+           */
+          minInput.value = min;
+          maxInput.value = max;
+        }
+
+        function applyFilter() {
+          updateSlider();
+
+          /*
+           * Trigger Shopify Dawn's existing price-range
+           * filtering mechanism.
+           */
+          minInput.dispatchEvent(
+            new Event('change', {
+              bubbles: true
+            })
+          );
+
+          maxInput.dispatchEvent(
+            new Event('change', {
+              bubbles: true
+            })
+          );
+        }
+
+        minSlider.addEventListener('input', updateSlider);
+        maxSlider.addEventListener('input', updateSlider);
+
+        minSlider.addEventListener('change', applyFilter);
+        maxSlider.addEventListener('change', applyFilter);
 
         /*
-         * Calculate track positions
+         * Initial state.
          */
-
-        var minPercent =
-          (min / rangeMax) * 100;
-
-        var maxPercent =
-          (max / rangeMax) * 100;
-
-
-        /*
-         * Update black active track
-         */
-
-        progress.style.left =
-          minPercent + '%';
-
-        progress.style.width =
-          Math.max(
-            0,
-            maxPercent - minPercent
-          ) + '%';
-
-
-        /*
-         * Update displayed values
-         */
-
-        minDisplay.textContent =
-          formatPrice(min);
-
-        maxDisplay.textContent =
-          formatPrice(max);
-
-
-        /*
-         * Update Shopify's actual filter fields
-         */
-
-        minInput.value =
-          min;
-
-        maxInput.value =
-          max;
-
-      }
-
-
-      /* =====================================================
-         APPLY FILTER
-         ===================================================== */
-
-      function applyFilter() {
-
         updateSlider();
-
-
-        /*
-         * Trigger Shopify's native
-         * price filter
-         */
-
-        minInput.dispatchEvent(
-          new Event('change', {
-            bubbles: true
-          })
-        );
-
-
-        maxInput.dispatchEvent(
-          new Event('change', {
-            bubbles: true
-          })
-        );
-
-      }
-
-
-      /* =====================================================
-         LIVE UPDATE
-         ===================================================== */
-
-      minSlider.addEventListener(
-        'input',
-        updateSlider
-      );
-
-      maxSlider.addEventListener(
-        'input',
-        updateSlider
-      );
-
-
-      /* =====================================================
-         APPLY ON RELEASE
-         ===================================================== */
-
-      minSlider.addEventListener(
-        'change',
-        applyFilter
-      );
-
-      maxSlider.addEventListener(
-        'change',
-        applyFilter
-      );
-
-
-      /* =====================================================
-         INITIALIZE
-         ===================================================== */
-
-      updateSlider();
-
-    });
-
-  }
-
-
-  /* =========================================================
-     PAGE LOAD
-     ========================================================= */
-
-  if (
-    document.readyState === 'loading'
-  ) {
-
-    document.addEventListener(
-      'DOMContentLoaded',
-      initializePriceRanges
-    );
-
-  } else {
-
-    initializePriceRanges();
-
-  }
-
-
-  /* =========================================================
-     SHOPIFY SECTION LOAD
-     ========================================================= */
-
-  document.addEventListener(
-    'shopify:section:load',
-    function () {
-
-      setTimeout(
-        initializePriceRanges,
-        50
-      );
-
+      });
     }
-  );
 
+    /*
+     * Initial page load.
+     */
+    document.addEventListener('DOMContentLoaded', initPriceRanges);
 
-  /* =========================================================
-     SHOPIFY SECTION REORDER
-     ========================================================= */
+    /*
+     * Shopify can replace the filter HTML through AJAX.
+     * Reinitialize the slider after section updates.
+     */
+    document.addEventListener('shopify:section:load', initPriceRanges);
 
-  document.addEventListener(
-    'shopify:section:reorder',
-    function () {
+    document.addEventListener('shopify:section:reorder', initPriceRanges);
 
-      setTimeout(
-        initializePriceRanges,
-        50
-      );
-
-    }
-  );
-
-
-  /* =========================================================
-     FALLBACK FOR AJAX FILTER UPDATES
-     ========================================================= */
-
-  setTimeout(
-    initializePriceRanges,
-    300
-  );
-
-
-  setTimeout(
-    initializePriceRanges,
-    1000
-  );
-
-
-})();
-
+    /*
+     * Small delay also handles Dawn's dynamically-rendered
+     * filtering sections.
+     */
+    setTimeout(initPriceRanges, 300);
+  })();
 </script>
