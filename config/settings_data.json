@@ -135,6 +135,9 @@
     "cart_drawer_collection": "",
     "cart_color_scheme": "scheme-1",
     "enable_cart_progress_bar": true,
+    "cart_post_goal_message": "Congrats! You've unlocked <strong>FREE SHIPPING</strong>",
+    "cart_progress_bar_color": "#FFBDB0",
+    "cart_progress_bar_full_color": "#FFBDB0",
     "sections": {
       "main-password-header": {
         "type": "main-password-header",
@@ -159,7 +162,7 @@
           "color_scheme": "scheme-1",
           "enable_divider": false,
           "divider_color": "#cccccc",
-          "padding_top": 12,
+          "padding_top": 24,
           "padding_bottom": 12
         }
       }

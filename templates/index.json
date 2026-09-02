@@ -245,7 +245,7 @@
       "name": "Main Categories",
       "settings": {
         "page_width": true,
-        "heading": "SHOP The AISLES 🛒",
+        "heading": "SHOP THE AISLES 🛒",
         "heading_size_mobile": 24,
         "heading_size_tablet": 32,
         "heading_size_desktop": 40,
@@ -424,7 +424,7 @@
       ],
       "name": "CLEARANCE SALE",
       "settings": {
-        "description": "Upto 70% OFF",
+        "description": "",
         "heading": "CLEARANCE SALE ⚡",
         "show_vendor": true,
         "show_rating": true,
