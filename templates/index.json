@@ -172,7 +172,7 @@
         "products_per_view_tablet": 3,
         "products_per_view_desktop": 4,
         "item_gap": 16,
-        "padding_top": 36,
+        "padding_top": 0,
         "padding_bottom": 36
       }
     },
@@ -265,7 +265,7 @@
         "items_per_view_tablet": 6,
         "items_per_view_desktop": 6,
         "item_gap": 16,
-        "padding_top": 36,
+        "padding_top": 0,
         "padding_bottom": 36
       }
     },
@@ -321,7 +321,7 @@
         "products_per_view_tablet": 3,
         "products_per_view_desktop": 4,
         "item_gap": 16,
-        "padding_top": 36,
+        "padding_top": 0,
         "padding_bottom": 36
       }
     },
@@ -404,7 +404,7 @@
         "items_per_view_tablet": 5,
         "items_per_view_desktop": 5,
         "item_gap": 16,
-        "padding_top": 36,
+        "padding_top": 0,
         "padding_bottom": 36
       }
     },
@@ -444,7 +444,7 @@
         "products_per_view_tablet": 3,
         "products_per_view_desktop": 4,
         "item_gap": 16,
-        "padding_top": 36,
+        "padding_top": 0,
         "padding_bottom": 36
       }
     },
@@ -511,7 +511,7 @@
         "desc_size_desktop": 16,
         "desc_line_height": "1.5",
         "item_gap": 16,
-        "padding_top": 36,
+        "padding_top": 0,
         "padding_bottom": 36
       }
     }
