@@ -426,6 +426,7 @@ quick-add-bulk .quantity__input {
   .quick-add-modal__content {
     bottom: 0;
     left: 10px;
+    right:10px;
 
     width: 100%;
     max-width: none;
