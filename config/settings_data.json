@@ -525,7 +525,11 @@
   "platform_customizations": {
     "custom_css": [
       ".wa__widget_container {z-index: 1;}",
-      ".product-card-wrapper .rating-star {/* Star size */ --font-size: 1.2; /* increase/decrease for bigger/smaller stars */ --color-rating-star: #f5a623; /* Spacing between individual stars */ --letter-spacing: 0.2; font-family: \"Potta One\", cursive;}"
+      ".product-card-wrapper .rating-star {/* Star size */ --font-size: 1.2; /* increase/decrease for bigger/smaller stars */ --color-rating-star: #f5a623; /* Spacing between individual stars */ --letter-spacing: 0.2; font-family: \"Potta One\", cursive;}",
+      " .shopify-policy__container {max-width: clamp(95%, 90%, 90%); border: 1px solid #ffd6ce; margin: 10px; border-radius: 10px;}",
+      ".shopify-policy__container > h1 {font-weight: 900; font-size: clamp(2rem, 4vw + 1rem, 4.5rem); text-align: center;}",
+      ".shopify-policy__container > h2 {font-size: clamp(1.6rem, 1.2vw + 1rem, 2rem); font-weight: 600;}",
+      ".shopify-policy__container > p,li,ul,td,tr,th {font-size: 14px; letter-spacing: 0.5px; margin: 8px 0px;}"
     ]
   }
 }
