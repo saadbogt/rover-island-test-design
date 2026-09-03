@@ -430,7 +430,7 @@ quick-add-bulk .quantity__input {
     width: 100%;
     max-width: none;
 
-    margin: 0;
+    margin: 10px;
 
     border-radius: 18px 18px 0 0;
 
