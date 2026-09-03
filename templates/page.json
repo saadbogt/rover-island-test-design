@@ -11,7 +11,12 @@
   "sections": {
     "main": {
       "type": "main-page",
-      "custom_css": [],
+      "custom_css": [
+        "{border: 1px solid #ffd6ce; margin: 10px; border-radius: 10px;}",
+        "h1 {font-weight: 900; font-size: clamp(2rem, 4vw + 1rem, 4.5rem); text-align: center;}",
+        "h2 {font-size: clamp(1.6rem, 1.2vw + 1rem, 2rem); font-weight: 600;}",
+        "p,li,ul,td,tr,th {font-size: 14px; letter-spacing: 0.5px; margin: 8px 0px;}"
+      ],
       "settings": {
         "padding_top": 28,
         "padding_bottom": 28
