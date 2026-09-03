@@ -307,11 +307,11 @@
                       {{ card_product.price_min | money }} 
                     </span>
 
-                    <span class="card-price-range__separator" aria-hidden="true"> - </span>
+                    {% comment %} <span class="card-price-range__separator" aria-hidden="true"> - </span>
 
                     <span class="card-price-range__max"> 
                       {{ card_product.price_max | money }}
-                    </span>
+                    </span> {% endcomment %}
                   </div>
                 {%- else -%}
                   {% render 'price', product: card_product, price_class: '', show_compare_at_price: true %}
