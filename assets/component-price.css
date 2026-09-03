@@ -106,3 +106,8 @@
   font-weight: 700;
   color: red;
 }
+
+.price--on-sale {
+  font-size: 20px;
+  font-weight: 700;
+}
