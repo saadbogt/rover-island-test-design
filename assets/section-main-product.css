@@ -252,8 +252,6 @@ a.product__text {
 
 .product__title > * {
   margin: 0;
-  font-size: 22px;
-  font-weight: 700;
 }
 
 .product__title > a {
@@ -288,36 +286,13 @@ a.product__text {
 .product .price--sold-out .price__badge-sale {
   display: none;
 }
-.price--on-sale {
-  font-size: 22px;
-  font-weight: 700;
-  color: red;
-}
-.accordion__title {
-  font-size: 18px;
-  font-weight: 700;
-}
-@media screen and (max-width: 749px) {
-  .product__title > * {
-    margin-top: 10px;
-    font-size: 18px;
-    font-weight: 900;
-  }
-  .price--on-sale {
-    font-size: 20px;
-    font-weight: 700;
-  }
-  .product__inventory {
-    font-size: 10px;
-  }
-}
 
 @media screen and (min-width: 750px) {
   .product__info-container {
     max-width: 60rem;
   }
 
-  .product__info-container .price-item--regular {
+  .product__info-container .price--on-sale .price-item--regular {
     font-size: 1.6rem;
   }
 
@@ -1212,7 +1187,6 @@ a.product__text {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  font-size:11px;
 }
 
 .product__inventory .svg-wrapper,
