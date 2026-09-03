@@ -424,19 +424,6 @@ quick-add-bulk .quantity__input {
   }
 
   .quick-add-modal__content {
-    top: auto;
-    bottom: 0;
-    left: 0;
-
-    width: 100%;
-    max-width: none;
-
-    margin: 0;
-
-    border-radius: 18px 18px 0 0;
-
-    transform: translateY(100%);
-    opacity: 1;
 
     transition:
       transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
