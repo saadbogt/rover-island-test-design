@@ -163,6 +163,7 @@
   display: inline-flex;
   align-items: baseline;
   flex-wrap: wrap;
+  width:100%;
 }
 
 .card-price-range__min,
