@@ -89,7 +89,7 @@
   color: rgba(var(--color-foreground), 0.75);
   font-size: 1.3rem;
 }
-.price--on-sale {
+.price--on-sale .price--regular-styled {
   font-size: 22px;
   font-weight: 700;
   color: red;
