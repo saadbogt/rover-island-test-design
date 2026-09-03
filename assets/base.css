@@ -81,8 +81,13 @@ collection-component {
   --shadow-visible: var(--media-shadow-visible);
 }
 
+/* Policy ROVER ISLAND */
+.shopify-policy__container {
+  max-width: var(--page-width);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
 /* base */
-
 .page-width {
   max-width: var(--page-width);
   margin: 0 auto;
