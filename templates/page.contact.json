@@ -196,18 +196,19 @@
         "collapsible_row_qpkGJ3",
         "collapsible_row_gGKYw7"
       ],
-      "custom_css": [],
+      "custom_css": [
+        ".accordion summary > h3 {font-weight: 700;}"
+      ],
       "name": "t:sections.collapsible_content.presets.name",
       "settings": {
         "caption": "See what the Peoples been asking",
         "heading": "Popular FAQs",
         "heading_size": "h1",
         "heading_alignment": "center",
-        "layout": "row",
-        "container_color_scheme": "scheme-c1b5c753-e7fc-40ea-ab2c-ac9193891a01",
-        "color_scheme": "scheme-c1b5c753-e7fc-40ea-ab2c-ac9193891a01",
+        "layout": "none",
+        "container_color_scheme": "scheme-1",
+        "color_scheme": "scheme-1",
         "open_first_collapsible_row": true,
-        "image": "shopify://shop_images/Be_your_own_kind_of_beautiful_rover_roverisland_makeup_makeuptutorial_skincare_instapost_instadaily_instalike_instagood_instamood_dailypost_uae_makeup_clarins_skincaretips.jpg",
         "image_ratio": "adapt",
         "desktop_layout": "image_second",
         "padding_top": 36,
