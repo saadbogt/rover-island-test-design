@@ -12,7 +12,7 @@
     "main": {
       "type": "main-page",
       "custom_css": [
-        "h1 {text-align: center;}"
+        "h1 {font-weight: 900; font-size: clamp(2rem, 4vw + 1rem, 4.5rem); text-align: center;}"
       ],
       "settings": {
         "padding_top": 36,
