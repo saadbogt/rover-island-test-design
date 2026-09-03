@@ -1187,6 +1187,7 @@ a.product__text {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  font-size: 11px;
 }
 
 .product__inventory .svg-wrapper,
@@ -1490,5 +1491,16 @@ a.product__text {
 
   .recipient-form > input[type='checkbox']:checked + label .icon-checkmark {
     border: none;
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .product__title > * {
+    margin-top: 10px;
+    font-size: 18px;
+    font-weight: 900;
+  }
+  .product__inventory {
+    font-size: 10px;
   }
 }
