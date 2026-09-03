@@ -112,3 +112,14 @@
   font-weight: 700;
   color:red;
 }
+
+@media screen and (max-width: 749px) {
+  .price--on-sale {
+    font-size: 20px;
+    font-weight: 700;
+  }
+  .price--regular-styled {
+    font-size: 20px;
+    font-weight: 700;
+  }
+}
