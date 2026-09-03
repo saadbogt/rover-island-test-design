@@ -11,7 +11,10 @@
   "sections": {
     "main": {
       "type": "main-page",
-      "custom_css": [],
+      "custom_css": [
+        "h1 {font-weight: 900; margin-bottom: 20px; font-size: 2.5em;}",
+        " {border: 1px solid black; margin: 20px; border-radius: 15px;}"
+      ],
       "settings": {
         "padding_top": 28,
         "padding_bottom": 28
