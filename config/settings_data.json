@@ -156,7 +156,7 @@
         "custom_css": [],
         "settings": {
           "breadcrumbs_enabled": true,
-          "breadcrumbs_menu_definition": "rover-island-mega-menu",
+          "breadcrumbs_menu_definition": "breadcrumbs-rover-island",
           "prefer_shortest_path": false,
           "separator_shape": "slash",
           "font_size": 12,
