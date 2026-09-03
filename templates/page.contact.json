@@ -19,6 +19,77 @@
         "padding_bottom": 0
       }
     },
+    "multicolumn_3e68AP": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_fFgqmF": {
+          "type": "column",
+          "settings": {
+            "title": "Email",
+            "text": "<p><a href=\"mailto:support@roverisland.com\" title=\"mailto:support@roverisland.com\">support@roverisland.com</a></p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_ArEgd4": {
+          "type": "column",
+          "settings": {
+            "title": "Phone:",
+            "text": "<p><strong>Customer Support</strong>:</p><p><a href=\"tel:(971)-55-640-7089\" title=\"tel:+971556407089\">(971)-55-640-7089</a></p><p><strong>Wholesale inquiry</strong>:</p><p><a href=\"tel:+971555444732\" title=\"tel:+971555444732\">(971)-55-544-4732</a></p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_MxH8T9": {
+          "type": "column",
+          "settings": {
+            "title": "Address",
+            "text": "<p>Dubai, UAE</p>",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "column_fFgqmF",
+        "column_ArEgd4",
+        "column_MxH8T9"
+      ],
+      "custom_css": [
+        ".multicolumn-card__info {text-align: center;}",
+        ".rte a {text-decoration-line: none; font-size: 14px;}"
+      ],
+      "name": "t:sections.multicolumn.presets.name",
+      "settings": {
+        "title": "",
+        "heading_size": "h1",
+        "image_width": "full",
+        "image_ratio": "adapt",
+        "button_label": "",
+        "button_link": "",
+        "columns_desktop": 3,
+        "column_alignment": "left",
+        "background_style": "primary",
+        "color_scheme": "scheme-31478177-fb35-4588-b443-9c04388809ed",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "form": {
+      "type": "contact-form",
+      "custom_css": [
+        ".button {width: 100%;}"
+      ],
+      "settings": {
+        "heading": "",
+        "heading_size": "h1",
+        "color_scheme": "scheme-1",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
     "collapsible_content_kqqizm": {
       "type": "collapsible-content",
       "blocks": {
@@ -125,6 +196,7 @@
         "collapsible_row_qpkGJ3",
         "collapsible_row_gGKYw7"
       ],
+      "custom_css": [],
       "name": "t:sections.collapsible_content.presets.name",
       "settings": {
         "caption": "See what the Peoples been asking",
@@ -137,77 +209,6 @@
         "open_first_collapsible_row": true,
         "image_ratio": "adapt",
         "desktop_layout": "image_second",
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
-    "multicolumn_3e68AP": {
-      "type": "multicolumn",
-      "blocks": {
-        "column_fFgqmF": {
-          "type": "column",
-          "settings": {
-            "title": "Email",
-            "text": "<p><a href=\"mailto:support@roverisland.com\" title=\"mailto:support@roverisland.com\">support@roverisland.com</a></p>",
-            "link_label": "",
-            "link": ""
-          }
-        },
-        "column_ArEgd4": {
-          "type": "column",
-          "settings": {
-            "title": "Phone:",
-            "text": "<p><strong>Customer Support</strong>:</p><p><a href=\"tel:(971)-55-640-7089\" title=\"tel:+971556407089\">(971)-55-640-7089</a></p><p><strong>Wholesale inquiry</strong>:</p><p><a href=\"tel:+971555444732\" title=\"tel:+971555444732\">(971)-55-544-4732</a></p>",
-            "link_label": "",
-            "link": ""
-          }
-        },
-        "column_MxH8T9": {
-          "type": "column",
-          "settings": {
-            "title": "Address",
-            "text": "<p>Dubai, UAE</p>",
-            "link_label": "",
-            "link": ""
-          }
-        }
-      },
-      "block_order": [
-        "column_fFgqmF",
-        "column_ArEgd4",
-        "column_MxH8T9"
-      ],
-      "custom_css": [
-        ".multicolumn-card__info {text-align: center;}",
-        ".rte a {text-decoration-line: none; font-size: 14px;}"
-      ],
-      "name": "t:sections.multicolumn.presets.name",
-      "settings": {
-        "title": "",
-        "heading_size": "h1",
-        "image_width": "full",
-        "image_ratio": "adapt",
-        "button_label": "",
-        "button_link": "",
-        "columns_desktop": 3,
-        "column_alignment": "left",
-        "background_style": "primary",
-        "color_scheme": "scheme-31478177-fb35-4588-b443-9c04388809ed",
-        "columns_mobile": "1",
-        "swipe_on_mobile": false,
-        "padding_top": 0,
-        "padding_bottom": 0
-      }
-    },
-    "form": {
-      "type": "contact-form",
-      "custom_css": [
-        ".button {width: 100%;}"
-      ],
-      "settings": {
-        "heading": "",
-        "heading_size": "h1",
-        "color_scheme": "scheme-1",
         "padding_top": 36,
         "padding_bottom": 36
       }
