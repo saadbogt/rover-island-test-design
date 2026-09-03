@@ -96,36 +96,36 @@
         "collapsible_row_pYwdyA": {
           "type": "collapsible_row",
           "settings": {
-            "heading": "Collapsible row",
+            "heading": "How can I contact Rover Island?",
             "icon": "check_mark",
-            "row_content": "",
+            "row_content": "<p>You can reach our Customer Support team by email at <a href=\"mailto:support@roverisland.com\"><strong>support@roverisland.com</strong></a> or via WhatsApp at <strong>+971 55 640 7089</strong>. Our support team is available <strong>Monday to Saturday, 10:00 AM – 5:00 PM</strong>.</p>",
             "page": ""
           }
         },
         "collapsible_row_kT3aei": {
           "type": "collapsible_row",
           "settings": {
-            "heading": "Collapsible row",
+            "heading": "Are your products 100% genuine and authentic?",
             "icon": "check_mark",
-            "row_content": "",
+            "row_content": "<p>Yes. We are committed to offering <strong>genuine beauty and skincare products</strong> sourced through trusted brand relationships, authorized distributors, and legitimate supply channels. We do not intentionally sell counterfeit products.</p>",
             "page": ""
           }
         },
         "collapsible_row_Aj8JLe": {
           "type": "collapsible_row",
           "settings": {
-            "heading": "Collapsible row",
+            "heading": "Do you deliver across the UAE?",
             "icon": "check_mark",
-            "row_content": "",
+            "row_content": "<p>Yes. We deliver across the <strong>United Arab Emirates</strong>, including Dubai, Abu Dhabi, Sharjah, Ajman, Umm Al Quwain, Ras Al Khaimah, and Fujairah.</p>",
             "page": ""
           }
         },
         "collapsible_row_jAyGFk": {
           "type": "collapsible_row",
           "settings": {
-            "heading": "Collapsible row",
+            "heading": "How long does delivery take?",
             "icon": "check_mark",
-            "row_content": "",
+            "row_content": "<p>Delivery times can vary depending on your location and order. Once your order has been dispatched, you will receive the relevant delivery or tracking information where available.</p>",
             "page": ""
           }
         }
