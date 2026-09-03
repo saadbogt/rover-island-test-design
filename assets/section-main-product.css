@@ -251,7 +251,9 @@ a.product__text {
 }
 
 .product__title > * {
-  margin: 0;
+  margin-top: 10px;
+  font-size: 18px;
+  font-weight: 900;
 }
 
 .product__title > a {
