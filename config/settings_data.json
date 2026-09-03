@@ -525,9 +525,7 @@
   "platform_customizations": {
     "custom_css": [
       ".wa__widget_container {z-index: 1;}",
-      ".product-card-wrapper .rating-star {/* Star size */ --font-size: 1.2; /* increase/decrease for bigger/smaller stars */ --color-rating-star: #f5a623; /* Spacing between individual stars */ --letter-spacing: 0.2; font-family: \"Potta One\", cursive;}",
-      ".page-width--narrow > div > h2 {font-size: 1.8rem !important; font-weight: 600 !important; letter-spacing: 1px !important;}",
-      ".page-width--narrow > div > p,li,ul {font-size: 14px !important; letter-spacing: 1px !important; margin: 5px !important;}"
+      ".product-card-wrapper .rating-star {/* Star size */ --font-size: 1.2; /* increase/decrease for bigger/smaller stars */ --color-rating-star: #f5a623; /* Spacing between individual stars */ --letter-spacing: 0.2; font-family: \"Potta One\", cursive;}"
     ]
   }
 }
