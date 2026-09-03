@@ -157,6 +157,7 @@ body:has(.section-header .drawer-menu) .announcement-bar-section .page-width {
   flex: 1;
   display: flex;
   flex-direction: column;
+  align-items:center;
 }
 
 .content-for-layout > .shopify-section:last-child {
