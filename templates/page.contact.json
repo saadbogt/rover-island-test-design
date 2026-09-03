@@ -125,7 +125,61 @@
           "settings": {
             "heading": "How long does delivery take?",
             "icon": "check_mark",
-            "row_content": "<p>Delivery times can vary depending on your location and order. Once your order has been dispatched, you will receive the relevant delivery or tracking information where available.</p>",
+            "row_content": "<p>Delivery times can vary depending on your location and order. Most of our Deliveries are Done in 2 - 3 business days after dispatching for standard Deliveries. Once your order has been dispatched, you will receive the relevant delivery or tracking information where available. </p><p>For more information read our <a href=\"/policies/shipping-policy\" title=\"Shipping Policy\">Shipping Policy</a></p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_4JAaM6": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Can I track my order?",
+            "icon": "check_mark",
+            "row_content": "<p>Yes. Once your order is dispatched, tracking details may be provided to you so you can follow your delivery. If you have any concerns about your order, our Customer Support team can assist you.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_LDtgEq": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Do you offer Cash on Delivery?",
+            "icon": "check_mark",
+            "row_content": "<p>Yes. <strong>Cash on Delivery (COD)</strong> is available across all Emirates in UAE. Availability may vary depending on the order and delivery location.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_PLGigb": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Can I change or cancel my order after placing it?",
+            "icon": "check_mark",
+            "row_content": "<p>Please contact us as soon as possible if you need to change or cancel your order. We will do our best to accommodate your request, but changes or cancellations may not be possible once your order has been processed or dispatched.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_XBMGLw": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "What should I do if I receive a damaged, incorrect, or missing item?",
+            "icon": "check_mark",
+            "row_content": "<p>Please contact our Customer Support team as soon as possible with your <strong>order details and clear photos of the issue</strong>. We will review the situation and assist you according to our Returns & Refund Policy.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_qpkGJ3": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Can I return or exchange a product?",
+            "icon": "check_mark",
+            "row_content": "<p>Returns and exchanges are subject to our <strong>Returns & Refund Policy</strong>. For hygiene and safety reasons, certain beauty and personal-care products may not be eligible for return once opened or used.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_gGKYw7": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Can you help me choose the right product?",
+            "icon": "check_mark",
+            "row_content": "<p>Absolutely. If you're unsure which product is right for you, our team can help with product information and general recommendations. Simply contact us with your question and the details of what you're looking for.</p>",
             "page": ""
           }
         }
@@ -134,7 +188,13 @@
         "collapsible_row_pYwdyA",
         "collapsible_row_kT3aei",
         "collapsible_row_Aj8JLe",
-        "collapsible_row_jAyGFk"
+        "collapsible_row_jAyGFk",
+        "collapsible_row_4JAaM6",
+        "collapsible_row_LDtgEq",
+        "collapsible_row_PLGigb",
+        "collapsible_row_XBMGLw",
+        "collapsible_row_qpkGJ3",
+        "collapsible_row_gGKYw7"
       ],
       "name": "t:sections.collapsible_content.presets.name",
       "settings": {
@@ -143,7 +203,7 @@
         "heading_size": "h1",
         "heading_alignment": "center",
         "layout": "none",
-        "container_color_scheme": "",
+        "container_color_scheme": "scheme-1",
         "color_scheme": "",
         "open_first_collapsible_row": true,
         "image_ratio": "adapt",
