@@ -419,9 +419,7 @@ quick-add-bulk .quantity__input {
 
 @media screen and (max-width: 749px) {
 
-  .quick-add-modal {
-    align-items: flex-end;
-  }
+
 
   .quick-add-modal__content {
     bottom: 0;
