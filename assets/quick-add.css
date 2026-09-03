@@ -424,13 +424,13 @@ quick-add-bulk .quantity__input {
   }
 
   .quick-add-modal__content {
-    
-    left: 0;
+    bottom: 0;
+    left: 10px;
 
     width: 100%;
     max-width: none;
 
-    margin: 10px;
+    margin: 0px;
 
     border-radius: 18px 18px 0 0;
 
