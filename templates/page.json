@@ -11,9 +11,7 @@
   "sections": {
     "main": {
       "type": "main-page",
-      "custom_css": [
-        ".page-width--narrow{max-width: 90%;}"
-      ],
+      "custom_css": [],
       "settings": {
         "padding_top": 28,
         "padding_bottom": 28

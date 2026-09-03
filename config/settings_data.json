@@ -524,7 +524,8 @@
   "platform_customizations": {
     "custom_css": [
       ".wa__widget_container {z-index: 1;}",
-      ".product-card-wrapper .rating-star {/* Star size */ --font-size: 1.2; /* increase/decrease for bigger/smaller stars */ --color-rating-star: #f5a623; /* Spacing between individual stars */ --letter-spacing: 0.2; font-family: \"Potta One\", cursive;}"
+      ".product-card-wrapper .rating-star {/* Star size */ --font-size: 1.2; /* increase/decrease for bigger/smaller stars */ --color-rating-star: #f5a623; /* Spacing between individual stars */ --letter-spacing: 0.2; font-family: \"Potta One\", cursive;}",
+      ".page-width--narrow {max-width: 90% !important;}"
     ]
   }
 }
