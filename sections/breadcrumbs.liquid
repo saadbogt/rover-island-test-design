@@ -327,7 +327,8 @@
       {% endif %}
     {% endfor %}
     
-    <div class="page-width gradient color-{{ section.settings.color_scheme }}">   
+    <div class="gradient color-{{ section.settings.color_scheme }}">
+    <div class="page-width">   
       <nav aria-label="Breadcrumb" class="breadcrumbs ">
         <ol class="breadcrumbs__list">
           <li class="breadcrumbs__item"><a class="breadcrumbs__link" href="{{ request.locale.root_url }}">Home</a></li>
@@ -355,6 +356,7 @@
           <div id="breadcrumbs-divider"></div>
       {% endif %}
     </div>
+  </div>
 
   {% endunless %}
 {%- endif -%}
