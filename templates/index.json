@@ -401,7 +401,9 @@
     "collection_slider_DFm7KK": {
       "type": "collection-slider",
       "custom_css": [
-        "{background-color: #fdc3b7;}"
+        "{background-color: #fee7e2;}",
+        ".product-card-wrapper {background-color: white; padding: 20px; border-radius: 15px;}",
+        "@media screen and (max-width: 749px) {.product-card-wrapper {padding: 10px; border-radius: 10px; } .card__vendor-link {font-size: 11px; }}"
       ],
       "name": "CLEARANCE SALE",
       "settings": {
@@ -494,8 +496,8 @@
         "desc_size_desktop": 16,
         "desc_line_height": "1.5",
         "item_gap": 16,
-        "padding_top": 0,
-        "padding_bottom": 36
+        "padding_top": 16,
+        "padding_bottom": 16
       }
     }
   },
