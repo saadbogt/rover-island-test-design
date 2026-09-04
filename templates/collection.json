@@ -11,7 +11,10 @@
   "sections": {
     "banner": {
       "type": "main-collection-banner",
-      "custom_css": [],
+      "custom_css": [
+        ".collection-hero__title {margin: 10px;}",
+        "{background-color: red}"
+      ],
       "settings": {
         "show_collection_description": false,
         "show_collection_image": false,
@@ -53,6 +56,7 @@
       "block_order": [
         "image_k7FKAN"
       ],
+      "custom_css": [],
       "name": "Image Grid",
       "settings": {
         "layout_type": "single",
