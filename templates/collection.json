@@ -12,8 +12,7 @@
     "banner": {
       "type": "main-collection-banner",
       "custom_css": [
-        ".collection-hero__title {margin: 10px;}",
-        "{background-color: red}"
+        ".collection-hero__title {margin: 10px; font-weight: 900;}"
       ],
       "settings": {
         "show_collection_description": false,
