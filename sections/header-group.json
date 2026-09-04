@@ -46,6 +46,8 @@
     "header": {
       "type": "header",
       "custom_css": [
+        ".mega-menu__list > li:first-child {width: 100%; border-bottom: 1px solid black;}",
+        ".mega-menu__list > li:first-child > a {font-size: 30px;}",
         ".mega-menu__link--level-2 {font-size: 20px; font-weight: 500 !important;}",
         ".header--top-center .mega-menu__list > li {flex-grow: 1;}",
         ".link:hover {text-decoration: none;}"
