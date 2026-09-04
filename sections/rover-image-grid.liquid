@@ -1,0 +1,631 @@
+{{ 'rover-image-grid.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign section_layout   = section.settings.layout_type
+  assign use_custom_width = section.settings.use_custom_width
+  assign custom_width     = section.settings.custom_width
+  assign col_desktop      = section.settings.columns_desktop
+  assign col_mobile       = section.settings.columns_mobile
+  assign gap_col          = section.settings.gap_columns
+  assign gap_row          = section.settings.gap_rows
+  assign pt               = section.settings.padding_top
+  assign pb               = section.settings.padding_bottom
+-%}
+
+{%- style -%}
+  #rover-img-{{ section.id }} {
+    padding-top: {{ pt }}px;
+    padding-bottom: {{ pb }}px;
+  }
+
+  #rover-img-{{ section.id }} .rover-img__inner {
+    {%- if use_custom_width and custom_width > 0 -%}
+      max-width: {{ custom_width }}px;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    {%- else -%}
+      max-width: var(--page-width, 1440px);
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    {%- endif -%}
+  }
+
+  {%- if section_layout == 'grid' -%}
+    #rover-img-{{ section.id }} .rover-img__grid {
+      display: grid;
+      grid-template-columns: repeat({{ col_desktop }}, 1fr);
+      column-gap: {{ gap_col }}px;
+      row-gap: {{ gap_row }}px;
+    }
+
+    @media (max-width: 749px) {
+      #rover-img-{{ section.id }} .rover-img__grid {
+        grid-template-columns: repeat({{ col_mobile }}, 1fr);
+      }
+    }
+  {%- else -%}
+    #rover-img-{{ section.id }} .rover-img__grid {
+      display: block;
+    }
+  {%- endif -%}
+
+  {%- for block in section.blocks -%}
+    {%- liquid
+      assign bid         = block.id
+      assign dtitle_size = block.settings.title_size_desktop
+      assign mtitle_size = block.settings.title_size_mobile
+      assign ddesc_size  = block.settings.desc_size_desktop
+      assign mdesc_size  = block.settings.desc_size_mobile
+      assign gap_td      = block.settings.gap_title_desc
+      assign gap_ti      = block.settings.gap_text_image
+    -%}
+
+    #rover-img-block-{{ bid }} .rover-img-block__title {
+      font-size: {{ dtitle_size }}px;
+      color: {{ block.settings.title_color }};
+      margin: 0;
+    }
+
+    #rover-img-block-{{ bid }} .rover-img-block__desc {
+      font-size: {{ ddesc_size }}px;
+      color: {{ block.settings.desc_color }};
+      margin: 0;
+    }
+
+    #rover-img-block-{{ bid }} .rover-img-block__text {
+      display: flex;
+      flex-direction: column;
+      gap: {{ gap_td }}px;
+    }
+
+    {%- assign text_pos = block.settings.text_position -%}
+    {%- case text_pos -%}
+      {%- when 'top_left' -%}
+        #rover-img-block-{{ bid }} .rover-img-block__overlay {
+          justify-content: flex-start;
+          align-items: flex-start;
+        }
+      {%- when 'top_center' -%}
+        #rover-img-block-{{ bid }} .rover-img-block__overlay {
+          justify-content: flex-start;
+          align-items: center;
+          text-align: center;
+        }
+      {%- when 'top_right' -%}
+        #rover-img-block-{{ bid }} .rover-img-block__overlay {
+          justify-content: flex-start;
+          align-items: flex-end;
+          text-align: right;
+        }
+      {%- when 'middle_left' -%}
+        #rover-img-block-{{ bid }} .rover-img-block__overlay {
+          justify-content: center;
+          align-items: flex-start;
+        }
+      {%- when 'middle_center' -%}
+        #rover-img-block-{{ bid }} .rover-img-block__overlay {
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+        }
+      {%- when 'middle_right' -%}
+        #rover-img-block-{{ bid }} .rover-img-block__overlay {
+          justify-content: center;
+          align-items: flex-end;
+          text-align: right;
+        }
+      {%- when 'bottom_left' -%}
+        #rover-img-block-{{ bid }} .rover-img-block__overlay {
+          justify-content: flex-end;
+          align-items: flex-start;
+        }
+      {%- when 'bottom_center' -%}
+        #rover-img-block-{{ bid }} .rover-img-block__overlay {
+          justify-content: flex-end;
+          align-items: center;
+          text-align: center;
+        }
+      {%- when 'bottom_right' -%}
+        #rover-img-block-{{ bid }} .rover-img-block__overlay {
+          justify-content: flex-end;
+          align-items: flex-end;
+          text-align: right;
+        }
+    {%- endcase -%}
+
+    #rover-img-block-{{ bid }} .rover-img-block__overlay-bg {
+      background-color: {{ block.settings.overlay_bg }};
+    }
+
+    {%- if block.settings.show_title or block.settings.show_desc -%}
+      #rover-img-block-{{ bid }} .rover-img-block__image-wrap {
+        margin-top: {{ gap_ti }}px;
+      }
+    {%- endif -%}
+
+    @media (max-width: 749px) {
+      #rover-img-block-{{ bid }} .rover-img-block__title {
+        font-size: {{ mtitle_size }}px;
+      }
+      #rover-img-block-{{ bid }} .rover-img-block__desc {
+        font-size: {{ mdesc_size }}px;
+      }
+    }
+  {%- endfor -%}
+{%- endstyle -%}
+
+<section
+  id="rover-img-{{ section.id }}"
+  class="rover-img-section"
+  aria-label="Image section"
+>
+  <div class="rover-img__inner">
+    <div class="rover-img__grid">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign bid          = block.id
+          assign show_title   = block.settings.show_title
+          assign show_desc    = block.settings.show_desc
+          assign title_text   = block.settings.title_text
+          assign title_tag    = block.settings.title_tag
+          assign desc_text    = block.settings.desc_text
+          assign block_link   = block.settings.link
+          assign link_new_tab = block.settings.link_new_tab
+          assign block_image  = block.settings.image
+          assign block_alt    = block.settings.image_alt | escape
+          assign text_pos     = block.settings.text_position
+          assign over_head    = block.settings.overlay_heading
+          assign over_sub     = block.settings.overlay_subtext
+          assign over_head_color = block.settings.overlay_heading_color
+          assign over_sub_color  = block.settings.overlay_subtext_color
+          assign has_overlay_text = false
+          if over_head != blank or over_sub != blank
+            assign has_overlay_text = true
+          endif
+          assign has_text = false
+          if show_title and title_text != blank
+            assign has_text = true
+          elsif show_desc and desc_text != blank
+            assign has_text = true
+          endif
+        -%}
+
+        <div
+          id="rover-img-block-{{ bid }}"
+          class="rover-img-block"
+          {{ block.shopify_attributes }}
+        >
+
+          {%- comment -%} ── Block title & description (above image) ── {%- endcomment -%}
+          {%- if has_text -%}
+            <div class="rover-img-block__text">
+              {%- if show_title and title_text != blank -%}
+                <{{ title_tag }} class="rover-img-block__title">
+                  {{- title_text | escape -}}
+                </{{ title_tag }}>
+              {%- endif -%}
+
+              {%- if show_desc and desc_text != blank -%}
+                <div class="rover-img-block__desc">
+                  {{- desc_text -}}
+                </div>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+
+          {%- comment -%} ── Image wrapper (link or plain) ── {%- endcomment -%}
+          <div class="rover-img-block__image-wrap">
+            {%- if block_link != blank -%}
+              <a
+                href="{{ block_link }}"
+                class="rover-img-block__link"
+                {%- if link_new_tab %} target="_blank" rel="noopener noreferrer"{%- endif %}
+                {%- if title_text != blank %} aria-label="{{ title_text | escape }}"{%- endif %}
+              >
+            {%- endif -%}
+
+            {%- comment -%} ── Image ── {%- endcomment -%}
+            {%- liquid
+              comment
+                Pre-compute the sizes string — Liquid does not allow {{ }} interpolation
+                inside a string argument. Build the value with assign + append instead.
+                This is the same pattern Dawn uses in its image snippets.
+              endcomment
+
+              assign sizes_mobile  = '(max-width: 749px) calc(100vw / ' | append: col_mobile | append: ')'
+              assign sizes_desktop = 'calc(100vw / ' | append: col_desktop | append: ')'
+              assign grid_sizes    = sizes_mobile | append: ', ' | append: sizes_desktop
+            -%}
+            <div class="rover-img-block__media-wrap">
+              {%- if block_image != blank -%}
+                {%- if section_layout == 'grid' -%}
+                  {{
+                    block_image
+                    | image_url: width: 2000
+                    | image_tag:
+                      loading: 'lazy',
+                      class: 'rover-img-block__img',
+                      alt: block_alt,
+                      widths: '375, 550, 750, 900, 1100, 1500, 2000',
+                      sizes: grid_sizes
+                  }}
+                {%- else -%}
+                  {{
+                    block_image
+                    | image_url: width: 3200
+                    | image_tag:
+                      loading: 'lazy',
+                      class: 'rover-img-block__img',
+                      alt: block_alt,
+                      widths: '375, 550, 750, 900, 1100, 1500, 2000, 2600, 3200',
+                      sizes: '100vw'
+                  }}
+                {%- endif -%}
+              {%- else -%}
+                <div class="rover-img-block__placeholder">
+                  {{ 'image' | placeholder_svg_tag: 'rover-img-block__placeholder-svg' }}
+                </div>
+              {%- endif -%}
+
+              {%- comment -%} ── Overlay text on image ── {%- endcomment -%}
+              {%- if has_overlay_text -%}
+                <div class="rover-img-block__overlay" aria-hidden="true">
+                  <div class="rover-img-block__overlay-bg">
+                    {%- if over_head != blank -%}
+                      <span
+                        class="rover-img-block__overlay-heading"
+                        style="color: {{ over_head_color }};"
+                      >
+                        {{- over_head | escape -}}
+                      </span>
+                    {%- endif -%}
+                    {%- if over_sub != blank -%}
+                      <span
+                        class="rover-img-block__overlay-sub"
+                        style="color: {{ over_sub_color }};"
+                      >
+                        {{- over_sub | escape -}}
+                      </span>
+                    {%- endif -%}
+                  </div>
+                </div>
+              {%- endif -%}
+            </div>
+
+            {%- if block_link != blank -%}
+              </a>
+            {%- endif -%}
+          </div>
+
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Image Grid",
+  "tag": "section",
+  "class": "rover-image-grid-section",
+  "max_blocks": 12,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "radio",
+      "id": "layout_type",
+      "label": "Layout type",
+      "options": [
+        { "value": "grid",   "label": "Grid"         },
+        { "value": "single", "label": "Single image" }
+      ],
+      "default": "grid"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_custom_width",
+      "label": "Use custom section width",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "custom_width",
+      "label": "Custom section width (px)",
+      "min": 600,
+      "max": 1800,
+      "step": 12,
+      "default": 1440,
+      "info": "Only applies when 'Use custom section width' is enabled."
+    },
+    {
+      "type": "header",
+      "content": "Grid columns"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "label": "Columns — desktop",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "columns_mobile",
+      "label": "Columns — mobile",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 1
+    },
+    {
+      "type": "header",
+      "content": "Grid spacing"
+    },
+    {
+      "type": "range",
+      "id": "gap_columns",
+      "label": "Gap between columns (px)",
+      "min": 0,
+      "max": 80,
+      "step": 2,
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "gap_rows",
+      "label": "Gap between rows (px)",
+      "min": 0,
+      "max": 80,
+      "step": 2,
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top (px)",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom (px)",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 48
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "image_alt",
+          "label": "Image alt text",
+          "info": "Describe the image for screen readers and SEO."
+        },
+        {
+          "type": "header",
+          "content": "Link"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link URL",
+          "info": "Leave blank for no link."
+        },
+        {
+          "type": "checkbox",
+          "id": "link_new_tab",
+          "label": "Open link in new tab",
+          "default": false
+        },
+        {
+          "type": "header",
+          "content": "Title"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_title",
+          "label": "Show title",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "title_text",
+          "label": "Title"
+        },
+        {
+          "type": "select",
+          "id": "title_tag",
+          "label": "Title HTML tag",
+          "options": [
+            { "value": "h1", "label": "H1" },
+            { "value": "h2", "label": "H2" },
+            { "value": "h3", "label": "H3" },
+            { "value": "h4", "label": "H4" },
+            { "value": "h5", "label": "H5" },
+            { "value": "h6", "label": "H6" },
+            { "value": "p",  "label": "Paragraph" }
+          ],
+          "default": "h3"
+        },
+        {
+          "type": "color",
+          "id": "title_color",
+          "label": "Title color",
+          "default": "#1a1a1a"
+        },
+        {
+          "type": "range",
+          "id": "title_size_desktop",
+          "label": "Title size — desktop (px)",
+          "min": 10,
+          "max": 80,
+          "step": 1,
+          "default": 22
+        },
+        {
+          "type": "range",
+          "id": "title_size_mobile",
+          "label": "Title size — mobile (px)",
+          "min": 10,
+          "max": 60,
+          "step": 1,
+          "default": 18
+        },
+        {
+          "type": "header",
+          "content": "Description"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_desc",
+          "label": "Show description",
+          "default": false
+        },
+        {
+          "type": "richtext",
+          "id": "desc_text",
+          "label": "Description"
+        },
+        {
+          "type": "color",
+          "id": "desc_color",
+          "label": "Description color",
+          "default": "#4a4a4a"
+        },
+        {
+          "type": "range",
+          "id": "desc_size_desktop",
+          "label": "Description size — desktop (px)",
+          "min": 10,
+          "max": 40,
+          "step": 1,
+          "default": 15
+        },
+        {
+          "type": "range",
+          "id": "desc_size_mobile",
+          "label": "Description size — mobile (px)",
+          "min": 10,
+          "max": 30,
+          "step": 1,
+          "default": 14
+        },
+        {
+          "type": "header",
+          "content": "Text spacing"
+        },
+        {
+          "type": "range",
+          "id": "gap_title_desc",
+          "label": "Gap between title and description (px)",
+          "min": 0,
+          "max": 48,
+          "step": 2,
+          "default": 8
+        },
+        {
+          "type": "range",
+          "id": "gap_text_image",
+          "label": "Gap between text and image (px)",
+          "min": 0,
+          "max": 48,
+          "step": 2,
+          "default": 12
+        },
+        {
+          "type": "header",
+          "content": "Overlay text on image"
+        },
+        {
+          "type": "select",
+          "id": "text_position",
+          "label": "Text position on image",
+          "options": [
+            { "value": "top_left",      "label": "Top left"      },
+            { "value": "top_center",    "label": "Top center"    },
+            { "value": "top_right",     "label": "Top right"     },
+            { "value": "middle_left",   "label": "Middle left"   },
+            { "value": "middle_center", "label": "Middle center" },
+            { "value": "middle_right",  "label": "Middle right"  },
+            { "value": "bottom_left",   "label": "Bottom left"   },
+            { "value": "bottom_center", "label": "Bottom center" },
+            { "value": "bottom_right",  "label": "Bottom right"  }
+          ],
+          "default": "bottom_left"
+        },
+        {
+          "type": "text",
+          "id": "overlay_heading",
+          "label": "Overlay heading",
+          "info": "Appears on top of the image. Leave blank to hide."
+        },
+        {
+          "type": "color",
+          "id": "overlay_heading_color",
+          "label": "Overlay heading color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "text",
+          "id": "overlay_subtext",
+          "label": "Overlay subtext",
+          "info": "Appears below the overlay heading. Leave blank to hide."
+        },
+        {
+          "type": "color",
+          "id": "overlay_subtext_color",
+          "label": "Overlay subtext color",
+          "default": "#f0f0f0"
+        },
+        {
+          "type": "color",
+          "id": "overlay_bg",
+          "label": "Overlay background color",
+          "default": "rgba(0,0,0,0)",
+          "info": "Set opacity via the color picker alpha channel."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image Grid",
+      "blocks": [
+        { "type": "image" },
+        { "type": "image" },
+        { "type": "image" }
+      ]
+    }
+  ]
+}
+{% endschema %}

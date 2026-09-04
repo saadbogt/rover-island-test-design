@@ -1,0 +1,160 @@
+/* ============================================================
+   Rover Island — Image Grid Section
+   rover-image-grid.css
+   ============================================================ */
+
+/* ── Section shell ── */
+.rover-img-section {
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.rover-img__inner {
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/* ── Grid ── */
+.rover-img__grid {
+  width: 100%;
+}
+
+/* ── Block ── */
+.rover-img-block {
+  display: flex;
+  flex-direction: column;
+  min-width: 0; /* prevent grid blowout */
+}
+
+/* ── Text block (title + description above image) ── */
+.rover-img-block__text {
+  /* gap is set via inline style from section settings */
+}
+
+.rover-img-block__title {
+  font-family: inherit;
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  /* font-size and color set via scoped style tag */
+}
+
+.rover-img-block__desc {
+  font-family: inherit;
+  line-height: 1.6;
+  /* font-size and color set via scoped style tag */
+}
+
+.rover-img-block__desc p {
+  margin: 0;
+}
+
+.rover-img-block__desc p + p {
+  margin-top: 0.5em;
+}
+
+/* ── Image wrapper ── */
+.rover-img-block__image-wrap {
+  /* margin-top set via scoped style tag when text is present */
+}
+
+/* ── Link ── */
+.rover-img-block__link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Subtle scale on hover — only when a pointer is available */
+@media (hover: hover) and (pointer: fine) {
+  .rover-img-block__link:hover .rover-img-block__img {
+    transform: scale(1.02);
+  }
+}
+
+/* Focus ring for keyboard navigation */
+.rover-img-block__link:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ── Media wrap (position context for overlay) ── */
+.rover-img-block__media-wrap {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  line-height: 0; /* removes inline gap under image */
+}
+
+/* ── Image ── */
+.rover-img-block__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* ── Placeholder (no image selected) ── */
+.rover-img-block__placeholder {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background-color: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rover-img-block__placeholder-svg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* ── Overlay ── */
+.rover-img-block__overlay {
+  position: absolute;
+  inset: 0; /* always covers the full image — position setting then aligns content inside */
+  display: flex;
+  flex-direction: column; /* main axis = vertical, cross axis = horizontal */
+  padding: 1rem;
+  pointer-events: none;
+  /* justify-content controls vertical placement (main axis)  */
+  /* align-items controls horizontal placement (cross axis)   */
+  /* both are written per-block via the scoped <style> tag    */
+}
+
+.rover-img-block__overlay-bg {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 2px;
+  /* background-color set via scoped style tag */
+  line-height: 1;
+}
+
+.rover-img-block__overlay-heading {
+  display: block;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  /* color set via inline style */
+}
+
+.rover-img-block__overlay-sub {
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  /* color set via inline style */
+}
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .rover-img-block__img {
+    transition: none;
+  }
+}
