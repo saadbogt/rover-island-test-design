@@ -80,24 +80,14 @@
         "padding_bottom": 16
       }
     },
-    "tabbed_collection_Wkxnpr": {
-      "type": "tabbed-collection",
-      "blocks": {
-        "collection_x6PP9E": {
-          "type": "collection",
-          "settings": {
-            "collection": "offers-bundles",
-            "title": "Skincare"
-          }
-        }
-      },
-      "block_order": [
-        "collection_x6PP9E"
-      ],
-      "name": "CLEARANCE SALE",
+    "collection_slider_9VzcJX": {
+      "type": "collection-slider",
+      "name": "Bundles & Offers",
       "settings": {
+        "collection": "offers-bundles",
         "description": "Your Daily Glow, The Korean Way",
         "heading": "GLASS SKIN ROUTINE 💧",
+        "link_label": "Show more",
         "show_vendor": true,
         "show_rating": true,
         "quick_add": "standard",
@@ -408,24 +398,17 @@
         "padding_bottom": 36
       }
     },
-    "tabbed_collection_MUB3Bt": {
-      "type": "tabbed-collection",
-      "blocks": {
-        "collection_aA6KxW": {
-          "type": "collection",
-          "settings": {
-            "collection": "clearance-sale",
-            "title": "Skincare"
-          }
-        }
-      },
-      "block_order": [
-        "collection_aA6KxW"
+    "collection_slider_DFm7KK": {
+      "type": "collection-slider",
+      "custom_css": [
+        "{background-color: #fdc3b7;}"
       ],
       "name": "CLEARANCE SALE",
       "settings": {
+        "collection": "clearance-sale",
         "description": "",
         "heading": "CLEARANCE SALE ⚡",
+        "link_label": "Show more",
         "show_vendor": true,
         "show_rating": true,
         "quick_add": "standard",
@@ -438,13 +421,13 @@
         "desc_size_desktop": 16,
         "desc_line_height": "1.5",
         "show_in_stock_only": true,
-        "products_limit": 10,
+        "products_limit": 24,
         "products_to_slide": 1,
         "products_per_view_mobile": 2,
         "products_per_view_tablet": 3,
         "products_per_view_desktop": 4,
-        "item_gap": 16,
-        "padding_top": 0,
+        "item_gap": 8,
+        "padding_top": 36,
         "padding_bottom": 36
       }
     },
@@ -518,12 +501,12 @@
   },
   "order": [
     "custom_carousel_banner_P3jKjA",
-    "tabbed_collection_Wkxnpr",
+    "collection_slider_9VzcJX",
     "tabbed_collection_3MaELi",
     "collection_list_slider_CxULqk",
     "tabbed_collection_C8TPcq",
     "collection_list_slider_ADjdfJ",
-    "tabbed_collection_MUB3Bt",
+    "collection_slider_DFm7KK",
     "reels_slider_fT8A3H"
   ]
 }
