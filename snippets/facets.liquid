@@ -211,7 +211,8 @@
 
                             {%- capture text_value -%}
                               <span class="facet-checkbox__text" aria-hidden="true">
-                                <span class="facet-checkbox__text-label">{{- value.label | escape }}</span> ({{- value.count -}})
+                                <span class="facet-checkbox__text-label">{{- value.label | escape }}</span> 
+                                {% comment %} ({{- value.count -}}) {% endcomment %}
                               </span>
                               <span class="visually-hidden">
                                 {{- value.label | escape }} (
@@ -580,7 +581,8 @@
 
                               {%- capture text_value -%}
                                 <span class="facet-checkbox__text" aria-hidden="true">
-                                  <span class="facet-checkbox__text-label">{{- value.label | escape }}</span> ({{- value.count -}})
+                                  <span class="facet-checkbox__text-label">{{- value.label | escape }}</span> 
+                                  {% comment %} ({{- value.count -}}) {% endcomment %}
                                 </span>
                                 <span class="visually-hidden">
                                   {{- value.label | escape }} (
