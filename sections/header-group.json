@@ -50,7 +50,8 @@
         ".mega-menu__list > li:first-child > a {font-size: 30px;}",
         ".mega-menu__link--level-2 {font-size: 20px; font-weight: 500 !important;}",
         ".header--top-center .mega-menu__list > li {flex-grow: 1;}",
-        ".link:hover {text-decoration: none;}"
+        ".link:hover {text-decoration: none;}",
+        ".menu-drawer__menu > li {border-bottom: 1px solid #80808036;}"
       ],
       "settings": {
         "logo_position": "top-center",
