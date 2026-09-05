@@ -660,14 +660,13 @@ h3 .icon-arrow,
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
 }
 
 .svg-wrapper > svg {
   height: 100%;
   width: 100%;
-  font-size:18px;
 }
 
 /* base-details-summary */
