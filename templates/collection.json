@@ -72,7 +72,8 @@
     "product-grid": {
       "type": "main-collection-product-grid",
       "custom_css": [
-        ".product-count-vertical,.product-count, .mobile-facets__count{display: none;}"
+        ".product-count-vertical,.product-count,.mobile-facets__count {display: none;}",
+        ".mobile-facets {z-index: 999999099999;}"
       ],
       "settings": {
         "products_per_page": 20,
