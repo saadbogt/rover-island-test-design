@@ -72,7 +72,7 @@
     "product-grid": {
       "type": "main-collection-product-grid",
       "custom_css": [
-        ".product-count-vertical {display: none;}"
+        ".product-count-vertical, .product-count {display: none;}"
       ],
       "settings": {
         "products_per_page": 20,
