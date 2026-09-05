@@ -521,7 +521,8 @@
     "custom_css": [
       ".wa__widget_container {z-index: 1;}",
       ".product-card-wrapper .rating-star {/* Star size */ --font-size: 1.2; /* increase/decrease for bigger/smaller stars */ --color-rating-star: #f5a623; /* Spacing between individual stars */ --letter-spacing: 0.2; font-family: \"Potta One\", cursive;}",
-      ".wa__btn_popup .wa__btn_popup_txt {-webkit-border-radius: 14px !important;}"
+      ".wa__btn_popup .wa__btn_popup_txt {-webkit-border-radius: 14px !important;}",
+      ".menu-drawer-container {z-index: 100000000 !important;}"
     ]
   }
 }
