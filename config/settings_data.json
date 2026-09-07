@@ -199,11 +199,6 @@
           "distance_bottom": 30
         }
       },
-      "5043070786800498925": {
-        "type": "shopify://apps/sw-back-in-stock/blocks/bis-switch/b190bced-3b7b-47da-a05f-6ea4821c3a77",
-        "disabled": false,
-        "settings": {}
-      },
       "4015264832934714879": {
         "type": "shopify://apps/cwillsendwill-popup-email/blocks/app/a5670cf8-5705-4b01-ad9e-447033feae26",
         "disabled": true,
@@ -211,11 +206,6 @@
           "enable_gdpr_mode": false,
           "enable_cwtracks_listener": false
         }
-      },
-      "11532412952436166569": {
-        "type": "shopify://apps/loox-reviews/blocks/loox-inject/5c3b337f-fd14-4df5-b1d6-80ec13e6e28e",
-        "disabled": false,
-        "settings": {}
       },
       "1143683040400472741": {
         "type": "shopify://apps/cwilltrustoo-reviews/blocks/trustoo-review-switch/c8f15077-6475-4e86-ad06-b66038d5ba2c",
@@ -233,17 +223,27 @@
           "mobile_bottom_margin": 46
         }
       },
+      "11532412952436166569": {
+        "type": "shopify://apps/loox-reviews/blocks/loox-inject/5c3b337f-fd14-4df5-b1d6-80ec13e6e28e",
+        "disabled": false,
+        "settings": {}
+      },
       "14060646107696862457": {
         "type": "shopify://apps/judge-me-reviews/blocks/judgeme_core/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
-        "disabled": false,
+        "disabled": true,
         "settings": {}
       },
       "13047258039897440615": {
         "type": "shopify://apps/judge-me-reviews/blocks/cart_drawer_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
-        "disabled": false,
+        "disabled": true,
         "settings": {
           "widget_type": "review-widget"
         }
+      },
+      "5043070786800498925": {
+        "type": "shopify://apps/sw-back-in-stock/blocks/bis-switch/b190bced-3b7b-47da-a05f-6ea4821c3a77",
+        "disabled": true,
+        "settings": {}
       }
     },
     "color_schemes": {
