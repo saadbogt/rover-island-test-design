@@ -23,7 +23,7 @@
             "textColor": "",
             "starColor": "",
             "showAllReviews": false,
-            "looxOpenFloatingWidget": false,
+            "looxOpenFloatingWidget": true,
             "emptyRatingWidget": false
           }
         },
