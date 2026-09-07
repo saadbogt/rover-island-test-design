@@ -228,7 +228,7 @@
             "aggregated": false,
             "limit": 20,
             "hide_thumbnails": false,
-            "maxwidth": 1080,
+            "maxwidth": 1920,
             "is_sample": true
           }
         }
