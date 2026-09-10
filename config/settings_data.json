@@ -242,7 +242,7 @@
       },
       "5043070786800498925": {
         "type": "shopify://apps/sw-back-in-stock/blocks/bis-switch/b190bced-3b7b-47da-a05f-6ea4821c3a77",
-        "disabled": true,
+        "disabled": false,
         "settings": {}
       }
     },
