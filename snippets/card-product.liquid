@@ -265,7 +265,7 @@
               </h3>
 
               <div class="card-information">
-                {%- if show_rating and card_product.metafields.reviews.rating.value != blank -%}
+                {% comment %} {%- if show_rating and card_product.metafields.reviews.rating.value != blank -%}
                   {% liquid
                     assign rating_decimal = 0
                     assign decimal = card_product.metafields.reviews.rating.value.rating | modulo: 1
@@ -299,7 +299,7 @@
                       {{ 'accessibility.total_reviews' | t -}}
                     </span>
                   </p>
-                {%- endif -%}
+                {%- endif -%} {% endcomment %}
 
                 {%- if card_product.price_min != card_product.price_max -%}
                   <div class="card-price-range">
