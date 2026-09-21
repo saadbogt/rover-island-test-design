@@ -244,6 +244,11 @@
         "type": "shopify://apps/sw-back-in-stock/blocks/bis-switch/b190bced-3b7b-47da-a05f-6ea4821c3a77",
         "disabled": false,
         "settings": {}
+      },
+      "5091004626459974968": {
+        "type": "shopify://apps/moose-whatsapp/blocks/whatsapp/b77db749-c44a-4265-8135-8b842af1b111",
+        "disabled": false,
+        "settings": {}
       }
     },
     "color_schemes": {
