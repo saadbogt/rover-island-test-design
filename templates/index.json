@@ -90,8 +90,8 @@
       "name": "Bundles & Offers",
       "settings": {
         "collection": "offers-bundles",
-        "description": "Your Daily Glow, The Korean Way",
-        "heading": "GLASS SKIN ROUTINE 💧",
+        "description": "Complete your Skincare Routine",
+        "heading": "BUNDLES & ROUTINES 💄",
         "link_label": "Show more",
         "show_vendor": true,
         "show_rating": true,
@@ -472,7 +472,7 @@
         "reel_3fgKnQ": {
           "type": "reel",
           "settings": {
-            "product": "tirtir-foundation-mask-fit-red-cushion-32-shades-0-63oz",
+            "product": "tirtir-foundation-mask-fit-red-cushion-0-63oz",
             "shopify_video": "shopify://files/videos/TirTir.mp4"
           }
         }
