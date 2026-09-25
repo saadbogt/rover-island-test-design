@@ -197,7 +197,7 @@
           "settings": {
             "collection": "skincare",
             "title": "Skincare",
-            "image": "shopify://shop_images/Skincare.png",
+            "image": "shopify://shop_images/Skincare_ac0dc46f-c10a-4d44-9c80-a777f7bc84b6.webp",
             "image_shape": "circle"
           }
         },
@@ -206,7 +206,7 @@
           "settings": {
             "collection": "makeup",
             "title": "Makeup",
-            "image": "shopify://shop_images/Makeup_d274b901-97af-4da7-9b68-2f39d3f421cb.png",
+            "image": "shopify://shop_images/Makeup_656387fc-f751-4492-bb7e-610a3af748b6.webp",
             "image_shape": "circle"
           }
         },
@@ -215,7 +215,7 @@
           "settings": {
             "collection": "hair-body",
             "title": "Hair & Body",
-            "image": "shopify://shop_images/Hair_Care.png",
+            "image": "shopify://shop_images/Hair_Care.webp",
             "image_shape": "circle"
           }
         },
@@ -224,7 +224,7 @@
           "settings": {
             "collection": "offers-bundles",
             "title": "Bundles & Sets",
-            "image": "shopify://shop_images/K-beauty_82640db4-4e3e-4215-be1e-cfaa51369651.png",
+            "image": "shopify://shop_images/K-beauty.webp",
             "image_shape": "circle"
           }
         }
