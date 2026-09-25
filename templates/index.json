@@ -328,7 +328,7 @@
           "settings": {
             "collection": "foodology",
             "title": "FOODOLOGY",
-            "image": "shopify://shop_images/FOODOLOGY.png",
+            "image": "shopify://shop_images/Foodology.webp",
             "image_shape": "default"
           }
         },
@@ -337,7 +337,7 @@
           "settings": {
             "collection": "shiseido",
             "title": "Shiseido FINO",
-            "image": "shopify://shop_images/FINO.png",
+            "image": "shopify://shop_images/FINO.webp",
             "image_shape": "default"
           }
         },
@@ -355,7 +355,7 @@
           "settings": {
             "collection": "cosrx",
             "title": "COSRX",
-            "image": "shopify://shop_images/COSRX_01a9ff06-d778-4912-ab4c-29e707dec451.png",
+            "image": "shopify://shop_images/COSRX_11c0ad63-3ae6-4076-a8e1-50b7e49b6544.webp",
             "image_shape": "default"
           }
         },
@@ -364,7 +364,7 @@
           "settings": {
             "collection": "dr-althea",
             "title": "Dr. Althea",
-            "image": "shopify://shop_images/Dr._Althea.png",
+            "image": "shopify://shop_images/Dr._Althea.webp",
             "image_shape": "default"
           }
         }
