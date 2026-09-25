@@ -42,9 +42,7 @@
     {%- if settings.animations_reveal_on_scroll -%}
       <script src="{{ 'animations.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
-
-    {{ content_for_header }}
-
+    
     <script type="module">
       import * as StandardEvents from 'https://cdn.shopify.com/storefront/standard-events.js';
 
@@ -65,6 +63,8 @@
         );
       }, { once: true });
     </script>
+    {{ content_for_header }}
+
 
     {%- liquid
       assign body_font_bold = settings.type_body_font | font_modify: 'weight', 'bold'
