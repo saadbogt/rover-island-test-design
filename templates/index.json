@@ -40,6 +40,12 @@
             "link": "shopify://collections/makeup"
           }
         },
+        "image_MaaMnN": {
+          "type": "image",
+          "settings": {
+            "link": ""
+          }
+        },
         "image_9UhXhm": {
           "type": "image",
           "settings": {
@@ -67,6 +73,7 @@
         "image_hUJNgV",
         "image_jkGgRx",
         "image_nNVya8",
+        "image_MaaMnN",
         "image_9UhXhm",
         "image_3yVWXp",
         "image_hJCQqi"
@@ -75,6 +82,8 @@
       "settings": {
         "page_width": true,
         "hidden_h1": "",
+        "autoplay": true,
+        "autoplay_speed": 5,
         "image_gap": 16,
         "padding_top": 16,
         "padding_bottom": 16
@@ -254,7 +263,7 @@
         "title_size_tablet": 18,
         "title_size_desktop": 20,
         "show_in_stock_only": false,
-        "max_items": 0,
+        "max_items": 6,
         "items_to_slide": 1,
         "items_per_view_mobile": 2,
         "items_per_view_tablet": 6,
@@ -310,7 +319,7 @@
         "desc_size_desktop": 16,
         "desc_line_height": "1.5",
         "show_in_stock_only": true,
-        "products_limit": 16,
+        "products_limit": 10,
         "products_to_slide": 1,
         "products_per_view_mobile": 2,
         "products_per_view_tablet": 3,
@@ -393,7 +402,7 @@
         "title_size_tablet": 18,
         "title_size_desktop": 20,
         "show_in_stock_only": false,
-        "max_items": 0,
+        "max_items": 6,
         "items_to_slide": 1,
         "items_per_view_mobile": 2,
         "items_per_view_tablet": 5,
@@ -428,7 +437,7 @@
         "desc_size_desktop": 16,
         "desc_line_height": "1.5",
         "show_in_stock_only": true,
-        "products_limit": 24,
+        "products_limit": 10,
         "products_to_slide": 1,
         "products_per_view_mobile": 2,
         "products_per_view_tablet": 3,
