@@ -91,6 +91,7 @@ this is the Slider Product Section with the Title and Description
             assign products_to_render = collection.products | where: 'available', true
           endif
           assign products_limit = section.settings.products_limit | default: 10
+          assign skip_card_product_styles = false
         -%}
 
         {%- for product in products_to_render limit: products_limit -%}
@@ -103,9 +104,11 @@ this is the Slider Product Section with the Title and Description
               show_rating: section.settings.show_rating,
               quick_add: section.settings.quick_add,
               section_id: section.id,
-              lazy_load: true
+              lazy_load: true,
+              skip_styles: skip_card_product_styles
             %}
           </div>
+          {%- assign skip_card_product_styles = true -%}
         {%- else -%}
           {%- for i in (1..6) -%}
             <div class="tabbed-slider-slide">
