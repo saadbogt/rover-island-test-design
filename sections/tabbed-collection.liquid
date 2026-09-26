@@ -85,6 +85,7 @@
   </div>
 
   <div class="tabbed-collection__content">
+    {%- assign skip_card_product_styles = false -%}
     {%- for block in section.blocks -%}
       {%- assign collection = block.settings.collection -%}
       <div
@@ -120,9 +121,11 @@
                   show_rating: section.settings.show_rating,
                   quick_add: section.settings.quick_add,
                   section_id: section.id,
-                  lazy_load: true
+                  lazy_load: true,
+                  skip_styles: skip_card_product_styles
                 %}
               </div>
+              {%- assign skip_card_product_styles = true -%}
             {%- else -%}
               {%- for i in (1..6) -%}
                 <div class="tabbed-slider-slide">
