@@ -83,7 +83,7 @@
       "settings": {
         "page_width": true,
         "hidden_h1": "",
-        "autoplay": false,
+        "autoplay": true,
         "autoplay_speed": 5,
         "image_gap": 16,
         "padding_top": 16,
