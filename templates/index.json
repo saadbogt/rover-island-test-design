@@ -19,6 +19,13 @@
             "link": "shopify://collections/anua"
           }
         },
+        "image_AKaXhU": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/foodology_1.webp",
+            "link": ""
+          }
+        },
         "image_hUJNgV": {
           "type": "image",
           "settings": {
@@ -64,6 +71,7 @@
       },
       "block_order": [
         "image_V4z8j3",
+        "image_AKaXhU",
         "image_hUJNgV",
         "image_jkGgRx",
         "image_nNVya8",
@@ -75,7 +83,7 @@
       "settings": {
         "page_width": true,
         "hidden_h1": "",
-        "autoplay": true,
+        "autoplay": false,
         "autoplay_speed": 5,
         "image_gap": 16,
         "padding_top": 16,
