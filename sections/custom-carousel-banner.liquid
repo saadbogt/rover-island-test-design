@@ -21,7 +21,7 @@
       <h1 class="visually-hidden">{{ section.settings.hidden_h1 | escape }}</h1>
     {%- endif -%}
 
-    <infinite-carousel class="custom-carousel-container" data-autoplay="true" data-speed="3000">
+    <infinite-carousel class="custom-carousel-container" data-autoplay="{{ section.settings.autoplay }}" data-speed="{{ section.settings.autoplay_speed | times: 1000 }}">
       <button class="custom-carousel-btn prev" aria-label="Previous slide">
         <svg viewBox="0 0 14 10" fill="none" aria-hidden="true" focusable="false" role="presentation" class="icon icon-arrow" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" clip-rule="evenodd" d="M8.537.808a.5.5 0 01.817-.162l4 4a.5.5 0 010 .708l-4 4a.5.5 0 11-.708-.708L11.793 5.5H1.5a.5.5 0 010-1h10.293L8.646 1.354a.5.5 0 01-.109-.546z" fill="currentColor" transform="rotate(180 7 5)"></path>
@@ -33,7 +33,7 @@
           {%- for block in section.blocks -%}
             <li class="custom-carousel-slide" {{ block.shopify_attributes }}>
               {%- if block.settings.link != blank -%}
-                <a href="{{ block.settings.link }}" class="custom-carousel-link" aria-label="Carousel image link">
+                <a href="{{ block.settings.link }}" class="custom-carousel-link">
               {%- else -%}
                 <div class="custom-carousel-link">
               {%- endif -%}
@@ -42,23 +42,22 @@
                 {%- liquid
                   assign img_widths = '400, 600, 800, 1000, 1200, 1600'
                   assign img_sizes = '(min-width: 750px) 33vw, 100vw'
+                  assign slide_alt = block.settings.image.alt | default: section.settings.hidden_h1
+                  if forloop.first
+                    assign img_loading = 'eager'
+                    assign img_priority = 'high'
+                  else
+                    assign img_loading = 'lazy'
+                    assign img_priority = 'auto'
+                  endif
                 -%}
-                {%- if forloop.first -%}
-                  {{ block.settings.image | image_url: width: 1600 | image_tag:
-                    loading: 'eager',
-                    fetchpriority: 'high',
-                    widths: img_widths,
-                    sizes: img_sizes,
-                    alt: block.settings.image.alt | default: section.settings.hidden_h1 | escape
-                  }}
-                {%- else -%}
-                  {{ block.settings.image | image_url: width: 1600 | image_tag:
-                    loading: 'lazy',
-                    widths: img_widths,
-                    sizes: img_sizes,
-                    alt: block.settings.image.alt | default: section.settings.hidden_h1 | escape
-                  }}
-                {%- endif -%}
+                {{ block.settings.image | image_url: width: 1600 | image_tag:
+                  loading: img_loading,
+                  fetchpriority: img_priority,
+                  widths: img_widths,
+                  sizes: img_sizes,
+                  alt: slide_alt
+                }}
               {%- else -%}
                 {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
               {%- endif -%}
@@ -180,15 +179,15 @@
       }
 
       play() {
-        if (this.dataset.autoplay === 'true') {
-          this.autoplayInterval = setInterval(() => {
-            this.move('next');
-          }, this.speed);
-        }
+        this.pause();
+        if (this.dataset.autoplay !== 'true') return;
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        this.autoplayInterval = setInterval(() => this.move('next'), this.speed);
       }
 
       pause() {
         clearInterval(this.autoplayInterval);
+        this.autoplayInterval = null;
       }
     }
     customElements.define('infinite-carousel', InfiniteCarousel);
@@ -216,6 +215,23 @@
     {
       "type": "header",
       "content": "General Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Autoplay slides",
+      "info": "Off gives the fastest page-speed score.",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "min": 3,
+      "max": 10,
+      "step": 1,
+      "unit": "s",
+      "label": "Autoplay speed",
+      "default": 5
     },
     {
       "type": "range",
