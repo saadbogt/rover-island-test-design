@@ -25,7 +25,7 @@
           "type": "announcement",
           "settings": {
             "text": "4hr Express Delivery Available (Only in Dubai)",
-            "link": "shopify://collections/all"
+            "link": ""
           }
         }
       },
@@ -33,6 +33,7 @@
         "announcement_ggRt7m",
         "announcement-bar-0"
       ],
+      "custom_css": [],
       "settings": {
         "auto_rotate": true,
         "change_slides_speed": 3,
