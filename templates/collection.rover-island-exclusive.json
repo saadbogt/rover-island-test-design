@@ -1,0 +1,132 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "banner": {
+      "type": "main-collection-banner",
+      "custom_css": [
+        ".collection-hero__title {margin: 10px; font-weight: 900;}"
+      ],
+      "settings": {
+        "show_collection_description": false,
+        "show_collection_image": false,
+        "color_scheme": "scheme-1"
+      }
+    },
+    "rover_image_grid_BmKwJj": {
+      "type": "rover-image-grid",
+      "blocks": {
+        "image_k7FKAN": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Rover_Collection_Banner_Free_Shipping.webp",
+            "image_alt": "",
+            "link": "",
+            "link_new_tab": false,
+            "show_title": false,
+            "title_text": "",
+            "title_tag": "h3",
+            "title_color": "#1a1a1a",
+            "title_size_desktop": 22,
+            "title_size_mobile": 18,
+            "show_desc": false,
+            "desc_text": "",
+            "desc_color": "#4a4a4a",
+            "desc_size_desktop": 15,
+            "desc_size_mobile": 14,
+            "gap_title_desc": 8,
+            "gap_text_image": 12,
+            "text_position": "bottom_left",
+            "overlay_heading": "",
+            "overlay_heading_color": "#ffffff",
+            "overlay_subtext": "",
+            "overlay_subtext_color": "#f0f0f0",
+            "overlay_bg": "rgba(0,0,0,0)"
+          }
+        }
+      },
+      "block_order": [
+        "image_k7FKAN"
+      ],
+      "custom_css": [],
+      "name": "Image Grid",
+      "settings": {
+        "layout_type": "single",
+        "use_custom_width": false,
+        "custom_width": 1440,
+        "columns_desktop": 3,
+        "columns_mobile": 1,
+        "gap_columns": 16,
+        "gap_rows": 16,
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "product-grid": {
+      "type": "main-collection-product-grid",
+      "custom_css": [
+        ".product-count-vertical,.product-count,.mobile-facets__count {display: none;}",
+        ".mobile-facets {z-index: 999999099999;}"
+      ],
+      "settings": {
+        "products_per_page": 20,
+        "columns_desktop": 4,
+        "columns_mobile": "2",
+        "color_scheme": "scheme-1",
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": true,
+        "show_rating": true,
+        "quick_add": "standard",
+        "enable_filtering": true,
+        "filter_type": "vertical",
+        "enable_sorting": true,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "1785826788a8e47ac6": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_9eb296c_gByY8m": {
+          "type": "ai_gen_block_9eb296c",
+          "settings": {
+            "content": "{{ closest.collection.description }}",
+            "show_more_text": "Show more",
+            "show_less_text": "Show less",
+            "content_alignment": "center",
+            "padding": 20,
+            "border_radius": 0,
+            "background_color": "#ffffff",
+            "text_color": "#272743",
+            "font_size": 16,
+            "line_height": 1.5,
+            "button_color": "#272743",
+            "button_hover_color": "#000000",
+            "button_font_size": 14,
+            "button_spacing": 12
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_9eb296c_gByY8m"
+      ],
+      "settings": {}
+    }
+  },
+  "order": [
+    "banner",
+    "rover_image_grid_BmKwJj",
+    "product-grid",
+    "1785826788a8e47ac6"
+  ]
+}
