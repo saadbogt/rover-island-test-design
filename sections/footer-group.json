@@ -13,6 +13,20 @@
   "sections": {
     "178600740537e65252": {
       "type": "apps",
+      "blocks": {
+        "judge_me_reviews_trust_badge_nhfri4": {
+          "type": "shopify://apps/judge-me-reviews/blocks/trust_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "structure": "outline",
+            "color": "brand",
+            "star": "default",
+            "alignment": "center"
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_trust_badge_nhfri4"
+      ],
       "settings": {
         "include_margins": true
       }
