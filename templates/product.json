@@ -208,6 +208,32 @@
     "17887626887cec3ccd": {
       "type": "apps",
       "blocks": {
+        "judge_me_reviews_store_summary_reaYzB": {
+          "type": "shopify://apps/judge-me-reviews/blocks/store_summary/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "data_source": "real",
+            "theme": "expanded",
+            "button_theme_color": "#FFFFFF",
+            "button_theme_text_color": "#000000",
+            "show_keywords": true,
+            "keywords_visibility": "shown",
+            "show_button": true,
+            "button_visibility": "shown",
+            "alignment": "center",
+            "title_size": "default",
+            "text_size": "default",
+            "corner_styling": "soft",
+            "widget_color": "#F9F9F9",
+            "text_color": "#000000",
+            "lighter_text_color": "#787878",
+            "button_color": "#108474",
+            "button_text_color": "#FFFFFF",
+            "show_sentiment_colors": false,
+            "max_width": 1100,
+            "heading_text": "Customers rate this store",
+            "button_text": "See AI reviews summary"
+          }
+        },
         "judge_me_reviews_review_widget_PKbF8i": {
           "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
           "settings": {
@@ -219,6 +245,7 @@
         }
       },
       "block_order": [
+        "judge_me_reviews_store_summary_reaYzB",
         "judge_me_reviews_review_widget_PKbF8i"
       ],
       "settings": {
