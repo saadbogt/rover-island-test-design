@@ -12,20 +12,9 @@
     "main": {
       "type": "main-product",
       "blocks": {
-        "loox_reviews_loox_rating_VHURkg": {
-          "type": "shopify://apps/loox-reviews/blocks/loox-rating/5c3b337f-fd14-4df5-b1d6-80ec13e6e28e",
-          "settings": {
-            "contentSize": 16,
-            "pattern": "",
-            "hideText": false,
-            "alignment": "",
-            "layout": "",
-            "textColor": "",
-            "starColor": "",
-            "showAllReviews": false,
-            "looxOpenFloatingWidget": true,
-            "emptyRatingWidget": false
-          }
+        "judge_me_reviews_preview_badge_CLjkd6": {
+          "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {}
         },
         "text_eqjn3C": {
           "type": "text",
@@ -132,7 +121,7 @@
         }
       },
       "block_order": [
-        "loox_reviews_loox_rating_VHURkg",
+        "judge_me_reviews_preview_badge_CLjkd6",
         "text_eqjn3C",
         "title",
         "price",
@@ -219,22 +208,18 @@
     "17887626887cec3ccd": {
       "type": "apps",
       "blocks": {
-        "loox_reviews_loox_dynamic_section_UGcmtp": {
-          "type": "shopify://apps/loox-reviews/blocks/loox-dynamic-section/5c3b337f-fd14-4df5-b1d6-80ec13e6e28e",
+        "judge_me_reviews_review_widget_PKbF8i": {
+          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
           "settings": {
-            "reviews_to_display": "product_reviews_only",
-            "default_tab": "automatic",
-            "only_photos": false,
-            "aggregated": false,
-            "limit": 20,
-            "hide_thumbnails": false,
-            "maxwidth": 1920,
-            "is_sample": true
+            "review_data": "real_data",
+            "max_width": 1200,
+            "show_shop_reviews": false,
+            "empty_state": "empty_widget"
           }
         }
       },
       "block_order": [
-        "loox_reviews_loox_dynamic_section_UGcmtp"
+        "judge_me_reviews_review_widget_PKbF8i"
       ],
       "settings": {
         "include_margins": true
