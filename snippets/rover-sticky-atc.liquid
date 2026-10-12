@@ -1,0 +1,59 @@
+{%- comment -%}
+  Rover Island — Sticky Add to Cart button (mobile only)
+  Accepts: product, block, product_form_id, section_id
+  Render OUTSIDE <product-form> (see buy-buttons.liquid edit).
+{%- endcomment -%}
+{%- assign variant = product.selected_or_first_available_variant -%}
+
+{{ 'rover-sticky-atc.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'rover-sticky-atc.js' | asset_url }}" defer="defer"></script>
+
+<rover-sticky-atc
+  class="rover-sticky-atc color-{{ section.settings.color_scheme }}"
+  data-section="{{ section_id }}"
+  data-form="{{ product_form_id }}"
+  data-target="ProductSubmitButton-{{ section_id }}"
+  data-trigger="{{ block.settings.rover_sticky_atc_trigger }}"
+  data-max-width="{{ block.settings.rover_sticky_atc_max_width }}"
+>
+  <button
+    type="submit"
+    form="{{ product_form_id }}"
+    class="rover-sticky-atc__btn button button--full-width button--primary"
+    data-btn
+    {% unless variant.available %}disabled{% endunless %}
+  >
+    <span data-label>
+      {%- if variant == null -%}
+        {{- 'products.product.unavailable' | t -}}
+      {%- elsif variant.available == false -%}
+        {{- 'products.product.sold_out' | t -}}
+      {%- else -%}
+        {{- 'products.product.add_to_cart' | t -}}
+      {%- endif -%}
+    </span>
+    {%- render 'loading-spinner' -%}
+  </button>
+
+  <script type="application/json" data-config>
+    {
+      "productId": {{ product.id | json }},
+      "name": {{ product.title | json }},
+      "brand": {{ product.vendor | json }},
+      "category": {{ product.type | json }},
+      "currency": {{ cart.currency.iso_code | json }},
+      "track": {{ block.settings.rover_sticky_atc_tracking | json }},
+      "variants": [
+        {%- for v in product.variants -%}
+          {
+            "id": {{ v.id }},
+            "sku": {{ v.sku | json }},
+            "barcode": {{ v.barcode | json }},
+            "title": {{ v.title | json }},
+            "price": {{ v.price | divided_by: 100.0 }}
+          }{% unless forloop.last %},{% endunless %}
+        {%- endfor -%}
+      ]
+    }
+  </script>
+</rover-sticky-atc>

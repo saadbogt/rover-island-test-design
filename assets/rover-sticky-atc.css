@@ -1,0 +1,59 @@
+/* Rover Island — Sticky Add to Cart button (mobile). Button styling comes from the theme. */
+
+rover-sticky-atc {
+  --rover-satc-pad-x: 1.6rem;
+  --rover-satc-pad-y: 1rem;
+  --rover-satc-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --rover-satc-dur: 0.4s;
+  display: none; /* JS adds .is-enabled under the configured max width */
+}
+
+rover-sticky-atc.is-enabled {
+  position: fixed;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 20;
+  display: block;
+  box-sizing: border-box;
+  padding: var(--rover-satc-pad-y) var(--rover-satc-pad-x)
+    calc(var(--rover-satc-pad-y) + env(safe-area-inset-bottom, 0px));
+  pointer-events: none; /* only the button is tappable */
+  filter: drop-shadow(0 0.6rem 1.4rem rgba(var(--color-foreground), 0.22)); /* remove for a flat look */
+  transform: translate3d(0, 120%, 0);
+  visibility: hidden;
+  transition: transform var(--rover-satc-dur) var(--rover-satc-ease),
+    visibility 0s linear var(--rover-satc-dur);
+  will-change: transform;
+}
+
+rover-sticky-atc.is-enabled.is-visible {
+  transform: none;
+  visibility: visible;
+  transition-delay: 0s;
+}
+
+.rover-sticky-atc__btn {
+  pointer-events: auto;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Step aside for drawers, menus and modals */
+body.overflow-hidden rover-sticky-atc.is-enabled.is-visible,
+body.overflow-hidden-mobile rover-sticky-atc.is-enabled.is-visible,
+body.overflow-hidden-tablet rover-sticky-atc.is-enabled.is-visible {
+  transform: translate3d(0, 120%, 0);
+  visibility: hidden;
+  transition: transform var(--rover-satc-dur) var(--rover-satc-ease),
+    visibility 0s linear var(--rover-satc-dur);
+}
+
+/* Keep the footer reachable while the button is showing */
+html.rover-sticky-atc-visible body {
+  padding-bottom: var(--rover-sticky-atc-h, 7rem);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  rover-sticky-atc.is-enabled {
+    transition-duration: 0.01s;
+  }
+}
