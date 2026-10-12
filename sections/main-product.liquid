@@ -935,6 +935,42 @@
           "default": true,
           "label": "t:sections.main-product.blocks.buy_buttons.settings.show_gift_card_recipient.label",
           "info": "t:sections.main-product.blocks.buy_buttons.settings.show_gift_card_recipient.info"
+        },
+        {
+          "type": "header",
+          "content": "Sticky add to cart (mobile)"
+        },
+        {
+          "type": "checkbox",
+          "id": "rover_sticky_atc_enable",
+          "label": "Enable sticky add to cart button",
+          "default": true
+        },
+        {
+          "type": "select",
+          "id": "rover_sticky_atc_trigger",
+          "label": "Show button",
+          "options": [
+            { "value": "out_of_view", "label": "Whenever the main button is out of view" },
+            { "value": "scrolled_past", "label": "Only after scrolling past the main button" }
+          ],
+          "default": "out_of_view"
+        },
+        {
+          "type": "select",
+          "id": "rover_sticky_atc_max_width",
+          "label": "Show on screens up to",
+          "options": [
+            { "value": "749", "label": "Phones (749px)" },
+            { "value": "989", "label": "Phones and tablets (989px)" }
+          ],
+          "default": "749"
+        },
+        {
+          "type": "checkbox",
+          "id": "rover_sticky_atc_tracking",
+          "label": "Push click event to dataLayer",
+          "default": true
         }
       ]
     },
