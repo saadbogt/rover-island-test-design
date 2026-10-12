@@ -157,9 +157,9 @@
         "settings": {
           "breadcrumbs_enabled": true,
           "breadcrumbs_menu_definition": "breadcrumbs-rover-island",
-          "prefer_shortest_path": false,
+          "prefer_shortest_path": true,
           "separator_shape": "slash",
-          "font_size": 12,
+          "font_size": 11,
           "color_scheme": "scheme-1",
           "enable_divider": false,
           "divider_color": "#cccccc",
@@ -170,11 +170,6 @@
     },
     "content_for_index": [],
     "blocks": {
-      "1143683040400472741": {
-        "type": "shopify://apps/cwilltrustoo-reviews/blocks/trustoo-review-switch/c8f15077-6475-4e86-ad06-b66038d5ba2c",
-        "disabled": true,
-        "settings": {}
-      },
       "6159598353363395418": {
         "type": "shopify://apps/google-youtube/blocks/store_widget/14ec7bd0-ac77-49a9-9417-90752398bdff",
         "disabled": true,
@@ -212,11 +207,6 @@
       "14060646107696862457": {
         "type": "shopify://apps/judge-me-reviews/blocks/judgeme_core/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
         "disabled": false,
-        "settings": {}
-      },
-      "11532412952436166569": {
-        "type": "shopify://apps/loox-reviews/blocks/loox-inject/5c3b337f-fd14-4df5-b1d6-80ec13e6e28e",
-        "disabled": true,
         "settings": {}
       },
       "13047258039897440615": {
@@ -516,7 +506,7 @@
       ".product-card-wrapper .rating-star {/* Star size */ --font-size: 1.2; /* increase/decrease for bigger/smaller stars */ --color-rating-star: #f5a623; /* Spacing between individual stars */ --letter-spacing: 0.2; font-family: \"Potta One\", cursive;}",
       ".wa__btn_popup .wa__btn_popup_txt {-webkit-border-radius: 14px !important;}",
       ".menu-drawer-container {z-index: 100000000 !important;}",
-      "#judgeme_product_reviews{max-width: 1440px !important;}"
+      "#judgeme_product_reviews {max-width: 1440px !important;}"
     ]
   }
 }
