@@ -582,5 +582,13 @@
       "signup_form_success": "We will send you an email right before we open!",
       "password_link": "Enter using password"
     }
+  },
+  "shopify": {
+    "checkout": {
+      "contact": {
+        "address_title": "Building/Villa Name, Street & Area",
+        "address1_label": "Building/Villa Name, Street & Area"
+      }
+    }
   }
 }
