@@ -1215,6 +1215,14 @@ a.product__text {
   opacity: .3;
 }
 
+.product__inventory-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.product__inventory-status--in  { color: var(--inventory-in-stock-color, #00eb0cff); }
+.product__inventory-status--low { color: var(--inventory-low-stock-color, #e26200ff); }
+
 /* Icon with text */
 .icon-with-text {
   --icon-size: calc(var(--font-heading-scale) * 3rem);
