@@ -47,14 +47,20 @@
           "settings": {
             "text_style": "body",
             "inventory_threshold": 10,
-            "show_inventory_quantity": true
+            "show_inventory_quantity": true,
+            "in_stock_color": "#00BC09",
+            "low_stock_color": "#e46300"
           }
         },
         "buy_buttons": {
           "type": "buy_buttons",
           "settings": {
             "show_dynamic_checkout": false,
-            "show_gift_card_recipient": true
+            "show_gift_card_recipient": true,
+            "rover_sticky_atc_enable": true,
+            "rover_sticky_atc_trigger": "out_of_view",
+            "rover_sticky_atc_max_width": "749",
+            "rover_sticky_atc_tracking": true
           }
         },
         "vendor": {
