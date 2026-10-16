@@ -48,7 +48,7 @@
             "text_style": "body",
             "inventory_threshold": 10,
             "show_inventory_quantity": true,
-            "in_stock_color": "#00BC09",
+            "in_stock_color": "#00bc09",
             "low_stock_color": "#e46300"
           }
         },
@@ -61,6 +61,38 @@
             "rover_sticky_atc_trigger": "out_of_view",
             "rover_sticky_atc_max_width": "749",
             "rover_sticky_atc_tracking": true
+          }
+        },
+        "bundle_save_rTQxQc": {
+          "type": "bundle_save",
+          "settings": {
+            "heading": "Bundle & Save",
+            "heading_style": "label",
+            "title_pattern": "Buy [qty], Save [percent]%",
+            "title_pattern_no_saving": "Set of [qty]",
+            "savings_pattern": "Save [amount]",
+            "per_item_pattern": "Just [price] per item",
+            "sort_order": "manual",
+            "max_bundles": 3,
+            "hide_sold_out": true,
+            "hide_without_saving": true,
+            "show_on_bundle_listings": false,
+            "layout_mobile": "carousel",
+            "layout_desktop": "carousel",
+            "show_panel": true,
+            "show_divider": false,
+            "show_dots": true,
+            "image_ratio": "0.75",
+            "card_radius": 12,
+            "spacing_top": 8,
+            "show_compare_price": true,
+            "show_savings_badge": true,
+            "show_per_item": true,
+            "panel_background": "#f7f5f2",
+            "card_background": "#ffffff",
+            "border_color": "#e7e2db",
+            "price_color": "#FF0000",
+            "muted_color": "#6b6560"
           }
         },
         "vendor": {
@@ -135,6 +167,7 @@
         "quantity_selector",
         "inventory_XnR3Qn",
         "buy_buttons",
+        "bundle_save_rTQxQc",
         "vendor",
         "collapsible_tab_QPTmtT",
         "collapsible_tab_HhAkfD",
