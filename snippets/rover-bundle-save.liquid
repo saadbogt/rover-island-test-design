@@ -1,0 +1,295 @@
+{%- comment -%}
+  Rover Island — Bundle & Save (v2: prices come from each bundle listing)
+
+  Shows separate bundle listings (packs and sets) on the products they belong to.
+  The links come from metafields, so no app is needed.
+
+  Data (Settings → Custom data):
+  - Product  custom.bundle_options   List of products   Bundles to show on this product (list order = display order)
+  - Variant  custom.bundle_options   List of products   Optional: per-variant override (e.g. 50ml vs 100ml)
+  - Product  custom.bundle_quantity  Integer            On PACK listings only: units inside (2, 3, …). Leave empty on SET listings.
+  - Product  custom.bundle_label     Single line text   Optional: replaces the card title
+
+  Prices (nothing depends on the page being viewed):
+  - Bundle price  = the bundle listing's Price
+  - Regular price = the bundle listing's Compare-at price
+  - Savings       = Compare-at − Price of that listing (percent from the same two)
+  - Per item      = Price ÷ bundle quantity (packs only)
+
+  Card title:
+  - Pack (bundle_quantity 2+): bundle_label, else "Buy [qty], Save [percent]%"
+  - Set  (no bundle_quantity): bundle_label, else the set listing's own title
+
+  Accepts:
+  - block: {Object} the main-product block
+  - product: {Object} the product being viewed
+  - section_id: {String} the section id
+
+  Usage:
+  {% render 'rover-bundle-save', block: block, product: product, section_id: section.id %}
+{%- endcomment -%}
+
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+
+  assign bundles = current_variant.metafields.custom.bundle_options.value
+  if bundles == blank
+    assign bundles = product.metafields.custom.bundle_options.value
+  endif
+
+  assign own_quantity = product.metafields.custom.bundle_quantity.value | default: 1
+  if own_quantity > 1 and block.settings.show_on_bundle_listings == false
+    assign bundles = blank
+  endif
+
+  if bundles != blank
+    case block.settings.sort_order
+      when 'price_ascending'
+        assign bundles = bundles | sort: 'price'
+      when 'price_descending'
+        assign bundles = bundles | sort: 'price' | reverse
+    endcase
+  endif
+
+  assign rendered_count = 0
+  assign max_bundles = block.settings.max_bundles | default: 3
+  assign currency_code = cart.currency.iso_code
+  assign label_sale_price = 'products.product.price.sale_price' | t
+  assign label_regular_price = 'products.product.price.regular_price' | t
+-%}
+
+{%- capture bundle_cards -%}
+  {%- for bundle in bundles -%}
+    {%- if rendered_count >= max_bundles -%}{%- break -%}{%- endif -%}
+    {%- if bundle == blank or bundle.id == product.id -%}{%- continue -%}{%- endif -%}
+
+    {%- assign bundle_variant = bundle.selected_or_first_available_variant -%}
+    {%- if bundle_variant.available == false and block.settings.hide_sold_out -%}{%- continue -%}{%- endif -%}
+
+    {%- liquid
+      assign bundle_quantity = bundle.metafields.custom.bundle_quantity.value | default: 0
+      assign is_pack = false
+      if bundle_quantity > 1
+        assign is_pack = true
+      endif
+
+      assign bundle_price = bundle_variant.price
+      assign regular_price = bundle_variant.compare_at_price | default: 0
+      assign savings = 0
+      assign percent = 0
+      assign has_saving = false
+      if regular_price > bundle_price
+        assign savings = regular_price | minus: bundle_price
+        assign percent = savings | times: 100.0 | divided_by: regular_price | round
+        assign has_saving = true
+      endif
+    -%}
+    {%- if has_saving == false and block.settings.hide_without_saving -%}{%- continue -%}{%- endif -%}
+
+    {%- liquid
+      assign rendered_count = rendered_count | plus: 1
+
+      if settings.currency_code_enabled
+        assign price_money = bundle_price | money_with_currency
+        assign regular_money = regular_price | money_with_currency
+        assign savings_money = savings | money_with_currency
+      else
+        assign price_money = bundle_price | money
+        assign regular_money = regular_price | money
+        assign savings_money = savings | money
+      endif
+
+      assign per_item_money = ''
+      if is_pack
+        assign per_item = bundle_price | divided_by: bundle_quantity
+        if settings.currency_code_enabled
+          assign per_item_money = per_item | money_with_currency
+        else
+          assign per_item_money = per_item | money
+        endif
+      endif
+
+      assign custom_label = bundle.metafields.custom.bundle_label.value
+      if custom_label != blank
+        assign card_title = custom_label | escape
+      elsif is_pack and percent >= 1
+        assign card_title = block.settings.title_pattern | escape | replace: '[qty]', bundle_quantity | replace: '[percent]', percent
+      elsif is_pack
+        assign card_title = block.settings.title_pattern_no_saving | escape | replace: '[qty]', bundle_quantity
+      else
+        assign card_title = bundle.title | escape
+      endif
+
+      assign card_image = bundle_variant.featured_image | default: bundle.featured_image
+      assign image_alt = card_image.alt | default: bundle.title
+
+      assign variant_title = ''
+      unless bundle.has_only_default_variant
+        assign variant_title = bundle_variant.title
+      endunless
+
+      if is_pack
+        assign tracked_quantity = bundle_quantity
+      else
+        assign tracked_quantity = 1
+      endif
+    -%}
+
+    <li class="rover-bundle-save__slide" data-rbs-slide>
+      <a
+        href="{{ bundle_variant.url }}"
+        class="rover-bundle-save__card{% unless bundle_variant.available %} rover-bundle-save__card--sold-out{% endunless %}"
+        draggable="false"
+        data-rbs-card
+        data-product-id="{{ bundle.id }}"
+        data-variant-id="{{ bundle_variant.id }}"
+        data-sku="{{ bundle_variant.sku | escape }}"
+        data-barcode="{{ bundle_variant.barcode | escape }}"
+        data-name="{{ bundle.title | escape }}"
+        data-variant-title="{{ variant_title | escape }}"
+        data-brand="{{ bundle.vendor | escape }}"
+        data-category="{{ bundle.type | escape }}"
+        data-price="{{ bundle_price | divided_by: 100.0 }}"
+        data-discount="{{ savings | divided_by: 100.0 }}"
+        data-bundle-quantity="{{ tracked_quantity }}"
+      >
+        <span class="rover-bundle-save__media">
+          {%- if card_image != blank -%}
+            {{
+              card_image
+              | image_url: width: 288
+              | image_tag:
+                widths: '144, 192, 288',
+                sizes: '(min-width: 750px) 96px, 72px',
+                loading: 'lazy',
+                alt: image_alt,
+                class: 'rover-bundle-save__image',
+                draggable: 'false'
+            }}
+          {%- else -%}
+            {{ 'product-1' | placeholder_svg_tag: 'rover-bundle-save__image rover-bundle-save__image--placeholder' }}
+          {%- endif -%}
+        </span>
+
+        <span class="rover-bundle-save__content">
+          <span class="rover-bundle-save__title">{{ card_title }}</span>
+
+          <span class="rover-bundle-save__prices">
+            <span class="rover-bundle-save__price">
+              <span class="visually-hidden">{{ label_sale_price }}</span>
+              {{ price_money }}
+            </span>
+            {%- if has_saving and block.settings.show_compare_price -%}
+              <s class="rover-bundle-save__compare">
+                <span class="visually-hidden">{{ label_regular_price }}</span>
+                {{ regular_money }}
+              </s>
+            {%- endif -%}
+            {%- if has_saving and block.settings.show_savings_badge -%}
+              <span class="rover-bundle-save__badge">
+                {{- block.settings.savings_pattern | escape | replace: '[amount]', savings_money | replace: '[percent]', percent -}}
+              </span>
+            {%- endif -%}
+          </span>
+
+          {%- if is_pack and block.settings.show_per_item -%}
+            <span class="rover-bundle-save__per-item">
+              {{- block.settings.per_item_pattern | escape | replace: '[price]', per_item_money -}}
+            </span>
+          {%- endif -%}
+
+          {%- unless bundle_variant.available -%}
+            <span class="rover-bundle-save__status">{{ 'products.product.sold_out' | t }}</span>
+          {%- endunless -%}
+        </span>
+      </a>
+    </li>
+  {%- endfor -%}
+{%- endcapture -%}
+
+{%- liquid
+  assign heading_text = block.settings.heading | escape
+  if heading_text == blank
+    assign list_label = 'Bundle offers'
+  else
+    assign list_label = heading_text
+  endif
+
+  capture style_vars
+    if block.settings.panel_background != blank
+      echo '--rbs-panel-bg: '
+      echo block.settings.panel_background
+      echo ';'
+    endif
+    if block.settings.card_background != blank
+      echo '--rbs-card-bg: '
+      echo block.settings.card_background
+      echo ';'
+    endif
+    if block.settings.border_color != blank
+      echo '--rbs-border: '
+      echo block.settings.border_color
+      echo ';'
+    endif
+    if block.settings.price_color != blank
+      echo '--rbs-price: '
+      echo block.settings.price_color
+      echo ';'
+    endif
+    if block.settings.muted_color != blank
+      echo '--rbs-muted: '
+      echo block.settings.muted_color
+      echo ';'
+    endif
+    echo '--rbs-radius: '
+    echo block.settings.card_radius
+    echo 'px;--rbs-space-top: '
+    echo block.settings.spacing_top
+    echo 'px;--rbs-media-ratio: '
+    echo block.settings.image_ratio
+    echo ';'
+  endcapture
+-%}
+
+{{ 'rover-bundle-save.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'rover-bundle-save.js' | asset_url }}" defer="defer"></script>
+
+<rover-bundle-save
+  id="BundleSave-{{ section_id }}"
+  class="rover-bundle-save rover-bundle-save--mobile-{{ block.settings.layout_mobile }} rover-bundle-save--desktop-{{ block.settings.layout_desktop }}{% if rendered_count == 1 %} rover-bundle-save--single{% endif %}{% if block.settings.show_panel %} rover-bundle-save--panel{% endif %}{% if block.settings.show_divider %} rover-bundle-save--divider{% endif %} rover-bundle-save--heading-{{ block.settings.heading_style }}"
+  data-section-id="{{ section_id }}"
+  data-product-id="{{ product.id }}"
+  data-render-key="{{ current_variant.id }}"
+  data-currency="{{ currency_code }}"
+  data-list-name="{{ list_label }}"
+  style="{{ style_vars | strip }}"
+  {% if rendered_count == 0 %}
+    hidden
+  {% endif %}
+  {{ block.shopify_attributes }}
+>
+  {%- if rendered_count > 0 -%}
+    {%- if heading_text != blank -%}
+      <h2 class="rover-bundle-save__heading">{{ heading_text }}</h2>
+    {%- endif -%}
+
+    <div class="rover-bundle-save__panel">
+      <ul class="rover-bundle-save__track" role="list" aria-label="{{ list_label }}" data-rbs-track>
+        {{- bundle_cards -}}
+      </ul>
+
+      {%- if rendered_count > 1 and block.settings.show_dots -%}
+        <div class="rover-bundle-save__dots" aria-hidden="true">
+          {%- for i in (1..rendered_count) -%}
+            <button
+              type="button"
+              tabindex="-1"
+              class="rover-bundle-save__dot{% if forloop.first %} is-active{% endif %}"
+              data-rbs-dot
+            ></button>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+</rover-bundle-save>
