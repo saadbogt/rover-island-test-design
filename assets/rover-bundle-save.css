@@ -1,0 +1,393 @@
+/* ==========================================================================
+   Rover Island — Bundle & Save
+   Mobile-first. Dawn rem scale (1rem = 10px). Colors fall back to the
+   section's color scheme; block settings override them via inline custom
+   properties on <rover-bundle-save>.
+   ========================================================================== */
+
+rover-bundle-save {
+  --rbs-panel-bg: rgba(var(--color-foreground), 0.03);
+  --rbs-card-bg: rgb(var(--color-background));
+  --rbs-border: rgba(var(--color-foreground), 0.1);
+  --rbs-border-hover: rgba(var(--color-foreground), 0.32);
+  --rbs-text: rgb(var(--color-foreground));
+  --rbs-muted: rgba(var(--color-foreground), 0.72);
+  --rbs-price: rgb(var(--color-foreground));
+  --rbs-radius: 12px;
+  --rbs-space-top: 0px;
+  --rbs-media-ratio: 0.75;
+  --rbs-media-size: 6.4rem;
+  --rbs-gap: 1rem;
+  --rbs-gutter: 1.5rem;
+  --rbs-peek: 2.8rem;
+  --rbs-panel-pad: 1.2rem;
+  --rbs-track-pad: 0.2rem;
+
+  display: block;
+  margin-top: var(--rbs-space-top);
+  color: var(--rbs-text);
+}
+
+rover-bundle-save *,
+rover-bundle-save *::before,
+rover-bundle-save *::after {
+  box-sizing: border-box;
+}
+
+rover-bundle-save[hidden],
+quick-add-modal rover-bundle-save {
+  display: none;
+}
+
+.rover-bundle-save--divider {
+  padding-top: 2.4rem;
+  border-top: 0.1rem solid var(--rbs-border);
+}
+
+/* Heading ---------------------------------------------------------------- */
+
+.rover-bundle-save__heading {
+  margin: 0 0 1.2rem;
+  font-family: var(--font-body-family);
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--rbs-text);
+}
+
+.rover-bundle-save--heading-label .rover-bundle-save__heading {
+  font-size: 1.2rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.rover-bundle-save--heading-title .rover-bundle-save__heading {
+  font-family: var(--font-heading-family);
+  font-weight: var(--font-heading-weight);
+  font-size: calc(var(--font-heading-scale) * 1.8rem);
+  letter-spacing: 0.01em;
+}
+
+/* Panel + track ----------------------------------------------------------- */
+
+.rover-bundle-save__panel {
+  position: relative;
+}
+
+.rover-bundle-save--panel {
+  --rbs-track-pad: var(--rbs-panel-pad);
+}
+
+.rover-bundle-save--panel .rover-bundle-save__panel {
+  padding-block: var(--rbs-panel-pad);
+  background: var(--rbs-panel-bg);
+  border-radius: calc(var(--rbs-radius) + 4px);
+}
+
+.rover-bundle-save__track {
+  position: relative;
+  display: flex;
+  gap: var(--rbs-gap);
+  margin: 0;
+  padding: 0.4rem var(--rbs-track-pad);
+  list-style: none;
+}
+
+.rover-bundle-save__slide {
+  min-width: 0;
+}
+
+/* Card -------------------------------------------------------------------- */
+
+.rover-bundle-save__card {
+  display: grid;
+  grid-template-columns: var(--rbs-media-size) minmax(0, 1fr);
+  align-items: center;
+  gap: 1.2rem;
+  height: 100%;
+  padding: 1rem;
+  background: var(--rbs-card-bg);
+  border: 0.1rem solid var(--rbs-border);
+  border-radius: var(--rbs-radius);
+  color: var(--rbs-text);
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.rover-bundle-save__card:focus-visible {
+  outline: 0.2rem solid rgba(var(--color-foreground), 0.6);
+  outline-offset: 0.2rem;
+  box-shadow: none;
+}
+
+.rover-bundle-save__media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: var(--rbs-media-ratio);
+  overflow: hidden;
+  background: rgba(var(--color-foreground), 0.04);
+  border-radius: calc(var(--rbs-radius) * 0.6);
+}
+
+.rover-bundle-save__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.rover-bundle-save__image--placeholder {
+  fill: rgba(var(--color-foreground), 0.3);
+}
+
+.rover-bundle-save__content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  min-width: 0;
+}
+
+.rover-bundle-save__title {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  font-size: 1.4rem;
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: 0.01em;
+}
+
+.rover-bundle-save__prices {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 0.8rem;
+  margin-top: 0.2rem;
+}
+
+.rover-bundle-save__price {
+  font-size: 1.6rem;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: 0.01em;
+  color: var(--rbs-price);
+}
+
+.rover-bundle-save__compare {
+  font-size: 1.3rem;
+  line-height: 1.3;
+  color: var(--rbs-muted);
+}
+
+.rover-bundle-save__badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.1rem 0.7rem;
+  border: 0.1rem solid currentColor;
+  border-radius: 10rem;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.7;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--rbs-price);
+}
+
+.rover-bundle-save__per-item,
+.rover-bundle-save__status {
+  font-size: 1.2rem;
+  line-height: 1.4;
+  color: var(--rbs-muted);
+}
+
+.rover-bundle-save__status {
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.rover-bundle-save__card--sold-out .rover-bundle-save__media,
+.rover-bundle-save__card--sold-out .rover-bundle-save__prices {
+  opacity: 0.55;
+}
+
+/* Dots -------------------------------------------------------------------- */
+
+.rover-bundle-save__dots {
+  display: none;
+  justify-content: center;
+  gap: 0.6rem;
+  padding-top: 1rem;
+}
+
+.rover-bundle-save__dot {
+  width: 0.6rem;
+  height: 0.6rem;
+  padding: 0;
+  border: 0;
+  border-radius: 10rem;
+  background: rgba(var(--color-foreground), 0.2);
+  cursor: pointer;
+  transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+.rover-bundle-save__dot.is-active {
+  width: 1.8rem;
+  background: rgb(var(--color-foreground));
+}
+
+/* Carousel behaviour (applied per breakpoint below) ---------------------- */
+
+.rover-bundle-save__track.is-dragging {
+  cursor: grabbing;
+  scroll-behavior: auto;
+  scroll-snap-type: none;
+  user-select: none;
+}
+
+.rover-bundle-save__track.is-dragging .rover-bundle-save__card {
+  pointer-events: none;
+}
+
+/* ---------- Mobile (< 750px) ---------- */
+@media screen and (max-width: 749px) {
+  .rover-bundle-save--mobile-carousel .rover-bundle-save__panel {
+    margin-inline: calc(var(--rbs-gutter) * -1);
+  }
+
+  .rover-bundle-save--mobile-carousel.rover-bundle-save--panel .rover-bundle-save__panel {
+    border-radius: 0;
+  }
+
+  .rover-bundle-save--mobile-carousel .rover-bundle-save__track {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--rbs-gutter);
+    padding-inline: var(--rbs-gutter);
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .rover-bundle-save--mobile-carousel .rover-bundle-save__track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .rover-bundle-save--mobile-carousel .rover-bundle-save__slide {
+    flex: 0 0 calc(100% - var(--rbs-peek));
+    scroll-snap-align: start;
+  }
+
+  .rover-bundle-save--mobile-carousel .rover-bundle-save__dots {
+    display: flex;
+  }
+
+  .rover-bundle-save--mobile-stack .rover-bundle-save__track {
+    flex-direction: column;
+  }
+}
+
+/* ---------- Desktop (≥ 750px) ---------- */
+@media screen and (min-width: 750px) {
+  rover-bundle-save {
+    --rbs-media-size: 8.8rem;
+    --rbs-peek: 6.4rem;
+    --rbs-panel-pad: 1.6rem;
+  }
+
+  .rover-bundle-save__card {
+    gap: 1.6rem;
+    padding: 1.2rem 1.6rem 1.2rem 1.2rem;
+  }
+
+  .rover-bundle-save__title {
+    font-size: 1.5rem;
+  }
+
+  .rover-bundle-save__price {
+    font-size: 1.8rem;
+  }
+
+  .rover-bundle-save__compare {
+    font-size: 1.4rem;
+  }
+
+  .rover-bundle-save__badge {
+    font-size: 1.05rem;
+  }
+
+  .rover-bundle-save__per-item {
+    font-size: 1.3rem;
+  }
+
+  .rover-bundle-save--desktop-carousel .rover-bundle-save__track {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--rbs-track-pad);
+    scrollbar-width: none;
+    cursor: grab;
+  }
+
+  .rover-bundle-save--desktop-carousel .rover-bundle-save__track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .rover-bundle-save--desktop-carousel .rover-bundle-save__slide {
+    flex: 0 0 calc(100% - var(--rbs-peek));
+    scroll-snap-align: start;
+  }
+
+  .rover-bundle-save--desktop-carousel .rover-bundle-save__dots {
+    display: flex;
+  }
+
+  .rover-bundle-save--desktop-stack .rover-bundle-save__track {
+    flex-direction: column;
+  }
+}
+
+/* One bundle: always a single full-width card, no carousel */
+.rover-bundle-save--single .rover-bundle-save__slide {
+  flex: 1 1 100%;
+}
+
+.rover-bundle-save--single .rover-bundle-save__track {
+  cursor: auto;
+}
+
+/* Motion ------------------------------------------------------------------ */
+
+@media (hover: hover) {
+  .rover-bundle-save__card:hover {
+    border-color: var(--rbs-border-hover);
+    box-shadow: 0 0.6rem 2.4rem rgba(var(--color-foreground), 0.06);
+  }
+
+  .rover-bundle-save__card:hover .rover-bundle-save__image {
+    transform: scale(1.04);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .rover-bundle-save__track {
+    scroll-behavior: smooth;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rover-bundle-save__card,
+  .rover-bundle-save__image,
+  .rover-bundle-save__dot {
+    transition: none;
+  }
+
+  .rover-bundle-save__card:hover .rover-bundle-save__image {
+    transform: none;
+  }
+}
