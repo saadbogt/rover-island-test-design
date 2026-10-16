@@ -977,6 +977,238 @@
       ]
     },
     {
+      "type": "bundle_save",
+      "name": "Bundle & Save",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Shows bundle listings picked in the product metafield custom.bundle_options. Each bundle listing needs custom.bundle_quantity (2, 3, …). Hidden automatically when a product has no valid bundles."
+        },
+        {
+          "type": "header",
+          "content": "Content"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Bundle & Save"
+        },
+        {
+          "type": "select",
+          "id": "heading_style",
+          "label": "Heading style",
+          "options": [
+            { "value": "label", "label": "Small uppercase label" },
+            { "value": "title", "label": "Heading font" }
+          ],
+          "default": "label"
+        },
+        {
+          "type": "text",
+          "id": "title_pattern",
+          "label": "Card title",
+          "info": "Use [qty] and [percent]. Overridden by the bundle's custom.bundle_label metafield.",
+          "default": "Buy [qty], Save [percent]%"
+        },
+        {
+          "type": "text",
+          "id": "title_pattern_no_saving",
+          "label": "Card title when there is no saving",
+          "info": "Use [qty]. Only shown when \"Hide bundles without a saving\" is off.",
+          "default": "Set of [qty]"
+        },
+        {
+          "type": "text",
+          "id": "savings_pattern",
+          "label": "Savings badge",
+          "info": "Use [amount] and/or [percent].",
+          "default": "Save [amount]"
+        },
+        {
+          "type": "text",
+          "id": "per_item_pattern",
+          "label": "Per-item text",
+          "info": "Use [price].",
+          "default": "Just [price] per item"
+        },
+        {
+          "type": "header",
+          "content": "Bundles"
+        },
+        {
+          "type": "select",
+          "id": "sort_order",
+          "label": "Order",
+          "options": [
+            { "value": "manual", "label": "As arranged in the metafield" },
+            { "value": "price_ascending", "label": "Price, low to high" },
+            { "value": "price_descending", "label": "Price, high to low" }
+          ],
+          "default": "manual"
+        },
+        {
+          "type": "range",
+          "id": "max_bundles",
+          "label": "Maximum bundles",
+          "min": 1,
+          "max": 6,
+          "step": 1,
+          "default": 3
+        },
+        {
+          "type": "checkbox",
+          "id": "hide_sold_out",
+          "label": "Hide sold out bundles",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "hide_without_saving",
+          "label": "Hide bundles without a saving",
+          "info": "Hides a bundle if it does not cost less than buying the units one by one.",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "show_on_bundle_listings",
+          "label": "Also show on bundle listings",
+          "info": "Off: the block stays hidden on products that have custom.bundle_quantity of 2 or more.",
+          "default": false
+        },
+        {
+          "type": "header",
+          "content": "Layout"
+        },
+        {
+          "type": "select",
+          "id": "layout_mobile",
+          "label": "Mobile layout",
+          "options": [
+            { "value": "carousel", "label": "Swipe carousel" },
+            { "value": "stack", "label": "Stacked list" }
+          ],
+          "default": "carousel"
+        },
+        {
+          "type": "select",
+          "id": "layout_desktop",
+          "label": "Desktop layout",
+          "options": [
+            { "value": "carousel", "label": "Carousel" },
+            { "value": "stack", "label": "Stacked list" }
+          ],
+          "default": "carousel"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_panel",
+          "label": "Show background panel",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "show_divider",
+          "label": "Show divider line above",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "show_dots",
+          "label": "Show carousel dots",
+          "default": true
+        },
+        {
+          "type": "select",
+          "id": "image_ratio",
+          "label": "Image shape",
+          "options": [
+            { "value": "0.75", "label": "Portrait" },
+            { "value": "1", "label": "Square" }
+          ],
+          "default": "0.75"
+        },
+        {
+          "type": "range",
+          "id": "card_radius",
+          "label": "Card corner radius",
+          "min": 0,
+          "max": 24,
+          "step": 2,
+          "unit": "px",
+          "default": 12
+        },
+        {
+          "type": "range",
+          "id": "spacing_top",
+          "label": "Extra space above",
+          "min": 0,
+          "max": 40,
+          "step": 4,
+          "unit": "px",
+          "default": 8
+        },
+        {
+          "type": "header",
+          "content": "Prices"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_compare_price",
+          "label": "Show regular price (struck through)",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "show_savings_badge",
+          "label": "Show savings badge",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "show_per_item",
+          "label": "Show per-item price",
+          "default": true
+        },
+        {
+          "type": "header",
+          "content": "Colors",
+          "info": "Clear a color to use the section's color scheme."
+        },
+        {
+          "type": "color",
+          "id": "panel_background",
+          "label": "Panel background",
+          "default": "#F7F5F2"
+        },
+        {
+          "type": "color",
+          "id": "card_background",
+          "label": "Card background",
+          "default": "#FFFFFF"
+        },
+        {
+          "type": "color",
+          "id": "border_color",
+          "label": "Card border",
+          "default": "#E7E2DB"
+        },
+        {
+          "type": "color",
+          "id": "price_color",
+          "label": "Bundle price and badge",
+          "default": "#8A1C2B"
+        },
+        {
+          "type": "color",
+          "id": "muted_color",
+          "label": "Regular price and per-item text",
+          "default": "#6B6560"
+        }
+      ]
+    },
+    {
       "type": "description",
       "name": "t:sections.main-product.blocks.description.name",
       "limit": 1
