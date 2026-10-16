@@ -243,17 +243,6 @@ quick-add-modal rover-bundle-save {
 
 /* Carousel behaviour (applied per breakpoint below) ---------------------- */
 
-.rover-bundle-save__track.is-dragging {
-  cursor: grabbing;
-  scroll-behavior: auto;
-  scroll-snap-type: none;
-  user-select: none;
-}
-
-.rover-bundle-save__track.is-dragging .rover-bundle-save__card {
-  pointer-events: none;
-}
-
 /* ---------- Mobile (< 750px) ---------- */
 @media screen and (max-width: 749px) {
   .rover-bundle-save--mobile-carousel .rover-bundle-save__panel {
@@ -350,6 +339,24 @@ quick-add-modal rover-bundle-save {
   .rover-bundle-save--desktop-stack .rover-bundle-save__track {
     flex-direction: column;
   }
+}
+
+/* While dragging or gliding to a card, snapping is paused so the track
+   follows the mouse 1:1. Selector is one step more specific than the
+   breakpoint carousel rules above so it always wins. */
+rover-bundle-save .rover-bundle-save__track.is-dragging,
+rover-bundle-save .rover-bundle-save__track.is-animating {
+  scroll-behavior: auto;
+  scroll-snap-type: none;
+}
+
+rover-bundle-save .rover-bundle-save__track.is-dragging {
+  cursor: grabbing;
+  user-select: none;
+}
+
+rover-bundle-save .rover-bundle-save__track.is-dragging .rover-bundle-save__card {
+  pointer-events: none;
 }
 
 /* One bundle: always a single full-width card, no carousel */
