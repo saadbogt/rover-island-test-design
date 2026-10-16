@@ -88,11 +88,11 @@
             "show_compare_price": true,
             "show_savings_badge": true,
             "show_per_item": true,
-            "panel_background": "#f7f5f2",
+            "panel_background": "#FFEBE7",
             "card_background": "#ffffff",
-            "border_color": "#e7e2db",
+            "border_color": "#FFBDB0",
             "price_color": "#FF0000",
-            "muted_color": "#6b6560"
+            "muted_color": "#958F89"
           }
         },
         "vendor": {
