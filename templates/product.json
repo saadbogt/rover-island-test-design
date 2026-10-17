@@ -31,10 +31,6 @@
           "type": "price",
           "settings": {}
         },
-        "google_youtube_automated_discounts_price_tF4YbL": {
-          "type": "shopify://apps/google-youtube/blocks/automated_discounts_price/14ec7bd0-ac77-49a9-9417-90752398bdff",
-          "settings": {}
-        },
         "variant_picker": {
           "type": "variant_picker",
           "settings": {
@@ -167,7 +163,6 @@
         "text_eqjn3C",
         "title",
         "price",
-        "google_youtube_automated_discounts_price_tF4YbL",
         "variant_picker",
         "quantity_selector",
         "inventory_XnR3Qn",
