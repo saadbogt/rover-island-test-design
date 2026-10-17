@@ -31,6 +31,10 @@
           "type": "price",
           "settings": {}
         },
+        "google_youtube_automated_discounts_price_tF4YbL": {
+          "type": "shopify://apps/google-youtube/blocks/automated_discounts_price/14ec7bd0-ac77-49a9-9417-90752398bdff",
+          "settings": {}
+        },
         "variant_picker": {
           "type": "variant_picker",
           "settings": {
@@ -88,11 +92,11 @@
             "show_compare_price": true,
             "show_savings_badge": true,
             "show_per_item": true,
-            "panel_background": "#FFEBE7",
+            "panel_background": "#ffebe7",
             "card_background": "#ffffff",
-            "border_color": "#FFBDB0",
-            "price_color": "#FF0000",
-            "muted_color": "#958F89"
+            "border_color": "#ffbdb0",
+            "price_color": "#ff0000",
+            "muted_color": "#958f89"
           }
         },
         "vendor": {
@@ -163,6 +167,7 @@
         "text_eqjn3C",
         "title",
         "price",
+        "google_youtube_automated_discounts_price_tF4YbL",
         "variant_picker",
         "quantity_selector",
         "inventory_XnR3Qn",
