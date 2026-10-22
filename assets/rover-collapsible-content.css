@@ -1,0 +1,189 @@
+/* Rover Island — Collapsible content
+   All values come from section settings as CSS variables (see the section's {% style %}). */
+
+.rover-cc {
+  display: block;
+  text-align: var(--rcc-align, left);
+}
+
+/* Heading ------------------------------------------------------------------ */
+.rover-cc__heading {
+  margin: 0 0 var(--rcc-heading-gap) 0;
+  font-family: var(--rcc-heading-font);
+  font-weight: var(--rcc-heading-weight);
+  font-size: var(--rcc-heading-size-mobile);
+  line-height: 1.25;
+  letter-spacing: var(--rcc-heading-tracking);
+  text-transform: var(--rcc-heading-transform);
+  color: var(--rcc-heading-color, rgb(var(--color-foreground)));
+}
+
+/* Content ------------------------------------------------------------------ */
+.rover-cc__body {
+  position: relative;
+  overflow: hidden;
+  font-family: var(--rcc-content-font);
+  font-size: var(--rcc-content-size-mobile);
+  line-height: var(--rcc-line-height);
+  color: var(--rcc-content-color, rgba(var(--color-foreground), 0.85));
+  max-height: calc(var(--rcc-lines) * var(--rcc-line-height) * 1em);
+  transition: max-height 0.45s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.rover-cc--fade:not(.rover-cc--expanded):not(.rover-cc--fits) .rover-cc__body {
+  -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 1.6em), transparent);
+  mask-image: linear-gradient(to bottom, #000 calc(100% - 1.6em), transparent);
+}
+
+.rover-cc--fits .rover-cc__body {
+  max-height: none;
+}
+
+/* Rich text inside the content (collection description, metafield or custom text) */
+.rover-cc__body > :first-child {
+  margin-top: 0;
+}
+
+.rover-cc__body > :last-child {
+  margin-bottom: 0;
+}
+
+.rover-cc__body p,
+.rover-cc__body ul,
+.rover-cc__body ol {
+  margin: 0 0 1em;
+}
+
+.rover-cc__body ul,
+.rover-cc__body ol {
+  padding-inline-start: 1.25em;
+}
+
+.rover-cc__body h2,
+.rover-cc__body h3,
+.rover-cc__body h4,
+.rover-cc__body h5,
+.rover-cc__body h6 {
+  margin: 1.4em 0 0.5em;
+  font-family: var(--rcc-heading-font);
+  font-weight: var(--rcc-heading-weight);
+  font-size: var(--rcc-sub-size-mobile);
+  line-height: 1.3;
+  letter-spacing: normal;
+  color: var(--rcc-sub-color, var(--rcc-heading-color, rgb(var(--color-foreground))));
+}
+
+.rover-cc__body h3,
+.rover-cc__body h4,
+.rover-cc__body h5,
+.rover-cc__body h6 {
+  font-size: calc(var(--rcc-sub-size-mobile) * 0.88);
+}
+
+.rover-cc__body a {
+  color: var(--rcc-link-color, rgb(var(--color-link)));
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 1px;
+  transition: opacity 0.2s ease;
+}
+
+.rover-cc__body a:hover {
+  opacity: 0.7;
+}
+
+.rover-cc__body strong {
+  font-weight: var(--font-body-weight-bold, 700);
+}
+
+/* Toggle button ------------------------------------------------------------ */
+.rover-cc__actions {
+  margin-top: var(--rcc-button-gap);
+  text-align: var(--rcc-button-align, inherit);
+}
+
+.rover-cc__toggle {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  min-height: 44px; /* touch target */
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  font-family: var(--rcc-content-font);
+  font-size: var(--rcc-button-size);
+  color: var(--rcc-button-color, rgb(var(--color-foreground)));
+  transition: color 0.2s ease;
+}
+
+.rover-cc__toggle-label {
+  text-underline-offset: 0.3em;
+  text-decoration-thickness: 1px;
+}
+
+.rover-cc--underline .rover-cc__toggle-label {
+  text-decoration: underline;
+}
+
+.rover-cc__toggle:hover {
+  color: var(--rcc-button-hover-color, var(--rcc-button-color, rgb(var(--color-foreground))));
+}
+
+.rover-cc__toggle:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+}
+
+.rover-cc__toggle .rover-cc__less,
+.rover-cc--expanded .rover-cc__toggle .rover-cc__more {
+  display: none;
+}
+
+.rover-cc--expanded .rover-cc__toggle .rover-cc__less {
+  display: inline;
+}
+
+.rover-cc__icon {
+  width: 0.7em;
+  height: 0.7em;
+  transition: transform 0.3s ease;
+}
+
+.rover-cc--expanded .rover-cc__icon {
+  transform: rotate(180deg);
+}
+
+.rover-cc--fits .rover-cc__actions {
+  display: none;
+}
+
+/* Desktop ------------------------------------------------------------------ */
+@media screen and (min-width: 750px) {
+  .rover-cc__heading {
+    font-size: var(--rcc-heading-size-desktop);
+  }
+
+  .rover-cc__body {
+    font-size: var(--rcc-content-size-desktop);
+  }
+
+  .rover-cc__body h2 {
+    font-size: var(--rcc-sub-size-desktop);
+  }
+
+  .rover-cc__body h3,
+  .rover-cc__body h4,
+  .rover-cc__body h5,
+  .rover-cc__body h6 {
+    font-size: calc(var(--rcc-sub-size-desktop) * 0.88);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rover-cc__body,
+  .rover-cc__icon {
+    transition: none;
+  }
+}

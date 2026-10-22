@@ -1,0 +1,268 @@
+/* Rover Island — Sub-collection slider
+   All values come from section settings as CSS variables (see the section's {% style %}). */
+
+.rover-scs {
+  display: block;
+}
+
+/* Heading ------------------------------------------------------------------ */
+.rover-scs__heading {
+  margin: 0 0 var(--scs-heading-gap);
+  font-family: var(--scs-heading-font);
+  font-weight: var(--scs-heading-weight);
+  font-size: var(--scs-heading-size-mobile);
+  line-height: 1.25;
+  letter-spacing: var(--scs-heading-tracking);
+  text-transform: var(--scs-heading-transform);
+  text-align: var(--scs-heading-align);
+  color: var(--scs-heading-color, rgb(var(--color-foreground)));
+}
+
+/* Row ---------------------------------------------------------------------- */
+.rover-scs__nav {
+  position: relative;
+}
+
+.rover-scs__track {
+  display: flex;
+  gap: var(--scs-gap);
+  margin: 0;
+  padding: 4px; /* room for focus outlines inside the scroll area */
+  list-style: none;
+}
+
+.rover-scs__item {
+  flex: 0 0 auto;
+  margin: 0;
+}
+
+/* Slider mode: one row, native horizontal scroll */
+.rover-scs--slider-mobile .rover-scs__track {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x proximity;
+  scroll-padding-inline: 4px;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.rover-scs--slider-mobile .rover-scs__track::-webkit-scrollbar {
+  display: none;
+}
+
+.rover-scs--slider-mobile .rover-scs__item {
+  scroll-snap-align: start;
+}
+
+/* Centred when the row fits; auto margins collapse to 0 once it overflows */
+.rover-scs--slider-mobile.rover-scs--center .rover-scs__item:first-child {
+  margin-inline-start: auto;
+}
+
+.rover-scs--slider-mobile.rover-scs--center .rover-scs__item:last-child {
+  margin-inline-end: auto;
+}
+
+/* Wrap mode: items flow onto several lines */
+.rover-scs--wrap-mobile .rover-scs__track {
+  flex-wrap: wrap;
+  row-gap: var(--scs-row-gap);
+}
+
+.rover-scs--wrap-mobile.rover-scs--center .rover-scs__track {
+  justify-content: center;
+}
+
+/* Item --------------------------------------------------------------------- */
+.rover-scs__link {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4em;
+  min-height: 44px; /* touch target */
+  padding: var(--scs-pad-y-mobile) var(--scs-pad-x-mobile);
+  border: var(--scs-border-width) solid var(--scs-border, rgb(var(--color-foreground)));
+  border-radius: var(--scs-radius);
+  background-color: var(--scs-bg, transparent);
+  color: var(--scs-color, rgb(var(--color-foreground)));
+  font-family: var(--scs-item-font);
+  font-weight: var(--scs-item-weight);
+  font-size: var(--scs-item-size-mobile);
+  line-height: 1.2;
+  letter-spacing: var(--scs-item-tracking);
+  text-transform: var(--scs-item-transform);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+.rover-scs__link[aria-current='page'] {
+  background-color: var(--scs-hover-bg, rgb(var(--color-foreground)));
+  border-color: var(--scs-hover-bg, rgb(var(--color-foreground)));
+  color: var(--scs-hover-color, rgb(var(--color-background)));
+}
+
+/* Hover only on devices that really hover, so taps on phones don't leave a "stuck" pill */
+@media (hover: hover) {
+  .rover-scs__link:hover {
+    background-color: var(--scs-hover-bg, rgb(var(--color-foreground)));
+    border-color: var(--scs-hover-bg, rgb(var(--color-foreground)));
+    color: var(--scs-hover-color, rgb(var(--color-background)));
+  }
+}
+
+.rover-scs__link:focus-visible {
+  outline: 2px solid rgb(var(--color-foreground));
+  outline-offset: 2px;
+}
+
+/* Arrows ------------------------------------------------------------------- */
+.rover-scs__arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid rgba(var(--color-foreground), 0.15);
+  border-radius: 50%;
+  background-color: rgb(var(--color-background));
+  color: var(--scs-color, rgb(var(--color-foreground)));
+  box-shadow: 0 2px 10px rgba(var(--color-foreground), 0.08);
+  cursor: pointer;
+  transform: translateY(-50%);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.rover-scs__arrow[hidden] {
+  display: none;
+}
+
+.rover-scs__arrow:hover {
+  transform: translateY(-50%) scale(1.06);
+}
+
+.rover-scs__arrow:focus-visible {
+  outline: 2px solid rgb(var(--color-foreground));
+  outline-offset: 2px;
+}
+
+.rover-scs__arrow--prev {
+  inset-inline-start: -6px;
+}
+
+.rover-scs__arrow--next {
+  inset-inline-end: -6px;
+}
+
+.rover-scs__arrow svg {
+  width: 12px;
+  height: 12px;
+}
+
+[dir='rtl'] .rover-scs__arrow svg {
+  transform: scaleX(-1);
+}
+
+.rover-scs--arrows-desktop .rover-scs__arrow {
+  display: none;
+}
+
+/* Edge fade hints at more items while the row is scrollable */
+.rover-scs--overflowing:not(.rover-scs--at-end) .rover-scs__track {
+  -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 48px), transparent);
+  mask-image: linear-gradient(to right, #000 calc(100% - 48px), transparent);
+}
+
+.rover-scs--overflowing:not(.rover-scs--at-start):not(.rover-scs--at-end) .rover-scs__track {
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 48px, #000 calc(100% - 48px), transparent);
+  mask-image: linear-gradient(to right, transparent, #000 48px, #000 calc(100% - 48px), transparent);
+}
+
+.rover-scs--overflowing.rover-scs--at-end:not(.rover-scs--at-start) .rover-scs__track {
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 48px);
+  mask-image: linear-gradient(to right, transparent, #000 48px);
+}
+
+.rover-scs__empty {
+  margin: 0;
+  padding: 1.2rem;
+  border: 1px dashed rgba(var(--color-foreground), 0.3);
+  font-size: 1.3rem;
+  text-align: center;
+}
+
+/* Desktop ------------------------------------------------------------------ */
+@media screen and (min-width: 750px) {
+  .rover-scs__heading {
+    font-size: var(--scs-heading-size-desktop);
+  }
+
+  .rover-scs__link {
+    padding: var(--scs-pad-y-desktop) var(--scs-pad-x-desktop);
+    font-size: var(--scs-item-size-desktop);
+  }
+
+  .rover-scs--arrows-desktop .rover-scs__arrow:not([hidden]) {
+    display: flex;
+  }
+
+  /* Desktop layout can differ from mobile */
+  .rover-scs--slider-desktop .rover-scs__track {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x proximity;
+    scroll-padding-inline: 4px;
+    scrollbar-width: none;
+  }
+
+  .rover-scs--slider-desktop .rover-scs__track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .rover-scs--slider-desktop .rover-scs__item {
+    scroll-snap-align: start;
+  }
+
+  .rover-scs--slider-desktop.rover-scs--center .rover-scs__item:first-child {
+    margin-inline-start: auto;
+  }
+
+  .rover-scs--slider-desktop.rover-scs--center .rover-scs__item:last-child {
+    margin-inline-end: auto;
+  }
+
+  .rover-scs--wrap-desktop .rover-scs__track {
+    flex-wrap: wrap;
+    row-gap: var(--scs-row-gap);
+    overflow-x: visible;
+    scroll-snap-type: none;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .rover-scs--wrap-desktop .rover-scs__item {
+    margin-inline: 0;
+  }
+
+  .rover-scs--wrap-desktop.rover-scs--center .rover-scs__track {
+    justify-content: center;
+  }
+
+  .rover-scs--wrap-desktop .rover-scs__arrow {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rover-scs__link,
+  .rover-scs__arrow {
+    transition: none;
+  }
+}
