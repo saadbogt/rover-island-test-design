@@ -1,0 +1,747 @@
+{%- comment -%}
+  Rover Island — Sub-collection slider
+
+  A row of linked category pills ("Trending skincare categories").
+  Data is dynamic: on a collection page it reads the collection metafield named in
+  "Metafield (namespace.key)" — default custom.sub_collections (List of collections).
+  List order in the metafield = display order.
+
+  If the current collection has no sub-collections (or the section is used outside
+  a collection page), the "Fallback collections" picker is used. If that is empty too,
+  the section renders nothing for shoppers (and a hint in the theme editor).
+
+  Every item is a server-rendered <a href>, so search engines crawl the links.
+{%- endcomment -%}
+
+{%- liquid
+  assign subs = section.settings.fallback_collections
+  assign mf_parts = section.settings.metafield_key | strip | split: '.'
+
+  if collection != blank and mf_parts.size == 2
+    assign mf_subs = collection.metafields[mf_parts[0]][mf_parts[1]].value
+    if mf_subs != blank
+      assign subs = mf_subs
+    endif
+  endif
+
+  assign max_items = section.settings.max_items
+  assign heading = section.settings.heading
+  assign heading_tag = section.settings.heading_tag | default: 'h2'
+
+  if section.settings.heading_font == 'body'
+    assign heading_font = 'var(--font-body-family)'
+    assign heading_weight_theme = 'var(--font-body-weight)'
+  else
+    assign heading_font = 'var(--font-heading-family)'
+    assign heading_weight_theme = 'var(--font-heading-weight)'
+  endif
+  assign heading_weight = section.settings.heading_weight
+  if heading_weight == 'theme'
+    assign heading_weight = heading_weight_theme
+  endif
+
+  if section.settings.item_font == 'heading'
+    assign item_font = 'var(--font-heading-family)'
+    assign item_weight_theme = 'var(--font-heading-weight)'
+  else
+    assign item_font = 'var(--font-body-family)'
+    assign item_weight_theme = 'var(--font-body-weight)'
+  endif
+  assign item_weight = section.settings.item_weight
+  if item_weight == 'theme'
+    assign item_weight = item_weight_theme
+  endif
+
+  assign list_id = collection.handle | default: section.id
+  assign list_name = collection.title | default: heading
+  assign rendered = 0
+-%}
+
+{%- comment -%} Build the list first so the section can stay hidden when nothing is valid. {%- endcomment -%}
+{%- capture items_html -%}
+  {%- for sub in subs -%}
+    {%- liquid
+      if sub == blank or sub.url == blank
+        continue
+      endif
+      if section.settings.hide_empty and sub.products_count == 0
+        continue
+      endif
+      if collection != blank and sub.id == collection.id
+        continue
+      endif
+      if max_items > 0 and rendered >= max_items
+        break
+      endif
+    -%}
+    <li class="rover-scs__item">
+      <a
+        class="rover-scs__link"
+        href="{{ sub.url }}"
+        data-scs-link
+        data-index="{{ rendered }}"
+        data-handle="{{ sub.handle | escape }}"
+        data-title="{{ sub.title | escape }}"
+      >
+        {{- sub.title | escape -}}
+      </a>
+    </li>
+    {%- assign rendered = rendered | plus: 1 -%}
+  {%- endfor -%}
+{%- endcapture -%}
+
+{%- if rendered > 0 or request.design_mode -%}
+  {{ 'rover-sub-collection-slider.css' | asset_url | stylesheet_tag }}
+
+  {%- if rendered > 0 -%}
+    {%- if section.settings.enable_tracking -%}
+      <script src="{{ 'rover-track.js' | asset_url }}" defer="defer"></script>
+    {%- endif -%}
+    <script src="{{ 'rover-sub-collection-slider.js' | asset_url }}" defer="defer"></script>
+  {%- endif -%}
+
+  {%- style -%}
+    #shopify-section-{{ section.id }} .rover-scs {
+      --scs-heading-font: {{ heading_font }};
+      --scs-heading-weight: {{ heading_weight }};
+      --scs-heading-size-mobile: {{ section.settings.heading_size_mobile }}px;
+      --scs-heading-size-desktop: {{ section.settings.heading_size_desktop }}px;
+      --scs-heading-tracking: {{ section.settings.heading_letter_spacing | divided_by: 100.0 }}em;
+      --scs-heading-transform: {{ section.settings.heading_transform }};
+      --scs-heading-align: {{ section.settings.heading_align }};
+      --scs-heading-gap: {{ section.settings.heading_gap }}px;
+      {%- if section.settings.heading_color != blank %}
+        --scs-heading-color: {{ section.settings.heading_color }};
+      {%- endif %}
+      --scs-item-font: {{ item_font }};
+      --scs-item-weight: {{ item_weight }};
+      --scs-item-size-mobile: {{ section.settings.item_size_mobile }}px;
+      --scs-item-size-desktop: {{ section.settings.item_size_desktop }}px;
+      --scs-item-tracking: {{ section.settings.item_letter_spacing | divided_by: 100.0 }}em;
+      --scs-item-transform: {{ section.settings.item_transform }};
+      --scs-pad-x-mobile: {{ section.settings.item_padding_x_desktop | times: 0.7 | round }}px;
+      --scs-pad-y-mobile: {{ section.settings.item_padding_y_desktop | times: 0.8 | round }}px;
+      --scs-pad-x-desktop: {{ section.settings.item_padding_x_desktop }}px;
+      --scs-pad-y-desktop: {{ section.settings.item_padding_y_desktop }}px;
+      --scs-border-width: {{ section.settings.item_border_width }}px;
+      --scs-radius: {{ section.settings.item_radius }}px;
+      --scs-gap: {{ section.settings.item_gap }}px;
+      --scs-row-gap: {{ section.settings.item_gap | times: 0.5 | round }}px;
+      {%- if section.settings.item_color != blank %}
+        --scs-color: {{ section.settings.item_color }};
+      {%- endif %}
+      {%- if section.settings.item_bg != blank %}
+        --scs-bg: {{ section.settings.item_bg }};
+      {%- endif %}
+      {%- if section.settings.item_border_color != blank %}
+        --scs-border: {{ section.settings.item_border_color }};
+      {%- endif %}
+      {%- if section.settings.item_hover_color != blank %}
+        --scs-hover-color: {{ section.settings.item_hover_color }};
+      {%- endif %}
+      {%- if section.settings.item_hover_bg != blank %}
+        --scs-hover-bg: {{ section.settings.item_hover_bg }};
+      {%- endif %}
+    }
+
+    #shopify-section-{{ section.id }} .rover-scs__section {
+      padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+      padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    }
+
+    @media screen and (min-width: 750px) {
+      #shopify-section-{{ section.id }} .rover-scs__section {
+        padding-top: {{ section.settings.padding_top }}px;
+        padding-bottom: {{ section.settings.padding_bottom }}px;
+      }
+    }
+  {%- endstyle -%}
+
+  <div class="rover-scs__section color-{{ section.settings.color_scheme }} gradient">
+    <rover-sub-collection-slider
+      class="rover-scs{% if section.settings.page_width %} page-width{% endif %} rover-scs--{{ section.settings.layout_mobile }}-mobile rover-scs--{{ section.settings.layout_desktop }}-desktop{% if section.settings.items_align == 'center' %} rover-scs--center{% endif %}{% if section.settings.arrows == 'desktop' %} rover-scs--arrows-desktop{% endif %}"
+      data-track="{{ section.settings.enable_tracking }}"
+      data-list-id="{{ list_id | escape }}"
+      data-list-name="{{ list_name | escape }}"
+      data-page-type="{{ request.page_type | escape }}"
+    >
+      {%- if heading != blank -%}
+        <{{ heading_tag }} class="rover-scs__heading" id="RoverScsHeading-{{ section.id }}">
+          {{- heading | escape -}}
+        </{{ heading_tag }}>
+      {%- endif -%}
+
+      {%- if rendered > 0 -%}
+        <nav
+          class="rover-scs__nav"
+          {% if heading != blank %}
+            aria-labelledby="RoverScsHeading-{{ section.id }}"
+          {% else %}
+            aria-label="{{ list_name | default: 'Collections' | escape }}"
+          {% endif %}
+        >
+          {%- if section.settings.arrows != 'none' -%}
+            <button
+              type="button"
+              class="rover-scs__arrow rover-scs__arrow--prev"
+              aria-label="{{ 'general.slider.previous_slide' | t }}"
+              data-scs-prev
+              hidden
+            >
+              <svg viewBox="0 0 10 16" aria-hidden="true" focusable="false">
+                <path d="M8.5 1.5L2 8l6.5 6.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          {%- endif -%}
+
+          <ul class="rover-scs__track" role="list" data-scs-track>
+            {{ items_html }}
+          </ul>
+
+          {%- if section.settings.arrows != 'none' -%}
+            <button
+              type="button"
+              class="rover-scs__arrow rover-scs__arrow--next"
+              aria-label="{{ 'general.slider.next_slide' | t }}"
+              data-scs-next
+              hidden
+            >
+              <svg viewBox="0 0 10 16" aria-hidden="true" focusable="false">
+                <path d="M1.5 1.5L8 8l-6.5 6.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          {%- endif -%}
+        </nav>
+      {%- else -%}
+        <p class="rover-scs__empty">
+          No sub-collections to show here. Fill the collection metafield
+          <strong>{{ section.settings.metafield_key | escape }}</strong>
+          or pick fallback collections in this section's settings. Shoppers won't see this message.
+        </p>
+      {%- endif -%}
+    </rover-sub-collection-slider>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Rover sub-collections",
+  "tag": "section",
+  "class": "section rover-scs-section",
+  "disabled_on": {
+    "groups": [
+      "header",
+      "footer"
+    ]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Data"
+    },
+    {
+      "type": "text",
+      "id": "metafield_key",
+      "label": "Metafield (namespace.key)",
+      "default": "custom.sub_collections",
+      "info": "Collection metafield of type List of collections. Its order is the display order."
+    },
+    {
+      "type": "collection_list",
+      "id": "fallback_collections",
+      "label": "Fallback collections",
+      "limit": 20,
+      "info": "Shown when the current collection's metafield is empty, or when this section is used outside a collection page."
+    },
+    {
+      "type": "range",
+      "id": "max_items",
+      "label": "Maximum items",
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "default": 0,
+      "info": "0 = show all"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_empty",
+      "label": "Hide collections with no products",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Trending categories",
+      "info": "Tip: use the dynamic-source icon to connect a collection metafield for per-collection headings."
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Heading tag (SEO)",
+      "options": [
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "p",
+          "label": "Paragraph (no heading)"
+        }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "select",
+      "id": "heading_font",
+      "label": "Font",
+      "options": [
+        {
+          "value": "heading",
+          "label": "Theme heading font"
+        },
+        {
+          "value": "body",
+          "label": "Theme body font"
+        }
+      ],
+      "default": "heading"
+    },
+    {
+      "type": "select",
+      "id": "heading_weight",
+      "label": "Font weight",
+      "options": [
+        {
+          "value": "theme",
+          "label": "Theme default"
+        },
+        {
+          "value": "300",
+          "label": "Light"
+        },
+        {
+          "value": "400",
+          "label": "Regular"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semibold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        }
+      ],
+      "default": "theme"
+    },
+    {
+      "type": "range",
+      "id": "heading_size_mobile",
+      "label": "Font size (mobile)",
+      "min": 12,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "heading_size_desktop",
+      "label": "Font size (desktop)",
+      "min": 12,
+      "max": 64,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "select",
+      "id": "heading_transform",
+      "label": "Letter case",
+      "options": [
+        {
+          "value": "none",
+          "label": "As typed"
+        },
+        {
+          "value": "uppercase",
+          "label": "UPPERCASE"
+        },
+        {
+          "value": "capitalize",
+          "label": "Capitalize"
+        }
+      ],
+      "default": "uppercase"
+    },
+    {
+      "type": "range",
+      "id": "heading_letter_spacing",
+      "label": "Letter spacing",
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "default": 4,
+      "info": "0 = normal, 10 = 0.1em"
+    },
+    {
+      "type": "select",
+      "id": "heading_align",
+      "label": "Heading alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "heading_gap",
+      "label": "Space below heading",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "info": "Leave empty to use the colour scheme."
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "layout_mobile",
+      "label": "Mobile layout",
+      "options": [
+        {
+          "value": "slider",
+          "label": "Swipe slider (one row)"
+        },
+        {
+          "value": "wrap",
+          "label": "Wrap onto rows"
+        }
+      ],
+      "default": "slider"
+    },
+    {
+      "type": "select",
+      "id": "layout_desktop",
+      "label": "Desktop layout",
+      "options": [
+        {
+          "value": "slider",
+          "label": "Slider (one row)"
+        },
+        {
+          "value": "wrap",
+          "label": "Wrap onto rows"
+        }
+      ],
+      "default": "slider"
+    },
+    {
+      "type": "select",
+      "id": "items_align",
+      "label": "Item alignment",
+      "options": [
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "left",
+          "label": "Left"
+        }
+      ],
+      "default": "center",
+      "info": "In slider mode, items centre while they fit and scroll once they don't."
+    },
+    {
+      "type": "select",
+      "id": "arrows",
+      "label": "Slider arrows",
+      "options": [
+        {
+          "value": "desktop",
+          "label": "Desktop only"
+        },
+        {
+          "value": "always",
+          "label": "Desktop and mobile"
+        },
+        {
+          "value": "none",
+          "label": "Never"
+        }
+      ],
+      "default": "desktop",
+      "info": "Arrows only appear when the row is wider than the screen."
+    },
+    {
+      "type": "range",
+      "id": "item_gap",
+      "label": "Space between items",
+      "min": 0,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 24,
+      "info": "In wrap layout, rows are spaced at half this value."
+    },
+    {
+      "type": "checkbox",
+      "id": "page_width",
+      "label": "Use theme page width",
+      "default": true
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1",
+      "info": "Colours left empty in this section use this scheme."
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "header",
+      "content": "Item text"
+    },
+    {
+      "type": "select",
+      "id": "item_font",
+      "label": "Font",
+      "options": [
+        {
+          "value": "body",
+          "label": "Theme body font"
+        },
+        {
+          "value": "heading",
+          "label": "Theme heading font"
+        }
+      ],
+      "default": "body"
+    },
+    {
+      "type": "select",
+      "id": "item_weight",
+      "label": "Font weight",
+      "options": [
+        {
+          "value": "theme",
+          "label": "Theme default"
+        },
+        {
+          "value": "300",
+          "label": "Light"
+        },
+        {
+          "value": "400",
+          "label": "Regular"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semibold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        }
+      ],
+      "default": "500"
+    },
+    {
+      "type": "range",
+      "id": "item_size_mobile",
+      "label": "Font size (mobile)",
+      "min": 10,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "item_size_desktop",
+      "label": "Font size (desktop)",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "select",
+      "id": "item_transform",
+      "label": "Letter case",
+      "options": [
+        {
+          "value": "none",
+          "label": "As typed"
+        },
+        {
+          "value": "uppercase",
+          "label": "UPPERCASE"
+        },
+        {
+          "value": "capitalize",
+          "label": "Capitalize"
+        }
+      ],
+      "default": "uppercase"
+    },
+    {
+      "type": "range",
+      "id": "item_letter_spacing",
+      "label": "Letter spacing",
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "default": 4,
+      "info": "0 = normal, 10 = 0.1em"
+    },
+    {
+      "type": "header",
+      "content": "Item box"
+    },
+    {
+      "type": "range",
+      "id": "item_padding_x_desktop",
+      "label": "Side padding",
+      "min": 4,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 26,
+      "info": "Mobile uses 70% of this."
+    },
+    {
+      "type": "range",
+      "id": "item_padding_y_desktop",
+      "label": "Top/bottom padding",
+      "min": 4,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 15,
+      "info": "Mobile uses 80% of this."
+    },
+    {
+      "type": "range",
+      "id": "item_border_width",
+      "label": "Border width",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "item_radius",
+      "label": "Corner radius",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Item colors",
+      "info": "Leave any colour empty to use the colour scheme."
+    },
+    {
+      "type": "color",
+      "id": "item_color",
+      "label": "Text"
+    },
+    {
+      "type": "color",
+      "id": "item_bg",
+      "label": "Background"
+    },
+    {
+      "type": "color",
+      "id": "item_border_color",
+      "label": "Border"
+    },
+    {
+      "type": "color",
+      "id": "item_hover_color",
+      "label": "Text on hover"
+    },
+    {
+      "type": "color",
+      "id": "item_hover_bg",
+      "label": "Background on hover"
+    },
+    {
+      "type": "header",
+      "content": "Tracking"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_tracking",
+      "label": "Send click events",
+      "default": true,
+      "info": "Sends GA4 select_content (content_type: sub_collection) to GTM's dataLayer and Shopify Customer Events."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Rover sub-collections"
+    }
+  ]
+}
+{% endschema %}
