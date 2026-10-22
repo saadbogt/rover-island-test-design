@@ -73,11 +73,11 @@
       "type": "rover-collapsible-content",
       "name": "Rover collapsible content",
       "settings": {
-        "content_source": "collection_metafield",
+        "content_source": "collection_description",
         "metafield_key": "custom.full_description",
         "heading": "",
         "content": "{{ collection.description }}",
-        "collapsed_lines": 3,
+        "collapsed_lines": 2,
         "show_fade": true,
         "read_more_label": "Read more",
         "read_less_label": "Read less",
@@ -190,35 +190,51 @@
         "padding_bottom": 36
       }
     },
-    "blocks_GY8KB6": {
-      "type": "_blocks",
-      "blocks": {
-        "ai_gen_block_9eb296c_PCGkzY": {
-          "type": "ai_gen_block_9eb296c",
-          "settings": {
-            "content": "{{ closest.collection.metafields.custom.full_description | metafield_tag }}",
-            "show_more_text": "Show more",
-            "show_less_text": "Show less",
-            "content_alignment": "center",
-            "padding": 20,
-            "border_radius": 0,
-            "background_color": "#ffffff",
-            "text_color": "#272743",
-            "font_size": 12,
-            "line_height": 1.2,
-            "button_color": "#272743",
-            "button_hover_color": "#000000",
-            "button_font_size": 12,
-            "button_spacing": 12
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "ai_gen_block_9eb296c_PCGkzY"
-      ],
-      "name": "Expandable content",
-      "settings": {}
+    "rover_collapsible_content_TWfLJ8": {
+      "type": "rover-collapsible-content",
+      "name": "Rover collapsible content",
+      "settings": {
+        "content_source": "collection_metafield",
+        "metafield_key": "custom.full_description",
+        "heading": "",
+        "content": "{{ collection.metafields.custom.full_description | metafield_tag }}",
+        "collapsed_lines": 7,
+        "show_fade": true,
+        "read_more_label": "Read more",
+        "read_less_label": "Read less",
+        "color_scheme": "",
+        "width": "page",
+        "text_align": "left",
+        "background_color": "",
+        "padding_top": 12,
+        "padding_bottom": 12,
+        "heading_tag": "h2",
+        "heading_font": "heading",
+        "heading_weight": "700",
+        "heading_size_mobile": 14,
+        "heading_size_desktop": 14,
+        "heading_transform": "none",
+        "heading_letter_spacing": 0,
+        "heading_gap": 0,
+        "heading_color": "",
+        "content_font": "body",
+        "content_size_mobile": 13,
+        "content_size_desktop": 14,
+        "content_line_height": 12,
+        "content_color": "",
+        "link_color": "#242641",
+        "subheading_size_mobile": 16,
+        "subheading_size_desktop": 18,
+        "subheading_color": "",
+        "button_size": 14,
+        "button_underline": true,
+        "show_icon": false,
+        "button_align": "inherit",
+        "button_gap": 8,
+        "button_color": "",
+        "button_hover_color": "",
+        "enable_tracking": false
+      }
     }
   },
   "order": [
@@ -228,6 +244,6 @@
     "rover_sub_collection_slider_DXUQhA",
     "blocks_XN4bJ4",
     "product-grid",
-    "blocks_GY8KB6"
+    "rover_collapsible_content_TWfLJ8"
   ]
 }
