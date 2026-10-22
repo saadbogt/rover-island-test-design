@@ -69,6 +69,36 @@
         "padding_bottom": 0
       }
     },
+    "blocks_XN4bJ4": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_9eb296c_Fh7Vxz": {
+          "type": "ai_gen_block_9eb296c",
+          "settings": {
+            "content": "{{ closest.collection.description }}",
+            "show_more_text": "Show more",
+            "show_less_text": "Show less",
+            "content_alignment": "left",
+            "padding": 20,
+            "border_radius": 0,
+            "background_color": "#ffffff",
+            "text_color": "#272743",
+            "font_size": 12,
+            "line_height": 1.2,
+            "button_color": "#272743",
+            "button_hover_color": "#000000",
+            "button_font_size": 12,
+            "button_spacing": 12
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_9eb296c_Fh7Vxz"
+      ],
+      "name": "Expandable content",
+      "settings": {}
+    },
     "product-grid": {
       "type": "main-collection-product-grid",
       "custom_css": [
@@ -99,19 +129,19 @@
         "ai_gen_block_9eb296c_gByY8m": {
           "type": "ai_gen_block_9eb296c",
           "settings": {
-            "content": "{{ closest.collection.description }}",
+            "content": "<h2>Shop Skincare by Product Type</h2><h3>Cleansers and Makeup Removers</h3><p>Foam and gel cleansers, cleansing oils and balms, micellar water, cleansing bars and wash-off pack cleansers for the first step of a routine. <a href=\"/collections/face-cleansers\">Shop cleansers</a></p><h3>Toners and Toner Pads</h3><p>Hydrating and soothing toners sit alongside exfoliating toners made with AHA, BHA or PHA, plus pre-soaked toner and peeling pads. <a href=\"/collections/toners\">Shop toners</a></p><h3>Serums, Essences and Ampoules</h3><p>The largest group in the range, with formulas built around ingredients such as niacinamide, hyaluronic acid, vitamin C, retinol, peptides, PDRN and snail mucin. <a href=\"/collections/face-serums\">Shop face serums</a></p><h3>Moisturizers</h3><p>Daily creams, lightweight gel creams, barrier and soothing creams, night creams, lotions and emulsions in a choice of textures. <a href=\"/collections/moisturizers\">Shop moisturizers</a></p><h3>Sunscreens</h3><p>Sun creams, gels, fluids, sun serums and sticks, with SPF ratings that vary from product to product. <a href=\"/collections/suncare-spf\">Shop suncare and SPF</a></p><h3>Masks, Eye Care and Extras</h3><p>Sheet, hydrogel, clay and overnight masks, eye creams and eye patches, pimple patches, lip care and a selection of body lotions and creams. <a href=\"/collections/face-sheet-masks\">Shop face and sheet masks</a> · <a href=\"/collections/eye-creams\">Shop eye creams</a></p><h2>Korean and International Skincare Brands</h2><p>Korean brands make up most of the collection, including COSRX, Anua, medicube, Beauty of Joseon, SKIN1004, Dr.Althea, Numbuzin and Abib. They are joined by international brands such as Cetaphil, CeraVe, Eucerin, Neutrogena, Clinique and Advanced Clinicals. <a href=\"/collections/korean-brands\">Browse Korean brands</a></p><h2>Choosing Skincare Products</h2><p>Start with the product type you need and where it sits in your routine, then compare textures, the skin types each brand lists and the full ingredient list. Products containing retinol or exfoliating acids often carry specific usage directions, so check the label before adding them. You can also browse by skin type or need: <a href=\"/collections/dry-skin\">dry skin</a>, <a href=\"/collections/sensitive-skin\">sensitive skin</a>, <a href=\"/collections/oily-skin\">oily skin</a>, <a href=\"/collections/dull-skin\">dull-looking skin</a> and <a href=\"/collections/acne-breakouts\">acne-prone skin</a>.</p><h2>Frequently Asked Questions</h2><h3>What is the difference between a toner, an essence and a serum?</h3><p>Toners are usually watery liquids applied after cleansing. Essences tend to be light, slightly richer liquids, while serums and ampoules are generally more concentrated formulas used before moisturizer. Brands define these steps differently, so check each product's directions.</p><h3>Can I shop skincare by ingredient?</h3><p>Yes. Use the Active Ingredients filter on this page, or browse dedicated collections for <a href=\"/collections/hyaluronic-acid\">hyaluronic acid</a>, <a href=\"/collections/niacinamide\">niacinamide</a>, <a href=\"/collections/retinol\">retinol</a>, <a href=\"/collections/aha-bha\">AHA and BHA</a>, <a href=\"/collections/peptides\">peptides</a> and <a href=\"/collections/pdrn\">PDRN</a>.</p><h3>Which sunscreen formats are available?</h3><p>The range includes sun creams and gels, fluids and lotions, sun serums and sunscreen sticks. SPF ratings differ between products, so check each listing for its SPF and PA information where provided.</p><h3>Are skincare sets and multipacks available?</h3><p>Yes. Selected products are offered as packs of two, and the collection also includes skincare kits and bundles. More options are listed in <a href=\"/collections/offers-bundles\">Offers & Bundles</a>.</p>",
             "show_more_text": "Show more",
             "show_less_text": "Show less",
             "content_alignment": "center",
-            "padding": 20,
+            "padding": 12,
             "border_radius": 0,
             "background_color": "#ffffff",
             "text_color": "#272743",
-            "font_size": 16,
-            "line_height": 1.5,
+            "font_size": 12,
+            "line_height": 1.2,
             "button_color": "#272743",
             "button_hover_color": "#000000",
-            "button_font_size": 14,
+            "button_font_size": 12,
             "button_spacing": 12
           },
           "blocks": {}
@@ -126,6 +156,7 @@
   "order": [
     "banner",
     "rover_image_grid_BmKwJj",
+    "blocks_XN4bJ4",
     "product-grid",
     "1785826788a8e47ac6"
   ]
