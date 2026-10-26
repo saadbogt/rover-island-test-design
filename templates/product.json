@@ -76,7 +76,7 @@
             "max_bundles": 4,
             "hide_sold_out": true,
             "hide_without_saving": true,
-            "show_on_bundle_listings": false,
+            "show_on_bundle_listings": true,
             "layout_mobile": "carousel",
             "layout_desktop": "carousel",
             "show_panel": true,
