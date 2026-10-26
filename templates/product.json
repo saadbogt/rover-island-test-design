@@ -71,7 +71,7 @@
             "title_pattern": "Buy [qty], Save [percent]%",
             "title_pattern_no_saving": "Set of [qty]",
             "savings_pattern": "Save [amount]",
-            "per_item_pattern": "Just [price] per item",
+            "per_item_pattern": "[price]/item",
             "sort_order": "price_ascending",
             "max_bundles": 4,
             "hide_sold_out": true,
