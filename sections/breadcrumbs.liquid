@@ -352,6 +352,60 @@
           {% endif %}
         </ol>
       </nav>
+       {%- comment -%}
+        BreadcrumbList schema. Built from the same links as the visible breadcrumb above,
+        so the schema always matches what shoppers see. Links that go nowhere ("#") are skipped.
+      {%- endcomment -%}
+      {%- liquid
+        assign bc_pos = 1
+        assign bc_home = request.origin | append: request.locale.root_url
+        if template_type_other
+          assign bc_name = page_title
+        else
+          assign bc_name = current_template.title
+        endif
+      -%}
+      <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": {{ bc_home | json }}
+            }
+            {%- for i in (1..3) -%}
+              {%- case i -%}
+                {%- when 1 -%}{%- assign bc_link = link_depth1 -%}
+                {%- when 2 -%}{%- assign bc_link = link_depth2 -%}
+                {%- when 3 -%}{%- assign bc_link = link_depth3 -%}
+              {%- endcase -%}
+              {%- if bc_link and bc_link.url != blank and bc_link.url != '#' -%}
+                {%- assign bc_pos = bc_pos | plus: 1 -%}
+                {%- assign bc_url = bc_link.url -%}
+                {%- unless bc_url contains '://' -%}
+                  {%- assign bc_url = request.origin | append: bc_url -%}
+                {%- endunless -%},
+            {
+              "@type": "ListItem",
+              "position": {{ bc_pos }},
+              "name": {{ bc_link.title | strip_html | json }},
+              "item": {{ bc_url | json }}
+            }
+              {%- endif -%}
+            {%- endfor -%}
+            {%- assign bc_pos = bc_pos | plus: 1 -%},
+            {
+              "@type": "ListItem",
+              "position": {{ bc_pos }},
+              "name": {{ bc_name | strip_html | json }},
+              "item": {{ canonical_url | json }}
+            }
+          ]
+        }
+      </script>
       {% if section.settings.enable_divider %}   
           <div id="breadcrumbs-divider"></div>
       {% endif %}
