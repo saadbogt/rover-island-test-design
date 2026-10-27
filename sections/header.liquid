@@ -426,45 +426,86 @@
   customElements.define('sticky-header', StickyHeader);
 {% endjavascript %}
 
-<script type="application/ld+json">
-  {
-    "@context": "http://schema.org",
-    "@type": "Organization",
-    "name": {{ shop.name | json }},
-    {% if settings.logo %}
-      "logo": {{ settings.logo | image_url: width: 500 | prepend: "https:" | json }},
-    {% endif %}
-    "sameAs": [
-      {{ settings.social_twitter_link | json }},
-      {{ settings.social_facebook_link | json }},
-      {{ settings.social_pinterest_link | json }},
-      {{ settings.social_instagram_link | json }},
-      {{ settings.social_tiktok_link | json }},
-      {{ settings.social_tumblr_link | json }},
-      {{ settings.social_snapchat_link | json }},
-      {{ settings.social_youtube_link | json }},
-      {{ settings.social_vimeo_link | json }}
-    ],
-    "url": {{ request.origin | append: page.url | json }}
-  }
-</script>
-
 {%- if request.page_type == 'index' -%}
-  {% assign potential_action_target = request.origin | append: routes.search_url | append: '?q={search_term_string}' %}
+  {%- capture social_links -%}
+    {{- settings.social_facebook_link -}}|{{- settings.social_instagram_link -}}|{{- settings.social_tiktok_link -}}|{{- settings.social_youtube_link -}}|{{- settings.social_pinterest_link -}}|{{- settings.social_snapchat_link -}}|{{- settings.social_twitter_link -}}|{{- settings.social_tumblr_link -}}|{{- settings.social_vimeo_link -}}
+  {%- endcapture -%}
+  {%- assign social_links = social_links | split: '|' -%}
+  {%- assign home_url = shop.secure_url | append: '/' -%}
+  {%- assign alt_names = section.settings.schema_alternate_names | default: '' | split: ',' -%}
+
   <script type="application/ld+json">
     {
-      "@context": "http://schema.org",
-      "@type": "WebSite",
+      "@context": "https://schema.org",
+      "@type": "OnlineStore",
+      "@id": {{ home_url | append: '#organization' | json }},
       "name": {{ shop.name | json }},
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": {{ potential_action_target | json }},
-        "query-input": "required name=search_term_string"
+      {%- if alt_names.size > 0 %}
+      "alternateName": [
+        {%- for alt in alt_names -%}
+          {{ alt | strip | json }}{%- unless forloop.last -%},{%- endunless -%}
+        {%- endfor -%}
+      ],
+      {%- endif %}
+      "url": {{ home_url | json }},
+      {%- if settings.logo %}
+      "logo": {{ settings.logo | image_url: width: 600 | prepend: 'https:' | json }},
+      {%- endif %}
+      {%- if shop.description != blank %}
+      "description": {{ shop.description | json }},
+      {%- endif %}
+      "email": {{ shop.email | json }},
+      {%- if shop.phone != blank %}
+      "telephone": {{ shop.phone | json }},
+      {%- endif %}
+      "address": {
+        "@type": "PostalAddress",
+        {%- if shop.address.address1 != blank %}
+        "streetAddress": {{ shop.address.address1 | json }},
+        {%- endif %}
+        "addressLocality": {{ shop.address.city | json }},
+        "addressCountry": {{ shop.address.country_code | json }}
       },
-      "url": {{ request.origin | append: page.url | json }}
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "customer service",
+        {%- if shop.phone != blank %}
+        "telephone": {{ shop.phone | json }},
+        {%- endif %}
+        "email": {{ shop.email | json }}
+      },
+      "sameAs": [
+        {%- assign first_link = true -%}
+        {%- for link in social_links -%}
+          {%- if link != blank -%}
+            {%- unless first_link -%},{%- endunless -%}
+            {{ link | json }}
+            {%- assign first_link = false -%}
+          {%- endif -%}
+        {%- endfor -%}
+      ]
+    }
+  </script>
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "@id": {{ home_url | append: '#website' | json }},
+      "name": {{ shop.name | json }},
+      {%- if alt_names.size > 0 %}
+      "alternateName": [
+        {%- for alt in alt_names -%}
+          {{ alt | strip | json }}{%- unless forloop.last -%},{%- endunless -%}
+        {%- endfor -%}
+      ],
+      {%- endif %}
+      "url": {{ home_url | json }},
+      "publisher": { "@id": {{ home_url | append: '#organization' | json }} }
     }
   </script>
 {%- endif -%}
+
 
 {% schema %}
 {
