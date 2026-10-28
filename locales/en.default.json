@@ -589,7 +589,7 @@
         "address_title": "Building/Villa Name, Street & Area",
         "address1_label": "Building/Villa Name, Street & Area",
         "address2_label": "Flat No., Floor, Nearby Landmark",
-        "optional_address2_label": "Flat No., Floor, Nearby Landmark (Optional)"
+        "optional_address2_label": "Apartment / Villa No., Floor, Landmark"
       }
     }
   }
