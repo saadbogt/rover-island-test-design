@@ -448,6 +448,45 @@
         "padding_bottom": 36
       }
     },
+    "image_with_text_zLBLrD": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_eiiyM8": {
+          "type": "heading",
+          "settings": {
+            "heading": "Authentic Korean Skincare and Beauty in the UAE",
+            "heading_size": "h1"
+          }
+        },
+        "text_VYyT4i": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Rover Island is a Dubai-based online beauty store for authentic Korean skincare, makeup, hair care and body care. We stock the brands UAE shoppers ask for, from COSRX, Anua, Medicube, Beauty of Joseon and Dr. Althea to Cetaphil and CeraVe. Every product is 100% original, sourced from the brands and their authorized distributors.</p><p>Shop by routine step, skin concern or brand. Build a full K-beauty routine with cleansers, toners, serums, moisturizers and sunscreen, then add makeup, hair care and bath and body essentials. Each collection page explains which textures and ingredients suit oily, dry and sensitive skin in the UAE climate.</p><p>Delivery is free across the UAE on orders over AED 150. Need it sooner? Choose next-day delivery for orders placed before 4 PM, or 4-hour express in Dubai. Pay by card or cash on delivery, and return unopened items within 14 days.</p>",
+            "text_style": "body"
+          }
+        }
+      },
+      "block_order": [
+        "heading_eiiyM8",
+        "text_VYyT4i"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/DSC06171-Edit.jpg",
+        "height": "medium",
+        "desktop_image_width": "small",
+        "layout": "image_first",
+        "image_behavior": "none",
+        "content_layout": "no-overlap",
+        "desktop_content_position": "top",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "",
+        "color_scheme": "",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
     "reels_slider_fT8A3H": {
       "type": "reels-slider",
       "blocks": {
@@ -524,6 +563,7 @@
     "tabbed_collection_C8TPcq",
     "collection_list_slider_ADjdfJ",
     "collection_slider_DFm7KK",
+    "image_with_text_zLBLrD",
     "reels_slider_fT8A3H"
   ]
 }
