@@ -1,0 +1,169 @@
+/* Rover Island — product card badges
+   Styles for snippets/rover-product-badges.liquid.
+   Colors, shape and size come from each "Product badge" metaobject entry;
+   corners, spacing, seal size and mobile size come from Theme settings → Product Card Settings.
+   Font size, padding and corner radius reuse the existing card badge settings
+   (--card-pc-badge-font-size, --card-pc-badge-padding, --card-pc-badge-radius).
+
+   Mobile (≤ 749px): everything — text, padding, seal, images and the distance from the
+   image edge — scales by "Badge size on mobile" (default 75%). With the default 12px badge
+   font that gives 9px bold text, ~22px pills and a 45px seal, the same as Baerry on a phone. */
+
+.rover-badges {
+  --rb-scale: 1;
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none; /* badges never block taps/clicks on the product image */
+}
+
+@media screen and (max-width: 749px) {
+  .rover-badges {
+    --rb-scale: var(--rb-mobile-scale, 0.75);
+  }
+}
+
+/* Left + right corners share a row, so they can never overlap on narrow cards.
+   When both don't fit, the right badge wraps below the left one (top row)
+   or above it (bottom row) instead of covering it. */
+.rover-badges__row {
+  position: absolute;
+  left: calc(var(--rb-inset, 10px) * var(--rb-scale));
+  right: calc(var(--rb-inset, 10px) * var(--rb-scale));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: calc(var(--rb-gap, 6px) * var(--rb-scale));
+}
+
+.rover-badges__row--top {
+  top: calc(var(--rb-inset, 10px) * var(--rb-scale));
+  align-items: flex-start;
+}
+
+.rover-badges__row--bottom {
+  bottom: calc(var(--rb-inset, 10px) * var(--rb-scale));
+  align-items: flex-end;
+  flex-wrap: wrap-reverse;
+}
+
+.rover-badges__corner {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--rb-gap, 6px) * var(--rb-scale));
+  min-width: 0;
+  max-width: 100%;
+}
+
+.rover-badges__corner--top-left,
+.rover-badges__corner--bottom-left {
+  align-items: flex-start;
+}
+
+.rover-badges__corner--top-right,
+.rover-badges__corner--bottom-right {
+  align-items: flex-end;
+  margin-left: auto;
+}
+
+/* ---- Text & bundle badges ---- */
+.rover-badge {
+  --rb-size: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
+  padding: calc(var(--card-pc-badge-padding, 8px) * 0.8 * var(--rb-scale))
+    calc(var(--card-pc-badge-padding, 8px) * 1.1 * var(--rb-scale));
+  font-size: calc(var(--card-pc-badge-font-size, 12px) * var(--rb-size) * var(--rb-scale));
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--rb-fg, rgb(var(--color-background)));
+  background-color: var(--rb-bg, rgb(var(--color-foreground)));
+  border: 1px solid var(--rb-border, transparent);
+  border-radius: var(--card-pc-badge-radius, 4px);
+}
+
+.rover-badge--size-small {
+  --rb-size: 0.85;
+}
+
+.rover-badge--size-large {
+  --rb-size: 1.2;
+}
+
+.rover-badge--shape-pill {
+  border-radius: 999px;
+}
+
+.rover-badge--shape-rounded {
+  border-radius: calc(var(--card-pc-badge-font-size, 12px) * 0.4 * var(--rb-scale));
+}
+
+.rover-badge--shape-square {
+  border-radius: 0;
+}
+
+/* Round "seal" badge, e.g. AWARD WINNER — fixed size (Theme setting "Round seal size"),
+   text wraps inside the circle */
+.rover-badge--shape-circle {
+  width: calc(var(--rb-seal, 60px) * var(--rb-scale));
+  height: calc(var(--rb-seal, 60px) * var(--rb-scale));
+  padding: 0.35em;
+  border-radius: 50%;
+  white-space: normal;
+  text-align: center;
+  line-height: 1.05;
+  overflow-wrap: anywhere;
+}
+
+/* ---- Offer image badges (PNG / WebP / SVG) ---- */
+.rover-badge--offer-image {
+  padding: 0;
+  color: inherit;
+  background-color: var(--rb-bg, transparent);
+  border-color: var(--rb-border, transparent);
+  border-radius: 0;
+}
+
+.rover-badge--offer-image.rover-badge--framed {
+  padding: calc(4px * var(--rb-scale));
+}
+
+.rover-badge--offer-image.rover-badge--shape-pill {
+  border-radius: 999px;
+}
+
+.rover-badge--offer-image.rover-badge--shape-rounded {
+  border-radius: 8px;
+}
+
+.rover-badge--offer-image.rover-badge--shape-circle {
+  width: auto;
+  height: auto;
+  padding: calc(4px * var(--rb-scale));
+  border-radius: 50%;
+}
+
+.rover-badge__img {
+  display: block;
+  width: calc(var(--rb-img-w, 56px) * var(--rb-scale));
+  max-width: 100%;
+  height: auto;
+  border-radius: inherit;
+}
+
+/* ---- Dawn Sale / Sold out badge inside the corner system ---- */
+.rover-badges .rover-badge-status {
+  padding: calc(var(--card-pc-badge-padding, 8px) * 0.8 * var(--rb-scale))
+    calc(var(--card-pc-badge-padding, 8px) * 1.1 * var(--rb-scale));
+  font-size: calc(var(--card-pc-badge-font-size, 12px) * var(--rb-scale));
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: 0;
+  white-space: nowrap;
+}
