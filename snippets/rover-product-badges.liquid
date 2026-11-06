@@ -1,0 +1,358 @@
+{%- comment -%}
+  Rover Island — Product card badges
+  ----------------------------------
+  Renders every overlay on the product card image:
+    - Offer image badges  (11.11, Black Friday, New Year …)
+    - Text badges         (⚡TIME DEAL⚡, ROVER PICK, BEST, AWARD WINNER, NEW …)
+    - Bundle badges       (DUO SET, TRIO SET, BUNDLE …)
+    - Dawn's Sale / Sold out badge: same color schemes as before; Sale can read "40% OFF"
+      (Theme settings → Sale badge text). It always shows and never counts toward the corner limit.
+
+  How a card decides (same idea as Baerry: one badge per corner)
+    1. Each matching badge goes to a corner: its own "position" field, otherwise the theme
+       default corner for its type (Theme settings → Product Card Settings).
+    2. Each corner shows up to "Badges per corner" (default 1). Lowest priority number wins.
+       Suggested ranges: 1–9 labels & bundles · 10–99 deals · 100–199 promotions & auto
+       (BEST, ROVER PICK) · 200–299 seals (AWARD WINNER) · 900 NEW.
+
+  Data
+    Metaobject type `product_badge` (Settings → Custom data → Metaobjects → "Product badge").
+    Turn ON "Active/draft status" and "Storefronts" access on the definition.
+    Optional product metafield `custom.badges` (list of Product badge) = pick badges by hand.
+
+  A badge matches a product when it is Active, inside its start/end dates, and ANY of these is true:
+    - it is picked by hand on the product (custom.badges)
+    - "Apply to all products" is on
+    - the product has the badge's tag
+    - the product's custom.bundle_quantity equals the badge's bundle quantity
+    - the product was added within the badge's "new within days"
+    - the product is in one of the badge's collections
+      (when "Top N" is set: only the first N products of that collection, in the collection's
+       own sort order — sort the collection by "Best selling" for a BEST badge)
+
+  Accepts
+    - card_product: {Object} Product Liquid object (required)
+    - section_id:   {String} ID of the section that renders the card (required)
+
+  Usage
+    {% render 'rover-product-badges', card_product: card_product, section_id: section_id %}
+{%- endcomment -%}
+
+{%- liquid
+  assign now_ts = 'now' | date: '%s' | times: 1
+  assign all_badges = metaobjects.product_badge.values
+
+  assign show_campaign = settings.rover_badges_enable
+  if card_product.available == false and settings.rover_badges_hide_when_sold_out
+    assign show_campaign = false
+  endif
+
+  # Keys look like "100010-1003": padded priority + "-" + padded index into all_badges.
+  # Sorting the keys as text sorts by priority, then by entry order.
+  assign tl_keys = ''
+  assign tr_keys = ''
+  assign bl_keys = ''
+  assign br_keys = ''
+
+  if show_campaign and all_badges != blank
+    assign product_collection_handles = card_product.collections | map: 'handle'
+    assign own_bundle_qty = card_product.metafields.custom.bundle_quantity.value | default: 0
+    assign product_created_ts = card_product.created_at | date: '%s' | times: 1
+    assign product_age_s = now_ts | minus: product_created_ts
+
+    assign manual_handles = ','
+    for manual_badge in card_product.metafields.custom.badges.value
+      assign manual_handles = manual_handles | append: manual_badge.system.handle | append: ','
+    endfor
+
+    for badge in all_badges
+      assign badge_index = forloop.index0
+
+      # Schedule
+      if badge.start_date != blank
+        assign starts_ts = badge.start_date.value | date: '%s' | times: 1
+        if starts_ts > now_ts
+          continue
+        endif
+      endif
+      if badge.end_date != blank
+        assign ends_ts = badge.end_date.value | date: '%s' | times: 1
+        if ends_ts < now_ts
+          continue
+        endif
+      endif
+
+      # Conditions (any one is enough)
+      assign applies = false
+      assign handle_key = ',' | append: badge.system.handle | append: ','
+      if manual_handles contains handle_key
+        assign applies = true
+      elsif badge.apply_to_all.value == true
+        assign applies = true
+      endif
+
+      if applies == false and badge.product_tag != blank
+        if card_product.tags contains badge.product_tag.value
+          assign applies = true
+        endif
+      endif
+
+      if applies == false and badge.bundle_quantity != blank and own_bundle_qty > 0
+        if own_bundle_qty == badge.bundle_quantity.value
+          assign applies = true
+        endif
+      endif
+
+      if applies == false and badge.new_within_days != blank
+        assign new_window_s = badge.new_within_days.value | times: 86400
+        if product_age_s <= new_window_s
+          assign applies = true
+        endif
+      endif
+
+      if applies == false and badge.collections != blank
+        assign top_count = badge.top_count.value | default: 0 | at_most: 50
+        for badge_collection in badge.collections.value
+          if product_collection_handles contains badge_collection.handle
+            if top_count > 0
+              for ranked_product in badge_collection.products limit: top_count
+                if ranked_product.id == card_product.id
+                  assign applies = true
+                  break
+                endif
+              endfor
+            else
+              assign applies = true
+            endif
+          endif
+          if applies
+            break
+          endif
+        endfor
+      endif
+
+      if applies
+        # Corner: the badge's own position, otherwise the theme default for its type
+        assign badge_kind = badge.badge_type.value | default: 'Text' | handleize
+        assign badge_position = badge.position.value | handleize
+        if badge_position == blank
+          case badge_kind
+            when 'offer-image'
+              assign badge_position = settings.rover_badges_offer_position
+            when 'bundle'
+              assign badge_position = settings.rover_badges_bundle_position
+            else
+              assign badge_position = settings.rover_badges_text_position
+          endcase
+        endif
+
+        assign badge_priority = badge.priority.value | default: 500 | at_least: 0 | at_most: 899999 | plus: 100000
+        assign padded_index = badge_index | plus: 1000
+        assign badge_key = badge_priority | append: '-' | append: padded_index | append: ','
+
+        case badge_position
+          when 'top-right'
+            assign tr_keys = tr_keys | append: badge_key
+          when 'bottom-left'
+            assign bl_keys = bl_keys | append: badge_key
+          when 'bottom-right'
+            assign br_keys = br_keys | append: badge_key
+          else
+            assign tl_keys = tl_keys | append: badge_key
+        endcase
+      endif
+    endfor
+  endif
+
+  # Winners per corner, written as "corner~key"
+  assign per_corner = settings.rover_badges_per_corner | default: 1
+  assign chosen_keys = ''
+  assign tl_list = tl_keys | split: ',' | sort
+  assign tr_list = tr_keys | split: ',' | sort
+  assign bl_list = bl_keys | split: ',' | sort
+  assign br_list = br_keys | split: ',' | sort
+  for badge_key in tl_list limit: per_corner
+    assign chosen_keys = chosen_keys | append: 'top-left~' | append: badge_key | append: ','
+  endfor
+  for badge_key in tr_list limit: per_corner
+    assign chosen_keys = chosen_keys | append: 'top-right~' | append: badge_key | append: ','
+  endfor
+  for badge_key in bl_list limit: per_corner
+    assign chosen_keys = chosen_keys | append: 'bottom-left~' | append: badge_key | append: ','
+  endfor
+  for badge_key in br_list limit: per_corner
+    assign chosen_keys = chosen_keys | append: 'bottom-right~' | append: badge_key | append: ','
+  endfor
+  assign chosen_list = chosen_keys | split: ','
+
+  assign corner_tl = ''
+  assign corner_tr = ''
+  assign corner_bl = ''
+  assign corner_br = ''
+-%}
+
+{%- for chosen_key in chosen_list -%}
+  {%- liquid
+    assign chosen_parts = chosen_key | split: '~'
+    assign badge_position = chosen_parts.first
+    assign badge_index = chosen_parts.last | split: '-' | last | minus: 1000
+    assign badge = all_badges[badge_index]
+    assign badge_kind = badge.badge_type.value | default: 'Text' | handleize
+    assign badge_shape = badge.shape.value | default: '' | handleize
+    assign badge_size = badge.size.value | default: 'Medium' | handleize
+    assign badge_label = badge.label.value | strip
+    assign badge_name = badge.name.value | default: badge_label
+    assign badge_image = badge.image.value
+
+    # An offer badge without an image falls back to a text pill with its label
+    assign render_as_image = false
+    if badge_kind == 'offer-image' and badge_image != blank
+      assign render_as_image = true
+    endif
+
+    assign image_width = badge.image_width.value | default: settings.rover_badges_offer_width | default: 56 | at_least: 16 | at_most: 240
+    assign image_width_2x = image_width | times: 2
+  -%}
+
+  {%- capture badge_html -%}
+    {%- if render_as_image -%}
+      <span
+        class="rover-badge rover-badge--offer-image{% if badge_shape != blank %} rover-badge--shape-{{ badge_shape }}{% endif %}{% if badge.background_color != blank or badge.border_color != blank %} rover-badge--framed{% endif %}"
+        style="--rb-img-w: {{ image_width }}px;{% if badge.background_color != blank %} --rb-bg: {{ badge.background_color.value }};{% endif %}{% if badge.border_color != blank %} --rb-border: {{ badge.border_color.value }};{% endif %}"
+        data-badge-id="{{ badge.system.handle }}"
+        data-badge-type="{{ badge_kind }}"
+        data-badge-name="{{ badge_name | escape }}"
+      >
+        {%- if badge_image.media_type == 'image' -%}
+          {{
+            badge_image
+            | image_url: width: image_width_2x
+            | image_tag: width: image_width, alt: badge_name, loading: 'lazy', class: 'rover-badge__img'
+          }}
+        {%- else -%}
+          {%- comment -%} SVG / generic file: no stored dimensions. The overlay is absolutely
+               positioned (no layout shift) and CSS sets height: auto, so the real ratio is used. {%- endcomment -%}
+          <img
+            src="{{ badge_image.url }}"
+            width="{{ image_width }}"
+            height="{{ image_width }}"
+            alt="{{ badge_name | escape }}"
+            loading="lazy"
+            class="rover-badge__img"
+          >
+        {%- endif -%}
+      </span>
+    {%- elsif badge_label != blank -%}
+      <span
+        class="rover-badge rover-badge--{{ badge_kind }} rover-badge--shape-{{ badge_shape | default: 'theme' }} rover-badge--size-{{ badge_size }}"
+        style="{% if badge.background_color != blank %}--rb-bg: {{ badge.background_color.value }};{% endif %}{% if badge.text_color != blank %} --rb-fg: {{ badge.text_color.value }};{% endif %}{% if badge.border_color != blank %} --rb-border: {{ badge.border_color.value }};{% endif %}"
+        data-badge-id="{{ badge.system.handle }}"
+        data-badge-type="{{ badge_kind }}"
+        data-badge-name="{{ badge_name | escape }}"
+      >
+        {{- badge_label | escape -}}
+      </span>
+    {%- endif -%}
+  {%- endcapture -%}
+
+  {%- liquid
+    case badge_position
+      when 'top-right'
+        assign corner_tr = corner_tr | append: badge_html
+      when 'bottom-left'
+        assign corner_bl = corner_bl | append: badge_html
+      when 'bottom-right'
+        assign corner_br = corner_br | append: badge_html
+      else
+        assign corner_tl = corner_tl | append: badge_html
+    endcase
+  -%}
+{%- endfor -%}
+
+{%- comment -%}
+  Dawn's Sale / Sold out badge (same color schemes as before).
+  Sale text: "Sale" from the language file, or the discount as "[percent]% OFF"
+  (Theme settings → Product Card Settings → Sale badge text).
+{%- endcomment -%}
+{%- liquid
+  assign sale_text = ''
+  if card_product.available and card_product.compare_at_price > card_product.price
+    if settings.rover_badges_sale_style == 'percent'
+      assign sale_variant = card_product.selected_or_first_available_variant
+      if sale_variant.compare_at_price > sale_variant.price
+        assign sale_percent = sale_variant.compare_at_price | minus: sale_variant.price | times: 100.0 | divided_by: sale_variant.compare_at_price | round
+        assign sale_min_percent = settings.rover_badges_sale_min_percent | default: 5
+        if sale_percent >= sale_min_percent
+          assign sale_label = settings.rover_badges_sale_label | default: '[percent]% OFF'
+          assign sale_text = sale_label | replace: '[percent]', sale_percent
+        endif
+      endif
+    else
+      assign sale_text = 'products.product.on_sale' | t
+    endif
+  endif
+-%}
+{%- capture status_html -%}
+  {%- if card_product.available == false -%}
+    <span
+      id="Badge-{{ section_id }}-{{ card_product.id }}"
+      class="badge rover-badge-status color-{{ settings.sold_out_badge_color_scheme }}"
+    >
+      {{- 'products.product.sold_out' | t -}}
+    </span>
+  {%- elsif sale_text != blank -%}
+    <span
+      id="Badge-{{ section_id }}-{{ card_product.id }}"
+      class="badge rover-badge-status color-{{ settings.sale_badge_color_scheme }}"
+    >
+      {{- sale_text | escape -}}
+    </span>
+  {%- endif -%}
+{%- endcapture -%}
+
+{%- liquid
+  assign status_position = settings.badge_position | default: 'bottom left' | replace: ' ', '-'
+  case status_position
+    when 'top-right'
+      assign corner_tr = corner_tr | append: status_html
+    when 'top-left'
+      assign corner_tl = corner_tl | append: status_html
+    when 'bottom-right'
+      assign corner_br = corner_br | append: status_html
+    else
+      assign corner_bl = corner_bl | append: status_html
+  endcase
+
+  assign mobile_scale = settings.rover_badges_mobile_scale | default: 75 | divided_by: 100.0
+-%}
+
+{%- if corner_tl != blank or corner_tr != blank or corner_bl != blank or corner_br != blank -%}
+  <div
+    class="rover-badges"
+    id="Badges-{{ section_id }}-{{ card_product.id }}"
+    style="--rb-inset: {{ settings.rover_badges_inset | default: 10 }}px; --rb-gap: {{ settings.rover_badges_gap | default: 6 }}px; --rb-seal: {{ settings.rover_badges_seal_size | default: 60 }}px; --rb-mobile-scale: {{ mobile_scale }};"
+  >
+    {%- comment -%} Left and right corners share one row each, so on narrow (mobile) cards
+         they can never overlap: if both don't fit, the right badge moves below the left one. {%- endcomment -%}
+    {%- if corner_tl != blank or corner_tr != blank -%}
+      <div class="rover-badges__row rover-badges__row--top">
+        {%- if corner_tl != blank -%}
+          <div class="rover-badges__corner rover-badges__corner--top-left">{{ corner_tl }}</div>
+        {%- endif -%}
+        {%- if corner_tr != blank -%}
+          <div class="rover-badges__corner rover-badges__corner--top-right">{{ corner_tr }}</div>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+    {%- if corner_bl != blank or corner_br != blank -%}
+      <div class="rover-badges__row rover-badges__row--bottom">
+        {%- if corner_bl != blank -%}
+          <div class="rover-badges__corner rover-badges__corner--bottom-left">{{ corner_bl }}</div>
+        {%- endif -%}
+        {%- if corner_br != blank -%}
+          <div class="rover-badges__corner rover-badges__corner--bottom-right">{{ corner_br }}</div>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+{%- endif -%}
