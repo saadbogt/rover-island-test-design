@@ -1,0 +1,143 @@
+/* Rover Island — product card badges (snippets/rover-product-badges.liquid)
+   Colors come from each "Product badge" entry. Size, distance from the edge and mobile size
+   come from Theme settings → Product Card Settings. Text size, padding and corner radius reuse
+   the existing card badge settings (--card-pc-badge-font-size, --card-pc-badge-padding,
+   --card-pc-badge-radius).
+
+   Phones (≤ 749px): everything scales by "Badge size on mobile" (default 75%).
+   With a 12px badge font and 60px image badge that gives 9px bold text and a 45px image,
+   the same sizes Baerry uses on a phone. */
+
+.rover-badges {
+  --rb-scale: 1;
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none; /* badges never block taps/clicks on the product image */
+}
+
+@media screen and (max-width: 749px) {
+  .rover-badges {
+    --rb-scale: var(--rb-mobile-scale, 0.75);
+  }
+}
+
+/* Left + right share a row so they can never overlap. If both don't fit,
+   the right badge wraps below the left one (top) or above it (bottom). */
+.rover-badges__row {
+  position: absolute;
+  left: calc(var(--rb-inset, 10px) * var(--rb-scale));
+  right: calc(var(--rb-inset, 10px) * var(--rb-scale));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: calc(var(--rb-inset, 10px) * 0.6 * var(--rb-scale));
+}
+
+.rover-badges__row--top {
+  top: calc(var(--rb-inset, 10px) * var(--rb-scale));
+  align-items: flex-start;
+}
+
+.rover-badges__row--bottom {
+  bottom: calc(var(--rb-inset, 10px) * var(--rb-scale));
+  align-items: flex-end;
+  flex-wrap: wrap-reverse;
+}
+
+.rover-badges__corner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: calc(var(--rb-inset, 10px) * 0.6 * var(--rb-scale));
+  min-width: 0;
+  max-width: 100%;
+}
+
+.rover-badges__corner--right {
+  align-items: flex-end;
+  margin-left: auto;
+}
+
+/* ---- Single line & bundle badges ---- */
+.rover-badge {
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  padding: calc(var(--card-pc-badge-padding, 8px) * 0.8 * var(--rb-scale))
+    calc(var(--card-pc-badge-padding, 8px) * 1.1 * var(--rb-scale));
+  font-size: calc(var(--card-pc-badge-font-size, 12px) * var(--rb-scale));
+  font-weight: 700;
+  line-height: 1.1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--rb-fg, rgb(var(--color-background)));
+  background-color: var(--rb-bg, rgb(var(--color-foreground)));
+  border-radius: var(--card-pc-badge-radius, 40px);
+}
+
+/* ---- Image badges (PNG / WebP / SVG) ---- */
+.rover-badge--image {
+  padding: 0;
+  background: none;
+  border-radius: 0;
+}
+
+.rover-badge__img {
+  display: block;
+  width: calc(var(--rb-img-w, 60px) * var(--rb-scale));
+  max-width: 100%;
+  height: auto;
+}
+
+/* ---- Product page gallery + quick-add modal ----
+   Drawn inside each image box (.product-media-container, snippets/product-thumbnail.liquid), so they
+   line up with the image at every media size. Bigger than on cards ("Badge size on product page");
+   phones also apply "Badge size on mobile". */
+.rover-badges--media {
+  --rb-scale: var(--rb-media-scale, 1.4);
+}
+
+@media screen and (max-width: 749px) {
+  .rover-badges--media {
+    --rb-scale: calc(var(--rb-media-scale, 1.4) * var(--rb-mobile-scale, 0.75));
+  }
+}
+
+/* The left badge starts right of the zoom icon (3rem + border, 1.2rem from the edge, then a 0.8rem gap) */
+.rover-badges--clear-zoom .rover-badges__row--top {
+  left: calc(1.2rem + 3.2rem + 0.8rem);
+}
+
+/* Quick-add modal: no zoom icon there, so badges sit in the corner */
+quick-add-modal .rover-badges--clear-zoom .rover-badges__row--top {
+  left: calc(var(--rb-inset, 10px) * var(--rb-scale));
+}
+
+/* Show badges on the first image only (phones, stacked and column layouts, modal) … */
+.product__media-list .product__media-item:not(:first-child) .rover-badges--media {
+  display: none;
+}
+
+/* … but on desktop thumbnail layouts only one image shows at a time, so show them on each */
+@media screen and (min-width: 750px) {
+  .product--thumbnail .product__media-list .product__media-item .rover-badges--media,
+  .product--thumbnail_slider .product__media-list .product__media-item .rover-badges--media {
+    display: block;
+  }
+
+  quick-add-modal .product__media-list .product__media-item:not(:first-child) .rover-badges--media {
+    display: none;
+  }
+}
+
+/* ---- Sale / Sold out badge ---- */
+.rover-badges .rover-badge-status {
+  padding: calc(var(--card-pc-badge-padding, 8px) * 0.8 * var(--rb-scale))
+    calc(var(--card-pc-badge-padding, 8px) * 1.1 * var(--rb-scale));
+  font-size: calc(var(--card-pc-badge-font-size, 12px) * var(--rb-scale));
+  font-weight: 700;
+  line-height: 1.1;
+  white-space: nowrap;
+}

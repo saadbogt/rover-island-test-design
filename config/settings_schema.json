@@ -701,6 +701,101 @@
       },
       {
         "type": "header",
+        "content": "Product badges"
+      },
+      {
+        "type": "paragraph",
+        "content": "Create badges in Content → Metaobjects → Product badge. Each position shows one badge: the one with the highest priority (1 = highest)."
+      },
+      {
+        "type": "checkbox",
+        "id": "rover_badges_enable",
+        "label": "Show product badges",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "rover_badges_hide_when_sold_out",
+        "label": "Hide them when a product is sold out",
+        "info": "The Sold out badge still shows.",
+        "default": true
+      },
+      {
+        "type": "range",
+        "id": "rover_badges_image_width",
+        "min": 32,
+        "max": 120,
+        "step": 4,
+        "unit": "px",
+        "label": "Image badge size",
+        "info": "Width of image badges (11.11, Black Friday, Award Winner) on desktop.",
+        "default": 60
+      },
+      {
+        "type": "range",
+        "id": "rover_badges_inset",
+        "min": 0,
+        "max": 24,
+        "step": 1,
+        "unit": "px",
+        "label": "Distance from image edge",
+        "default": 10
+      },
+      {
+        "type": "range",
+        "id": "rover_badges_mobile_scale",
+        "min": 50,
+        "max": 100,
+        "step": 5,
+        "unit": "%",
+        "label": "Badge size on mobile",
+        "info": "75% matches Baerry on phones: 9px bold text and a 45px image badge.",
+        "default": 75
+      },
+      {
+        "type": "range",
+        "id": "rover_badges_media_scale",
+        "min": 100,
+        "max": 200,
+        "step": 10,
+        "unit": "%",
+        "label": "Badge size on product page",
+        "info": "Badges on the product image and in the quick-add modal, compared with product cards. Phones also apply Badge size on mobile.",
+        "default": 140
+      },
+      {
+        "type": "header",
+        "content": "Sale badge"
+      },
+      {
+        "type": "select",
+        "id": "rover_badges_sale_style",
+        "label": "Sale badge shows",
+        "options": [
+          { "value": "percent", "label": "Discount, e.g. 40% OFF" },
+          { "value": "sale", "label": "The word \"Sale\"" }
+        ],
+        "default": "percent"
+      },
+      {
+        "type": "text",
+        "id": "rover_badges_sale_label",
+        "label": "Discount text",
+        "default": "[percent]% OFF",
+        "info": "[percent] is replaced by the discount, rounded."
+      },
+      {
+        "type": "range",
+        "id": "rover_badges_sale_min_percent",
+        "min": 1,
+        "max": 30,
+        "step": 1,
+        "unit": "%",
+        "label": "Hide the discount badge below",
+        "default": 5
+      },
+      {
+        "type": "header",
         "content": "Vendor"
       },
       {

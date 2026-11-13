@@ -48,6 +48,7 @@
   {{ 'quick-order-list.css' | asset_url | stylesheet_tag }}
   {{ 'quantity-popover.css' | asset_url | stylesheet_tag }}
   {{ 'component-card-product.css' | asset_url | stylesheet_tag }}
+  {{ 'rover-product-badges.css' | asset_url | stylesheet_tag }}
 {%- endunless -%}
 {%- if card_product and card_product != empty -%}
   {%- liquid
@@ -60,22 +61,6 @@
     endif
     if ratio == 0 or ratio == null
       assign ratio = 1
-    endif
-
-    assign show_status_badge = false
-    if card_product.available == false or card_product.compare_at_price > card_product.price
-      assign show_status_badge = true
-    endif
-
-    assign custom_badge_text = card_product.metafields.custom.badge_text
-    assign show_custom_badge = false
-    if custom_badge_text != blank
-      assign show_custom_badge = true
-    endif
-
-    assign has_badge = false
-    if show_status_badge or show_custom_badge
-      assign has_badge = true
     endif
 
     assign show_hover_image = false
@@ -183,43 +168,10 @@
               </div>
             </a>
 
-            {% comment %} Single badge, sibling of the media anchor (not nested inside it) -
-                 absolutely positioned against .card__inner using Dawn's own badge CSS,
-                 exactly like stock Dawn. Nesting it inside .card__media was what broke
-                 stacking/clickability. {% endcomment %}
-            {%- if show_status_badge -%}
-              <div class="card__badge {{ settings.badge_position }}">
-                {%- if card_product.available == false -%}
-                  <span
-                    id="Badge-{{ section_id }}-{{ card_product.id }}"
-                    class="badge badge--bottom-left color-{{ settings.sold_out_badge_color_scheme }}"
-                  >
-                    {{- 'products.product.sold_out' | t -}}
-                  </span>
-                {%- elsif card_product.compare_at_price > card_product.price and card_product.available -%}
-                  <span
-                    id="Badge-{{ section_id }}-{{ card_product.id }}"
-                    class="badge badge--bottom-left color-{{ settings.sale_badge_color_scheme }}"
-                  >
-                    {{- 'products.product.on_sale' | t -}}
-                  </span>
-                {%- endif -%}
-              </div>
-            {%- endif -%}
-
-            {% comment %} Custom badge (e.g. "NEW") driven by product.metafields.custom.badge_text.
-                 Kept as its own overlay, pinned to the top-left corner, so it can co-exist with the
-                 sale/sold-out badge above without fighting over the same corner. {% endcomment %}
-            {%- if show_custom_badge -%}
-              <div class="card__badge card__badge--custom top left">
-                <span
-                  id="CustomBadge-{{ section_id }}-{{ card_product.id }}"
-                  class="badge color-{{ settings.card_pc_custom_badge_color_scheme | default: settings.sale_badge_color_scheme }}"
-                >
-                  {{- custom_badge_text -}}
-                </span>
-              </div>
-            {%- endif -%}
+            {% comment %} All image badges (offer image, text, bundle, Sale / Sold out) are rendered by
+                 snippets/rover-product-badges.liquid as one overlay that is a sibling of the media
+                 anchor (not nested inside it), so it never blocks clicks on the image. {% endcomment %}
+            {%- render 'rover-product-badges', card_product: card_product, section_id: section_id -%}
           {%- endif -%}
           </div>
           <div class="card__content">
@@ -258,7 +210,7 @@
                   href="{{ card_product.url }}"
                   id="CardLink-{{ section_id }}-{{ card_product.id }}"
                   class="full-unstyled-link"
-                  aria-labelledby="CardLink-{{ section_id }}-{{ card_product.id }}{% if show_status_badge %} Badge-{{ section_id }}-{{ card_product.id }}{% endif %}{% if show_custom_badge %} CustomBadge-{{ section_id }}-{{ card_product.id }}{% endif %}"
+                  aria-labelledby="CardLink-{{ section_id }}-{{ card_product.id }} Badges-{{ section_id }}-{{ card_product.id }}"
                 >
                   {{ card_product.title | escape }}
                 </a>

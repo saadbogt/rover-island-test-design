@@ -113,8 +113,26 @@
       {%- endif -%}
     </div>
     {%- if show_badges -%}
-      <span class="badge price__badge-sale color-{{ settings.sale_badge_color_scheme }}">
-        {{ 'products.product.on_sale' | t }}
+      {%- comment -%}
+        Rover Island: the Sale badge can show the discount, e.g. "32% OFF"
+        (Theme settings → Product Card Settings → Sale badge). Below the minimum % it is hidden.
+      {%- endcomment -%}
+      {%- liquid
+        assign sale_badge_text = 'products.product.on_sale' | t
+        assign sale_badge_hidden = false
+        if settings.rover_badges_sale_style == 'percent' and compare_at_price > price
+          assign sale_badge_percent = compare_at_price | minus: price | times: 100.0 | divided_by: compare_at_price | round
+          assign sale_badge_min = settings.rover_badges_sale_min_percent | default: 5
+          if sale_badge_percent >= sale_badge_min
+            assign sale_badge_label = settings.rover_badges_sale_label | default: '[percent]% OFF'
+            assign sale_badge_text = sale_badge_label | replace: '[percent]', sale_badge_percent
+          else
+            assign sale_badge_hidden = true
+          endif
+        endif
+      -%}
+      <span class="badge price__badge-sale color-{{ settings.sale_badge_color_scheme }}{% if sale_badge_hidden %} hidden{% endif %}">
+        {{ sale_badge_text | escape }}
       </span>
 
       <span class="badge price__badge-sold-out color-{{ settings.sold_out_badge_color_scheme }}">
