@@ -14,6 +14,13 @@
     "announcement-bar": {
       "type": "announcement-bar",
       "blocks": {
+        "announcement_6Pwzcm": {
+          "type": "announcement",
+          "settings": {
+            "text": "BLACK FRIDAY SALE IS LIVE - UPTO 50% OFF",
+            "link": ""
+          }
+        },
         "announcement_4Qg6zQ": {
           "type": "announcement",
           "settings": {
@@ -37,6 +44,7 @@
         }
       },
       "block_order": [
+        "announcement_6Pwzcm",
         "announcement_4Qg6zQ",
         "announcement_ggRt7m",
         "announcement-bar-0"
@@ -45,7 +53,7 @@
       "settings": {
         "auto_rotate": true,
         "change_slides_speed": 3,
-        "color_scheme": "scheme-c1b5c753-e7fc-40ea-ab2c-ac9193891a01",
+        "color_scheme": "scheme-0dea5bb8-7228-4275-958b-05a803b41412",
         "show_line_separator": true,
         "show_social": true,
         "enable_country_selector": false,

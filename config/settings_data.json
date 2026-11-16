@@ -311,13 +311,24 @@
       },
       "scheme-0f9eca3d-de2a-473c-8522-d7d2c382c0c6": {
         "settings": {
-          "background": "#DC152A",
+          "background": "#dc152a",
+          "background_gradient": "",
+          "text": "#ffffff",
+          "button": "#dc152a",
+          "button_label": "#ffffff",
+          "secondary_button_label": "#ffffff",
+          "shadow": "#dc152a"
+        }
+      },
+      "scheme-0dea5bb8-7228-4275-958b-05a803b41412": {
+        "settings": {
+          "background": "#FC83BF",
           "background_gradient": "",
           "text": "#FFFFFF",
-          "button": "#DC152A",
-          "button_label": "#ffffff",
+          "button": "#FFFFFF",
+          "button_label": "#FC83BF",
           "secondary_button_label": "#FFFFFF",
-          "shadow": "#DC152A"
+          "shadow": "#FC83BF"
         }
       }
     }
