@@ -69,7 +69,8 @@
         ".header--top-center .mega-menu__list > li {flex-grow: 1;}",
         ".link:hover {text-decoration: none;}",
         ".menu-drawer__menu > li {border-bottom: 1px solid #80808036;}",
-        "a#HeaderMenu-black-friday-up-to-50-off {background-color: #fc83bf; font-weight: 700;}"
+        "a#HeaderMenu-black-friday-up-to-50-off {background-color: #fc83bf; font-weight: 700;}",
+        "a#HeaderDrawer-black-friday-up-to-50-off {background-color: #fc83bf; font-weight: 700;}"
       ],
       "settings": {
         "logo_position": "top-center",
