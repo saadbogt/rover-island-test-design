@@ -93,15 +93,15 @@
     "collection_slider_9VzcJX": {
       "type": "collection-slider",
       "custom_css": [
-        ".page-width {background-color: #fee7e2; border-radius: 15px;}",
+        ".page-width {background-color: #fc83bf; border-radius: 15px;}",
         ".product-card-wrapper {background-color: white; padding: 20px; border-radius: 15px;}",
         "@media screen and (max-width: 749px) {.product-card-wrapper {padding: 10px; border-radius: 10px; } .card__vendor-link {font-size: 11px; }}"
       ],
       "name": "Bundles & Offers",
       "settings": {
-        "collection": "offers-bundles",
-        "description": "Complete your Skincare Routine",
-        "heading": "BUNDLES & ROUTINES 💄",
+        "collection": "black-friday",
+        "description": "K beauty's Biggest SALE of the Year",
+        "heading": "BLACK FRIDAY SALE IS LIVE ❤️⚡",
         "link_label": "Show more",
         "show_vendor": true,
         "show_rating": true,
