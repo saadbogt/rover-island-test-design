@@ -277,18 +277,18 @@
     "tabbed_collection_C8TPcq": {
       "type": "tabbed-collection",
       "blocks": {
-        "collection_fxhHYg": {
-          "type": "collection",
-          "settings": {
-            "collection": "foodology",
-            "title": "FOODOLOGY"
-          }
-        },
         "collection_3VjmPK": {
           "type": "collection",
           "settings": {
             "collection": "medicube",
             "title": "MEDICUBE"
+          }
+        },
+        "collection_fxhHYg": {
+          "type": "collection",
+          "settings": {
+            "collection": "foodology",
+            "title": "FOODOLOGY"
           }
         },
         "collection_KCGqEh": {
@@ -300,8 +300,8 @@
         }
       },
       "block_order": [
-        "collection_fxhHYg",
         "collection_3VjmPK",
+        "collection_fxhHYg",
         "collection_KCGqEh"
       ],
       "name": "VIRAL PICKS",
