@@ -12,8 +12,44 @@
     "custom_carousel_banner_P3jKjA": {
       "type": "custom-carousel-banner",
       "blocks": {
+        "image_wmUba8": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Arencia_BOOSTER_SHOT_1.jpg",
+            "link": "shopify://collections/arencia"
+          }
+        },
+        "image_JfV6zB": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Black_Friday_Banner_2026.jpg",
+            "link": "shopify://collections/black-friday"
+          }
+        },
+        "image_Q8c4RK": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Medicube_Vanilla_Mist_and_Deodorant.jpg",
+            "link": "shopify://products/medicube-fresh-that-lasts-deodorant-83g-pack-of-2"
+          }
+        },
+        "image_gNCMLf": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/FINO_BUNDLE_BLACK_FRIDAY_NEW.jpg",
+            "link": "shopify://products/shiseido-fino-premium-touch-4-piece-hair-care-set"
+          }
+        },
+        "image_kLqbMP": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Make_Up_Collection.jpg",
+            "link": "shopify://collections/black-friday"
+          }
+        },
         "image_V4z8j3": {
           "type": "image",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/AUNA_s_Deep_Hydration_for_Plump_Healthy_Skin___Rover_Island_UAE.webp",
             "link": "shopify://collections/anua"
@@ -21,6 +57,7 @@
         },
         "image_AKaXhU": {
           "type": "image",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/FOODOLOGY_3.webp",
             "link": "shopify://collections/foodology"
@@ -28,6 +65,7 @@
         },
         "image_hUJNgV": {
           "type": "image",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/Transforming_Korean_Hair_Scalp_Treatments___Rover_Island_UAE.webp",
             "link": "shopify://collections/shiseido"
@@ -35,6 +73,7 @@
         },
         "image_jkGgRx": {
           "type": "image",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/Lightweight_No-White-Cast_Korean_Sunscreens___Rover_Island_UAE.webp",
             "link": "shopify://collections/suncare-spf"
@@ -42,6 +81,7 @@
         },
         "image_nNVya8": {
           "type": "image",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/Shop_Trending_Korean_Lip_Tints_Blushes___Rover_Island_UAE.webp",
             "link": "shopify://collections/makeup"
@@ -49,6 +89,7 @@
         },
         "image_9UhXhm": {
           "type": "image",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/Enjoy_Free_Shipping_on_All_Orders_Over_150_AED_Rover_Island_UAE_1.webp",
             "link": "shopify://collections/all"
@@ -56,6 +97,7 @@
         },
         "image_3yVWXp": {
           "type": "image",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/Your_Ultimate_Destination_for_Authentic_K-Beauty___Rover_Island_UAE.webp",
             "link": "shopify://collections/skincare"
@@ -63,6 +105,7 @@
         },
         "image_hJCQqi": {
           "type": "image",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/The_K-Beauty_Must-Haves_Everyone_is_Talking_About___Rover_Island_UAE.webp",
             "link": "shopify://collections/all"
@@ -70,6 +113,11 @@
         }
       },
       "block_order": [
+        "image_wmUba8",
+        "image_JfV6zB",
+        "image_Q8c4RK",
+        "image_gNCMLf",
+        "image_kLqbMP",
         "image_V4z8j3",
         "image_AKaXhU",
         "image_hUJNgV",
